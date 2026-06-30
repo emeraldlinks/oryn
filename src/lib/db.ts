@@ -1347,6 +1347,8 @@ export interface AIAction {
   userId: number;
   // @nullable @index
   conversationId?: number;
+  // @nullable @index
+  botConnectionId?: number;
   // @length:200 @not null
   actionType: string;
   // @json @not null
@@ -1366,6 +1368,48 @@ export interface AIAction {
   user?: User;
   // @relation manytoone:AIConversation;foreignKey:conversationId
   conversation?: AIConversation;
+  // @relation manytoone:BotConnection;foreignKey:botConnectionId
+  botConnection?: BotConnection;
+}
+
+export interface BotConnection {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  workspaceId: number;
+  // @index @not null
+  userId: number;
+  // @unique @length:200 @not null
+  name: string;
+  // @length:100 @not null
+  provider: string;
+  // @unique @length:64 @not null
+  apiKey: string;
+  // @not null
+  apiSecret: string;
+  // @default:active @enum:(active,suspended,revoked)
+  status: string;
+  // @default:true
+  active: boolean;
+  // @nullable
+  lastUsedAt?: string;
+  // @nullable
+  expiresAt?: string;
+  // @nullable @json
+  allowedActions?: string[];
+  // @default:0
+  totalRequests: number;
+  createdAt: string;
+  updatedAt: string;
+  // @softDelete
+  deletedAt?: string;
+
+  // @relation manytoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+  // @relation manytoone:User;foreignKey:userId
+  owner?: User;
+  // @relation onetomany:AIAction;foreignKey:botConnectionId
+  actions?: AIAction[];
 }
 
 // ──────────────────────────────────────────────
@@ -1419,6 +1463,7 @@ export type ModelMap = {
   AIApiKey: AIApiKey;
   AIConversation: AIConversation;
   AIAction: AIAction;
+  BotConnection: BotConnection;
 };
 
 // ──────────────────────────────────────────────

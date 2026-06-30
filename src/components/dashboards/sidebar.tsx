@@ -27,6 +27,7 @@ import {
   Bot,
   Brain,
   Kanban,
+  Terminal,
   type LucideIcon,
 } from "lucide-react";
 
@@ -60,6 +61,7 @@ const roleNavItems: Record<string, NavItem[]> = {
     { label: "Documents", href: "/admin/documents", icon: FileSignature },
     { label: "Reports", href: "/admin/reports", icon: BarChart3 },
     { label: "AI Assistant", href: "/admin/ai", icon: Brain },
+    { label: "Bot Connections", href: "/admin/bot-connections", icon: Terminal },
     { label: "Bots", href: "/admin/bots", icon: Bot },
     { label: "Automation", href: "/admin/automation", icon: Zap },
     { label: "Settings", href: "/admin/settings", icon: Settings },
