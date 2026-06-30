@@ -24,6 +24,9 @@ import {
   CreditCard,
   Megaphone,
   PhoneCall,
+  Bot,
+  Brain,
+  Kanban,
   type LucideIcon,
 } from "lucide-react";
 
@@ -53,8 +56,11 @@ const roleNavItems: Record<string, NavItem[]> = {
     { label: "WordPress", href: "/admin/wordpress", icon: Globe },
     { label: "Communications", href: "/admin/communications", icon: MessageSquare },
     { label: "Live Chat", href: "/admin/chat", icon: MessageSquare },
+    { label: "Projects", href: "/admin/projects", icon: Kanban },
     { label: "Documents", href: "/admin/documents", icon: FileSignature },
     { label: "Reports", href: "/admin/reports", icon: BarChart3 },
+    { label: "AI Assistant", href: "/admin/ai", icon: Brain },
+    { label: "Bots", href: "/admin/bots", icon: Bot },
     { label: "Automation", href: "/admin/automation", icon: Zap },
     { label: "Settings", href: "/admin/settings", icon: Settings },
   ],

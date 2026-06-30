@@ -1,44 +1,77 @@
 import { NextResponse } from "next/server";
-import { initDb } from "@/lib/db";
+import { withDb } from "@/lib/db";
 
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const workspaceId = searchParams.get("wsId");
-  if (!workspaceId) return NextResponse.json({ error: "wsId required" }, { status: 400 });
+  try {
+    const { searchParams } = new URL(req.url);
+    const workspaceId = searchParams.get("workspaceId");
+    const visitorId = searchParams.get("visitorId");
+    const since = searchParams.get("since");
 
-  const db = await initDb();
-  const settings = await db.LiveChatSettings.get({ workspaceId: Number(workspaceId) });
+    if (!workspaceId || !visitorId) {
+      return NextResponse.json(
+        { error: "workspaceId and visitorId are required" },
+        { status: 400 }
+      );
+    }
 
-  return NextResponse.json({
-    enabled: settings?.enabled ?? true,
-    widgetColor: (settings as any)?.widgetColor || "#3b82f6",
-    welcomeMessage: (settings as any)?.welcomeMessage || "Hi! How can we help you?",
-    awayMessage: (settings as any)?.awayMessage,
-    collectEmail: (settings as any)?.collectEmail || false,
-    showAgentNames: (settings as any)?.showAgentNames ?? true,
-  });
+    const messages = await withDb(async (db) => {
+      let query = db.ChatMessage.query()
+        .where("workspaceId", "=", Number(workspaceId))
+        .where("visitorId", "=", visitorId);
+
+      if (since) {
+        query = query.where("createdAt", ">", since);
+      }
+
+      const results = await query.orderBy("createdAt", "ASC").get();
+
+      return results.filter(
+        (m) => m.sender === "visitor" || m.sender === "agent" || m.sender === "system"
+      );
+    });
+
+    return NextResponse.json(messages);
+  } catch (error) {
+    console.error("GET /api/chat/widget error:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const db = await initDb();
-  const wsId = Number(body.workspaceId);
+  try {
+    const body = await req.json();
+    const { workspaceId, visitorId, visitorName, visitorEmail, body: messageBody, contactId, userId, sender } = body;
 
-  const existing = await db.LiveChatSettings.get({ workspaceId: wsId });
-  if (existing) {
-    await db.LiveChatSettings.update({ id: existing.id }, body);
-    return NextResponse.json({ success: true });
+    if (!workspaceId || !visitorId || !messageBody) {
+      return NextResponse.json(
+        { error: "workspaceId, visitorId, and body are required" },
+        { status: 400 }
+      );
+    }
+
+    const message = await withDb(async (db) => {
+      return db.ChatMessage.insert({
+        workspaceId: Number(workspaceId),
+        visitorId,
+        visitorName: visitorName || undefined,
+        visitorEmail: visitorEmail || undefined,
+        contactId: contactId ? Number(contactId) : undefined,
+        userId: userId ? Number(userId) : undefined,
+        body: messageBody,
+        sender: userId ? "agent" : sender || "visitor",
+      });
+    });
+
+    return NextResponse.json(message, { status: 201 });
+  } catch (error) {
+    console.error("POST /api/chat/widget error:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
-
-  const settings = await db.LiveChatSettings.insert({
-    workspaceId: wsId,
-    enabled: body.enabled ?? true,
-    widgetColor: body.widgetColor || "#3b82f6",
-    welcomeMessage: body.welcomeMessage,
-    awayMessage: body.awayMessage,
-    collectEmail: body.collectEmail || false,
-    showAgentNames: body.showAgentNames ?? true,
-  });
-
-  return NextResponse.json(settings, { status: 201 });
 }

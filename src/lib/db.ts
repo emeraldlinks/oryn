@@ -1110,6 +1110,264 @@ export interface ChatMessage {
   createdAt: string;
 }
 
+export interface Project {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  workspaceId: number;
+  // @length:200 @not null
+  name: string;
+  // @nullable
+  description?: string;
+  // @default:active @enum:(active,on_hold,completed,cancelled)
+  status: string;
+  // @default:medium @enum:(low,medium,high,urgent)
+  priority: string;
+  // @nullable @index
+  ownerId?: number;
+  // @nullable
+  startDate?: string;
+  // @nullable
+  endDate?: string;
+  // @nullable @json
+  tags?: string[];
+  // @nullable
+  completedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+  // @softDelete
+  deletedAt?: string;
+
+  // @relation manytoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+  // @relation manytoone:User;foreignKey:ownerId
+  owner?: User;
+  // @relation onetomany:ProjectTask;foreignKey:projectId
+  tasks?: ProjectTask[];
+  // @relation onetomany:ProjectMilestone;foreignKey:projectId
+  milestones?: ProjectMilestone[];
+}
+
+export interface ProjectTask {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  projectId: number;
+  // @index @not null
+  workspaceId: number;
+  // @length:200 @not null
+  title: string;
+  // @nullable
+  description?: string;
+  // @default:todo @enum:(todo,in_progress,review,done)
+  status: string;
+  // @default:medium @enum:(low,medium,high,urgent)
+  priority: string;
+  // @nullable @index
+  assigneeId?: number;
+  // @nullable @index
+  milestoneId?: number;
+  // @nullable
+  dueDate?: string;
+  // @nullable
+  estimatedHours?: number;
+  // @nullable
+  actualHours?: number;
+  // @nullable @index
+  parentTaskId?: number;
+  // @default:0
+  sortOrder: number;
+  // @nullable
+  completedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+  // @softDelete
+  deletedAt?: string;
+
+  // @relation manytoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+  // @relation manytoone:Project;foreignKey:projectId;onDelete:CASCADE
+  project?: Project;
+  // @relation manytoone:User;foreignKey:assigneeId
+  assignee?: User;
+  // @relation manytoone:ProjectMilestone;foreignKey:milestoneId
+  milestone?: ProjectMilestone;
+  // @relation manytoone:ProjectTask;foreignKey:parentTaskId
+  parentTask?: ProjectTask;
+  // @relation onetomany:ProjectTask;foreignKey:parentTaskId
+  subtasks?: ProjectTask[];
+}
+
+export interface ProjectMilestone {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  projectId: number;
+  // @index @not null
+  workspaceId: number;
+  // @length:200 @not null
+  name: string;
+  // @nullable
+  description?: string;
+  // @not null
+  dueDate: string;
+  // @default:pending @enum:(pending,in_progress,completed)
+  status: string;
+  // @nullable
+  completedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+
+  // @relation manytoone:Project;foreignKey:projectId;onDelete:CASCADE
+  project?: Project;
+  // @relation onetomany:ProjectTask;foreignKey:milestoneId
+  tasks?: ProjectTask[];
+}
+
+export interface Bot {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  workspaceId: number;
+  // @length:100 @not null
+  name: string;
+  // @enum:(chat,email,social,slack,whatsapp) @not null
+  channel: string;
+  // @length:255 @not null
+  triggerKeywords: string;
+  // @length:500 @not null
+  responseTemplate: string;
+  // @enum:(openai,gemini,deepseek,claude,qwen,kimi,keyword) @default:keyword
+  aiModel: string;
+  // @json @nullable
+  config?: Record<string, unknown>;
+  // @default:true
+  active: boolean;
+  // @default:0
+  totalConversations: number;
+  createdAt: string;
+  updatedAt: string;
+
+  // @relation manytoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+}
+
+export interface WidgetSettings {
+  // @auto @primaryKey
+  id: number;
+  // @unique @index @not null
+  workspaceId: number;
+  // @default:true
+  enabled: boolean;
+  // @length:10 @default:#6366f1
+  primaryColor: string;
+  // @length:200 @nullable
+  welcomeMessage?: string;
+  // @length:200 @nullable
+  awayMessage?: string;
+  // @default:false
+  collectEmail: boolean;
+  // @default:true
+  showAgentNames: boolean;
+  // @default:false
+  enableBots: boolean;
+  // @nullable @index
+  defaultBotId?: number;
+  // @json @nullable
+  allowedDomains?: string[];
+  // @length:500 @nullable
+  customCss?: string;
+  // @length:100 @nullable
+  position?: string;
+  createdAt: string;
+  updatedAt: string;
+
+  // @relation onetoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+  // @relation manytoone:Bot;foreignKey:defaultBotId
+  defaultBot?: Bot;
+}
+
+export interface AIApiKey {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  workspaceId: number;
+  // @nullable @index
+  userId?: number;
+  // @enum:(openai,gemini,deepseek,claude,qwen,kimi,nvidia,opencode) @not null
+  provider: string;
+  // @not null
+  apiKey: string;
+  // @default:user @enum:(user,workspace)
+  scope: string;
+  // @default:true
+  active: boolean;
+  // @nullable
+  lastUsedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+
+  // @relation manytoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+  // @relation manytoone:User;foreignKey:userId
+  user?: User;
+}
+
+export interface AIConversation {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  workspaceId: number;
+  // @index @not null
+  userId: number;
+  // @length:200 @not null
+  title: string;
+  // @json @not null
+  messages: Record<string, unknown>;
+  // @length:50 @not null
+  provider: string;
+  // @default:active @enum:(active,archived)
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+
+  // @relation manytoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+  // @relation manytoone:User;foreignKey:userId
+  user?: User;
+}
+
+export interface AIAction {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  workspaceId: number;
+  // @index @not null
+  userId: number;
+  // @nullable @index
+  conversationId?: number;
+  // @length:200 @not null
+  actionType: string;
+  // @json @not null
+  actionPayload: Record<string, unknown>;
+  // @json @nullable
+  result?: Record<string, unknown>;
+  // @default:pending @enum:(pending,completed,failed)
+  status: string;
+  // @nullable
+  errorMessage?: string;
+  createdAt: string;
+  updatedAt: string;
+
+  // @relation manytoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+  // @relation manytoone:User;foreignKey:userId
+  user?: User;
+  // @relation manytoone:AIConversation;foreignKey:conversationId
+  conversation?: AIConversation;
+}
+
 // ──────────────────────────────────────────────
 //  ModelMap – type-safe registry for ORMManager
 // ──────────────────────────────────────────────
@@ -1153,6 +1411,14 @@ export type ModelMap = {
   EmailSync: EmailSync;
   LiveChatSettings: LiveChatSettings;
   ChatMessage: ChatMessage;
+  Project: Project;
+  ProjectTask: ProjectTask;
+  ProjectMilestone: ProjectMilestone;
+  Bot: Bot;
+  WidgetSettings: WidgetSettings;
+  AIApiKey: AIApiKey;
+  AIConversation: AIConversation;
+  AIAction: AIAction;
 };
 
 // ──────────────────────────────────────────────
