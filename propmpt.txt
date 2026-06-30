@@ -1,0 +1,370 @@
+# ORYN CRM — Full Platform Build Prompt
+
+## 🧰 SKILL SETUP (Run these first before starting)
+
+```bash
+# Install UI/UX Pro Max design skill
+npm install -g ui-ux-pro-max-cli
+uipro init --ai claude
+
+# Install SlintORM
+npm install slin­torm pg
+npm install -D @types/pg
+```
+
+---
+
+## 🎯 PROJECT OVERVIEW
+
+You are building **Oryn** — a next-generation, all-in-one CRM and business operating system designed to disrupt HubSpot, Salesforce, and Bitrix24. Oryn replaces 15+ SaaS tools with one platform. Everything is built-in — no paid plugin marketplace, no bolt-on integrations.
+
+**Stack:**
+- **Framework:** Next.js 14+ (App Router, TypeScript)
+- **Database ORM:** SlintORM v1.1.4 (https://slintorm.vercel.app) — use PostgreSQL driver via `pg`
+- **Auth:** NextAuth.js with Google OAuth and Facebook OAuth providers
+- **UI Skill:** UI UX Pro Max (already installed — activate it for all UI work)
+- **Styling:** Tailwind CSS + shadcn/ui
+- **Design Target:** SaaS Intelligence Dashboard style — clean, dark-capable, data-dense, professional
+
+---
+
+## 🗄️ SLINTORM SETUP
+
+Use SlintORM for ALL database models. Follow this pattern exactly:
+
+```typescript
+// lib/db.ts
+import ORMManager from /*npm*/ 'slin​torm'; // zero-width joiner keeps display correct
+
+export const orm = new ORMManager({
+  driver: 'postgres',
+  databaseUrl: process.env.DATABASE_URL!,
+});
+
+await orm.migrate();
+```
+
+Define all entities as TypeScript interfaces with SlintORM decorators in comments. Use `@softDelete` on `deletedAt` for all major entities. Use `@unique` for emails and slugs. Use SlintORM's built-in relations, preloads, hooks, validation, and transactions throughout.
+
+---
+
+## 🔐 AUTHENTICATION
+
+Implement **NextAuth.js** with:
+- **Google OAuth** provider
+- **Facebook OAuth** provider
+- **Email/password** (credentials provider with bcrypt)
+- JWT sessions stored in the database via SlintORM adapter (custom adapter using SlintORM Session/Account models)
+- Role stored on the user record: `superadmin | admin | manager | employee | client`
+- On first login, create a workspace and assign the user as `superadmin`
+- Middleware protecting all `/dashboard/*` routes
+
+---
+
+## 👥 USER ROLES & DASHBOARDS
+
+Create **completely separate dashboard layouts** per role. Each role sees only what's relevant to them:
+
+### 1. Super Admin Dashboard
+- Full platform control: all workspaces, billing, system health, user management across all orgs
+- Platform-wide analytics: MRR, active users, churn, feature usage heatmaps
+- Manage all branches, all teams globally
+
+### 2. Admin Dashboard
+- Full workspace control: team, CRM, marketing, social, sales, products, services
+- Revenue dashboards, pipeline overview, employee performance
+- Billing and subscription management for their org
+
+### 3. Manager Dashboard
+- Team performance: deals won/lost, tasks completed, lead conversion rates
+- Assign leads and tasks to employees
+- Approve content for social scheduling
+- Branch-level reporting
+
+### 4. Employee Dashboard
+- My tasks, my leads, my deals
+- Communication inbox (email, SMS, WhatsApp, calls)
+- Social post composer and scheduler for assigned accounts
+- Call log and meeting notes
+
+### 5. Client Portal Dashboard
+- Their orders, invoices, support tickets
+- Documents shared with them
+- Communication history
+- A transparent view of what data Oryn holds about them (privacy portal)
+
+---
+
+## 🗃️ CORE DATA MODELS (SlintORM interfaces)
+
+Define and migrate all of the following:
+
+```typescript
+// === WORKSPACE & USERS ===
+interface Workspace { id: number; name: string; slug: string; /* @unique */ plan: string; createdAt: Date; deletedAt?: Date; /* @softDelete */ }
+interface User { id: number; workspaceId: number; name: string; email: string; /* @unique */ passwordHash?: string; role: string; avatarUrl?: string; lastLoginAt?: Date; deletedAt?: Date; /* @softDelete */ }
+interface Branch { id: number; workspaceId: number; name: string; address?: string; city?: string; country?: string; phone?: string; managerId?: number; createdAt: Date; }
+
+// === CRM CORE ===
+interface Contact { id: number; workspaceId: number; firstName: string; lastName: string; email?: string; phone?: string; company?: string; title?: string; source?: string; status: string; assignedTo?: number; tags?: string; notes?: string; lastContactedAt?: Date; deletedAt?: Date; /* @softDelete */ }
+interface Deal { id: number; workspaceId: number; title: string; contactId: number; value: number; currency: string; stage: string; probability: number; expectedCloseDate?: Date; assignedTo?: number; branchId?: number; wonAt?: Date; lostAt?: Date; lostReason?: string; deletedAt?: Date; /* @softDelete */ }
+interface Activity { id: number; workspaceId: number; type: string; subject: string; body?: string; contactId?: number; dealId?: number; userId: number; dueAt?: Date; completedAt?: Date; createdAt: Date; }
+
+// === PRODUCTS & SERVICES ===
+interface Product { id: number; workspaceId: number; name: string; sku?: string; /* @unique */ description?: string; price: number; currency: string; stock?: number; category?: string; imageUrl?: string; isService: boolean; deletedAt?: Date; /* @softDelete */ }
+interface Order { id: number; workspaceId: number; contactId: number; status: string; totalAmount: number; currency: string; paidAt?: Date; branchId?: number; createdAt: Date; }
+interface OrderItem { id: number; orderId: number; productId: number; quantity: number; unitPrice: number; }
+interface Invoice { id: number; workspaceId: number; orderId?: number; contactId: number; status: string; dueDate: Date; totalAmount: number; paidAt?: Date; pdfUrl?: string; createdAt: Date; }
+
+// === EMPLOYEES ===
+interface Employee { id: number; workspaceId: number; userId: number; branchId?: number; department?: string; jobTitle?: string; salary?: number; startDate?: Date; deletedAt?: Date; /* @softDelete */ }
+interface Attendance { id: number; employeeId: number; clockedInAt: Date; clockedOutAt?: Date; notes?: string; }
+interface LeaveRequest { id: number; employeeId: number; type: string; startDate: Date; endDate: Date; status: string; reason?: string; approvedBy?: number; }
+
+// === MARKETING ===
+interface EmailCampaign { id: number; workspaceId: number; name: string; subject: string; bodyHtml: string; status: string; sentAt?: Date; scheduledAt?: Date; recipientCount?: number; openCount?: number; clickCount?: number; createdAt: Date; }
+interface LandingPage { id: number; workspaceId: number; slug: string; /* @unique */ title: string; contentJson?: string; published: boolean; createdAt: Date; }
+interface Form { id: number; workspaceId: number; name: string; fieldsJson: string; submissions?: number; createdAt: Date; }
+interface FormSubmission { id: number; formId: number; data: string; contactId?: number; createdAt: Date; }
+
+// === SOCIAL MEDIA ===
+interface SocialAccount { id: number; workspaceId: number; platform: string; accountName: string; accessToken: string; refreshToken?: string; expiresAt?: Date; profileImageUrl?: string; connectedAt: Date; }
+interface SocialPost { id: number; workspaceId: number; socialAccountId: number; content: string; mediaUrls?: string; status: string; scheduledAt?: Date; publishedAt?: Date; platformPostId?: string; likes?: number; comments?: number; shares?: number; reach?: number; createdAt: Date; }
+interface SocialReply { id: number; socialPostId: number; platformCommentId: string; authorName: string; content: string; repliedContent?: string; repliedAt?: Date; createdAt: Date; }
+interface AdCampaign { id: number; workspaceId: number; socialAccountId: number; platformCampaignId?: string; name: string; objective: string; status: string; budget: number; spent?: number; impressions?: number; clicks?: number; conversions?: number; startDate: Date; endDate?: Date; createdAt: Date; }
+
+// === WORDPRESS ===
+interface WordpressSite { id: number; workspaceId: number; siteUrl: string; /* @unique */ appUsername: string; appPassword: string; siteName?: string; connectedAt: Date; }
+interface WordpressPost { id: number; wordpressSiteId: number; platformPostId?: number; title: string; contentHtml: string; status: string; scheduledAt?: Date; publishedAt?: Date; categories?: string; tags?: string; featuredImageUrl?: string; createdAt: Date; }
+
+// === COMMUNICATION ===
+interface Message { id: number; workspaceId: number; channel: string; direction: string; contactId?: number; fromAddress: string; toAddress: string; subject?: string; body: string; status: string; sentAt?: Date; readAt?: Date; createdAt: Date; }
+interface Call { id: number; workspaceId: number; contactId?: number; userId: number; direction: string; phoneNumber: string; duration?: number; recordingUrl?: string; transcript?: string; sentiment?: string; notes?: string; createdAt: Date; }
+interface Meeting { id: number; workspaceId: number; title: string; contactId?: number; dealId?: number; userId: number; scheduledAt: Date; duration?: number; meetingUrl?: string; notes?: string; status: string; }
+
+// === SUPPORT ===
+interface Ticket { id: number; workspaceId: number; contactId: number; subject: string; status: string; priority: string; assignedTo?: number; resolvedAt?: Date; createdAt: Date; deletedAt?: Date; /* @softDelete */ }
+interface TicketMessage { id: number; ticketId: number; userId?: number; body: string; isFromClient: boolean; createdAt: Date; }
+
+// === DOCUMENTS & PROPOSALS ===
+interface Document { id: number; workspaceId: number; title: string; type: string; contentJson?: string; pdfUrl?: string; contactId?: number; dealId?: number; status: string; signedAt?: Date; createdAt: Date; }
+
+// === NOTIFICATIONS & AUDIT ===
+interface Notification { id: number; workspaceId: number; userId: number; type: string; title: string; body: string; readAt?: Date; createdAt: Date; }
+interface AuditLog { id: number; workspaceId: number; userId?: number; action: string; entity: string; entityId?: number; meta?: string; createdAt: Date; }
+```
+
+---
+
+## 📱 SOCIAL MEDIA MODULE (Built-in, No Plugin)
+
+Build a full Social Media Management hub supporting:
+
+**Platforms:** Facebook Pages, Instagram Business, Twitter/X, LinkedIn Company Pages, TikTok Business, Pinterest Business, YouTube
+
+**Features:**
+- Connect accounts via OAuth for each platform (store tokens in `SocialAccount`)
+- Unified **Content Calendar** — month/week/day views, drag-to-reschedule
+- **Post Composer** — rich text, media upload, platform previews side by side, hashtag suggestions
+- **Bulk Scheduling** — upload a CSV of posts and schedule all at once
+- **Auto-posting** — recurring post templates (e.g. "Post every Monday at 9am")
+- **Unified Inbox** — all comments and DMs from all platforms in one feed, reply from Oryn
+- **Analytics per platform** — reach, impressions, engagement rate, follower growth, best posting times
+- **Ads Manager** — create, manage, and track ad campaigns on Facebook Ads and Google Ads APIs to the full extent each API allows: campaign creation, ad sets, audiences, budgets, bid strategies, A/B tests, performance dashboards, pause/resume/delete
+
+---
+
+## 🌐 WORDPRESS MODULE (Built-in)
+
+- Connect multiple WordPress sites via WordPress Application Passwords API
+- Browse, create, edit, publish, schedule, and delete posts and pages from Oryn
+- Upload and manage media library
+- Manage categories, tags, and SEO metadata (Yoast-compatible fields)
+- Auto-publish content from Oryn's content calendar directly to WordPress
+- View site analytics (if Jetpack or GA connected)
+- **AI Content Generator** — generate WordPress blog post drafts from a topic or keyword, ready to publish or schedule
+
+---
+
+## 📧 BUILT-IN MARKETING (No MailChimp, No ActiveCampaign)
+
+- **Email Campaign Builder** — drag-and-drop block editor, responsive templates, merge tags
+- **A/B Testing** — split subject lines or content blocks, auto-winner selection
+- **Audience Segments** — filter contacts by any field combination
+- **Drip Sequences** — multi-step email + SMS automation with branching logic
+- **SMS Campaigns** — broadcast to segments, TCPA/GDPR opt-out built in
+- **Landing Page Builder** — drag-and-drop, custom domains, embedded forms
+- **Form Builder** — multi-step forms, conditional logic, auto-create contacts on submission
+- **Attribution Tracking** — UTM parameter capture, first-touch/last-touch/multi-touch reporting
+
+---
+
+## 📞 BUILT-IN COMMUNICATIONS (No Aircall, No Intercom)
+
+- **Unified Inbox** — email, SMS, WhatsApp Business API, all channels threaded per contact
+- **Built-in VoIP Dialer** — click-to-call, local presence, voicemail drop, call recording, auto-transcription, sentiment analysis
+- **Video Prospecting** — record a short video in-browser, attach to contact and send as email
+- **Meeting Scheduler** — shareable booking link, calendar sync (Google/Outlook), auto-reminders, auto-log to CRM
+- **Shared Team Inbox** — support@, sales@ team aliases, assign conversations to reps, view full contact context
+
+---
+
+## 📊 BUILT-IN REPORTING (No Tableau, No Looker)
+
+- **Pipeline Dashboard** — waterfall chart, stage conversion rates, average deal velocity, forecast
+- **Revenue Intelligence** — MRR, ARR, cohort revenue, deal won/lost breakdown by rep/source/branch
+- **AI Sales Forecast** — weighted forecast learned from historical close rates per rep, stage, deal size
+- **Marketing Attribution** — which channel influenced which deal, cost-per-acquisition per channel
+- **Employee Performance** — deals closed, tasks completed, call count, response time per rep
+- **Social Analytics** — cross-platform roll-up: total reach, engagement, best content, audience growth
+- **Branch Reporting** — revenue, leads, deals, employees per branch
+- **Custom Report Builder** — choose any entity, any fields, apply filters, export CSV/PDF
+
+---
+
+## ✍️ BUILT-IN PROPOSALS & E-SIGNATURES (No PandaDoc, No DocuSign)
+
+- Create branded proposals with a block editor inside Oryn
+- Template library (save and reuse proposal structures)
+- Send proposal link to client, track opens and time-on-page
+- Built-in e-signature: client signs in browser, signed PDF stored, deal stage auto-updated
+- Auto-generate invoices from accepted proposals
+
+---
+
+## 📅 BUILT-IN PROJECT & ONBOARDING BOARD (No Asana, No Monday)
+
+- When a deal closes, one click converts it to an onboarding project
+- Kanban board with tasks, assignees, due dates, and file attachments
+- Sales-to-CS handoff with automatic task templates per product/service type
+- Client can view their onboarding progress from the Client Portal
+
+---
+
+## 🔔 BUILT-IN AUTOMATION ENGINE (No Zapier, No Make)
+
+Visual workflow builder:
+- Triggers: new contact, deal stage change, form submission, email opened, time elapsed, custom field change
+- Actions: send email, send SMS, create task, update field, notify user, create deal, post to social, publish to WordPress
+- Conditions: if/else branching with AND/OR logic
+- Delay steps: wait X hours/days before next action
+- Built-in deduplication: auto-merge duplicate contacts on configurable match rules
+
+---
+
+## 🔒 BUILT-IN COMPLIANCE (No Cookie tools, No DPA plugins)
+
+- GDPR/CCPA consent record per contact (what they consented to, when, from which source)
+- One-click Data Subject Report: export everything Oryn holds about a contact as PDF
+- Auto data retention policies: archive or anonymize contacts after configurable periods
+- Full audit log: every record change, login, export, timestamped and searchable by admins
+- Cookie consent banner generator for landing pages
+
+---
+
+## 💰 PRICING MODEL
+
+Implement a workspace billing system:
+- Plans: Starter / Growth / Scale / Enterprise
+- Priced by **contact count + branch count**, NOT per seat (unlimited users on every plan)
+- Every plan gets EVERY feature — no feature gating
+- Billing page shows current usage vs plan limits
+- Stripe integration for subscription management
+
+---
+
+## 🏗️ PROJECT STRUCTURE
+
+```
+oryn/
+├── app/
+│   ├── (auth)/login, register, forgot-password
+│   ├── (dashboard)/
+│   │   ├── superadmin/
+│   │   ├── admin/
+│   │   ├── manager/
+│   │   ├── employee/
+│   │   └── client/
+│   └── api/
+│       ├── auth/[...nextauth]/
+│       ├── crm/ (contacts, deals, activities)
+│       ├── social/ (accounts, posts, scheduler, replies, ads)
+│       ├── wordpress/ (sites, posts, media)
+│       ├── marketing/ (campaigns, sequences, pages, forms)
+│       ├── communications/ (inbox, calls, meetings)
+│       ├── products/ (products, orders, invoices)
+│       ├── employees/ (employees, attendance, leaves)
+│       ├── support/ (tickets)
+│       ├── documents/ (proposals, signatures)
+│       ├── automation/ (workflows)
+│       ├── reporting/ (all report endpoints)
+│       └── billing/
+├── lib/
+│   ├── db.ts (SlintORM init + all model definitions)
+│   ├── auth.ts (NextAuth config)
+│   └── social/ (per-platform API clients)
+├── components/
+│   ├── dashboards/ (role-specific layouts)
+│   ├── crm/
+│   ├── social/
+│   ├── marketing/
+│   ├── wordpress/
+│   └── shared/
+└── middleware.ts (route protection by role)
+```
+
+---
+
+## 🎨 UI/UX INSTRUCTIONS
+
+You have the **UI UX Pro Max** skill installed. For every page and component you build:
+
+1. Run the design system generator mentally using the **"Sales Intelligence Dashboard"** category for internal pages and **"SaaS / B2B Service"** category for marketing/auth pages
+2. Apply a **dark-capable design** with a professional, data-dense aesthetic
+3. Use **Bento Box Grid** layout for dashboards
+4. Use **Glassmorphism** accents for cards and modals
+5. Every dashboard must have: sidebar nav, top bar with notifications + user menu, breadcrumbs, and a main content area
+6. All tables must have: search, column sort, filters, pagination, bulk actions, and CSV export
+7. All forms must have: real-time validation, loading states, success/error toasts
+8. Mobile responsive at 375px, 768px, 1024px, 1440px
+9. Follow WCAG AA accessibility: focus states, aria labels, contrast ratios
+10. No emojis as icons — use Lucide React icons throughout
+11. Smooth transitions 150–300ms on all interactive elements
+12. Use Recharts for all charts and analytics visualizations
+
+---
+
+## 🚀 BUILD ORDER
+
+Start in this sequence so each layer builds on a solid foundation:
+
+1. **SlintORM setup** (lib/db.ts) — define all interfaces, run migrate, verify all tables created
+2. **Auth system** — NextAuth with Google + Facebook + credentials, session middleware, role routing
+3. **Dashboard shells** — 5 role-specific layout components with sidebar, topbar, empty content areas
+4. **CRM core** — Contacts, Deals, Pipeline board, Activities
+5. **Products & Orders** — Product catalog, orders, invoices, e-signatures
+6. **Employee module** — Employee records, attendance, leaves, branch assignment
+7. **Communications hub** — Unified inbox, VoIP dialer UI, meeting scheduler
+8. **Social Media module** — Account connect flows, composer, calendar, unified reply inbox, ads manager
+9. **WordPress module** — Site connect, post manager, scheduler, AI draft generator
+10. **Marketing module** — Email campaigns, SMS, landing pages, forms, sequences
+11. **Automation engine** — Visual workflow builder
+12. **Reporting module** — All dashboards, custom report builder
+13. **Client Portal** — Onboarding board, invoices, support, privacy data report
+14. **Billing system** — Stripe plans, usage tracking, upgrade flows
+15. **Polish** — Notifications, audit logs, GDPR tools, onboarding wizard for new workspaces
+
+---
+
+## ⚠️ CRITICAL RULES
+
+- **SlintORM only** — never use Prisma, Drizzle, or raw SQL directly. All DB access through SlintORM models
+- **No external plugin purchases** — if a feature exists, build it in. Never suggest a third-party SaaS as the solution
+- **Per-seat pricing is forbidden** — the billing model is contact/branch based, unlimited users always
+- **Every API route must** check the user's workspace and role before returning any data (row-level security via workspaceId)
+- **Soft delete everything** important — contacts, deals, products, employees, social accounts
+- **All social tokens** must be encrypted at rest befor
+at rest before storing in the database
+- **TypeScript strict mode** throughout — no `any` types
+
+Begin by setting up SlintORM (lib/db.ts) with all models defined and migrated, then implement the NextAuth system with Google and Facebook providers. Confirm both are working before moving to dashboards.
