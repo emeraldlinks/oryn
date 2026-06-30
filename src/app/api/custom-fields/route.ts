@@ -9,13 +9,14 @@ export async function GET(req: Request) {
 
   const db = await initDb();
   const wsId = Number(session.user.workspaceId);
+  const { searchParams } = new URL(req.url);
+  const entityType = searchParams.get("entityType");
 
-  const workflows = await db.Workflow.query()
-    .where("workspaceId", "=", wsId)
-    .orderBy("createdAt", "DESC")
-    .get();
+  let query = db.CustomFieldDef.query().where("workspaceId", "=", wsId);
+  if (entityType) query = query.where("entityType", "=", entityType);
 
-  return NextResponse.json(workflows);
+  const fields = await query.orderBy("sortOrder", "ASC").get();
+  return NextResponse.json(fields);
 }
 
 export async function POST(req: Request) {
@@ -25,17 +26,14 @@ export async function POST(req: Request) {
   const body = await req.json();
   const db = await initDb();
 
-  const workflow = await db.Workflow.insert({
+  const field = await db.CustomFieldDef.insert({
+    ...body,
     workspaceId: Number(session.user.workspaceId),
-    name: body.name,
-    triggerType: body.triggerType,
-    triggerConfig: body.triggerConfig || {},
-    actions: body.actions || [],
-    active: body.active ?? true,
-    runCount: 0,
+    required: body.required || false,
+    sortOrder: body.sortOrder || 0,
   });
 
-  return NextResponse.json(workflow, { status: 201 });
+  return NextResponse.json(field, { status: 201 });
 }
 
 export async function PUT(req: Request) {
@@ -46,7 +44,7 @@ export async function PUT(req: Request) {
   const { id, ...data } = body;
   const db = await initDb();
 
-  await db.Workflow.update(
+  await db.CustomFieldDef.update(
     { id: Number(id), workspaceId: Number(session.user.workspaceId) },
     data
   );
@@ -63,7 +61,7 @@ export async function DELETE(req: Request) {
   if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
   const db = await initDb();
-  await db.Workflow.delete({ id: Number(id), workspaceId: Number(session.user.workspaceId) });
+  await db.CustomFieldDef.delete({ id: Number(id), workspaceId: Number(session.user.workspaceId) });
 
   return NextResponse.json({ success: true });
 }

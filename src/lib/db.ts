@@ -962,6 +962,154 @@ export interface AuditLog {
   user?: User;
 }
 
+export interface CustomFieldDef {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  workspaceId: number;
+  // @enum:(contact,deal,ticket,order,product,lead) @not null
+  entityType: string;
+  // @length:100 @not null
+  fieldName: string;
+  // @length:50 @not null
+  fieldType: string;
+  // @nullable @json
+  options?: string[];
+  // @default:false
+  required: boolean;
+  // @default:0
+  sortOrder: number;
+  createdAt: string;
+  updatedAt: string;
+
+  // @relation manytoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+}
+
+export interface CustomFieldValue {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  workspaceId: number;
+  // @length:50 @not null
+  entityType: string;
+  // @index @not null
+  entityId: number;
+  // @index @not null
+  fieldDefId: number;
+  // @nullable
+  value?: string;
+  createdAt: string;
+  updatedAt: string;
+
+  // @relation manytoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+  // @relation manytoone:CustomFieldDef;foreignKey:fieldDefId;onDelete:CASCADE
+  fieldDef?: CustomFieldDef;
+}
+
+export interface Workflow {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  workspaceId: number;
+  // @length:200 @not null
+  name: string;
+  // @length:100 @not null
+  triggerType: string;
+  // @json @not null
+  triggerConfig: Record<string, unknown>;
+  // @json @not null
+  actions: Record<string, unknown>;
+  // @default:true
+  active: boolean;
+  // @default:0
+  runCount: number;
+  createdAt: string;
+  updatedAt: string;
+
+  // @relation manytoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+}
+
+export interface EmailSync {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  workspaceId: number;
+  // @index @not null
+  userId: number;
+  // @enum:(gmail,outlook) @not null
+  provider: string;
+  // @not null
+  accessToken: string;
+  // @nullable
+  refreshToken?: string;
+  // @nullable
+  expiresAt?: string;
+  // @length:255 @not null
+  email: string;
+  // @nullable
+  lastSyncedAt?: string;
+  // @default:true
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+
+  // @relation manytoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+  // @relation manytoone:User;foreignKey:userId
+  user?: User;
+}
+
+export interface LiveChatSettings {
+  // @auto @primaryKey
+  id: number;
+  // @unique @not null
+  workspaceId: number;
+  // @default:true
+  enabled: boolean;
+  // @nullable
+  widgetColor?: string;
+  // @nullable @length:200
+  welcomeMessage?: string;
+  // @nullable
+  awayMessage?: string;
+  // @default:false
+  collectEmail: boolean;
+  // @default:true
+  showAgentNames: boolean;
+  createdAt: string;
+  updatedAt: string;
+
+  // @relation onetoone:Workspace;foreignKey:workspaceId
+  workspace?: Workspace;
+}
+
+export interface ChatMessage {
+  // @auto @primaryKey
+  id: number;
+  // @index @not null
+  workspaceId: number;
+  // @nullable @length:100
+  visitorId?: string;
+  // @nullable @length:200
+  visitorName?: string;
+  // @nullable @length:255
+  visitorEmail?: string;
+  // @nullable @index
+  contactId?: number;
+  // @nullable @index
+  userId?: number;
+  // @not null
+  body: string;
+  // @default:visitor @enum:(visitor,agent,system)
+  sender: string;
+  // @nullable
+  readAt?: string;
+  createdAt: string;
+}
+
 // ──────────────────────────────────────────────
 //  ModelMap – type-safe registry for ORMManager
 // ──────────────────────────────────────────────
@@ -999,6 +1147,12 @@ export type ModelMap = {
   Document: Document;
   Notification: Notification;
   AuditLog: AuditLog;
+  CustomFieldDef: CustomFieldDef;
+  CustomFieldValue: CustomFieldValue;
+  Workflow: Workflow;
+  EmailSync: EmailSync;
+  LiveChatSettings: LiveChatSettings;
+  ChatMessage: ChatMessage;
 };
 
 // ──────────────────────────────────────────────

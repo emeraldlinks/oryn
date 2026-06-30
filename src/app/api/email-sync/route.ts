@@ -9,13 +9,14 @@ export async function GET(req: Request) {
 
   const db = await initDb();
   const wsId = Number(session.user.workspaceId);
+  const userId = Number(session.user.id);
 
-  const workflows = await db.Workflow.query()
+  const syncs = await db.EmailSync.query()
     .where("workspaceId", "=", wsId)
-    .orderBy("createdAt", "DESC")
+    .where("userId", "=", userId)
     .get();
 
-  return NextResponse.json(workflows);
+  return NextResponse.json(syncs);
 }
 
 export async function POST(req: Request) {
@@ -24,34 +25,40 @@ export async function POST(req: Request) {
 
   const body = await req.json();
   const db = await initDb();
+  const wsId = Number(session.user.workspaceId);
+  const userId = Number(session.user.id);
 
-  const workflow = await db.Workflow.insert({
-    workspaceId: Number(session.user.workspaceId),
-    name: body.name,
-    triggerType: body.triggerType,
-    triggerConfig: body.triggerConfig || {},
-    actions: body.actions || [],
-    active: body.active ?? true,
-    runCount: 0,
+  const existing = await db.EmailSync.get({
+    workspaceId: wsId,
+    userId,
+    provider: body.provider,
   });
 
-  return NextResponse.json(workflow, { status: 201 });
-}
+  if (existing) {
+    await db.EmailSync.update({ id: existing.id }, {
+      accessToken: body.accessToken,
+      refreshToken: body.refreshToken || undefined,
+      expiresAt: body.expiresAt,
+      email: body.email,
+      lastSyncedAt: new Date().toISOString(),
+      active: true,
+    });
+    return NextResponse.json({ success: true, id: existing.id });
+  }
 
-export async function PUT(req: Request) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const sync = await db.EmailSync.insert({
+    workspaceId: wsId,
+    userId,
+    provider: body.provider,
+    accessToken: body.accessToken,
+    refreshToken: body.refreshToken || undefined,
+    expiresAt: body.expiresAt,
+    email: body.email,
+    lastSyncedAt: new Date().toISOString(),
+    active: true,
+  });
 
-  const body = await req.json();
-  const { id, ...data } = body;
-  const db = await initDb();
-
-  await db.Workflow.update(
-    { id: Number(id), workspaceId: Number(session.user.workspaceId) },
-    data
-  );
-
-  return NextResponse.json({ success: true });
+  return NextResponse.json(sync, { status: 201 });
 }
 
 export async function DELETE(req: Request) {
@@ -63,7 +70,7 @@ export async function DELETE(req: Request) {
   if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
   const db = await initDb();
-  await db.Workflow.delete({ id: Number(id), workspaceId: Number(session.user.workspaceId) });
+  await db.EmailSync.delete({ id: Number(id), workspaceId: Number(session.user.workspaceId) });
 
   return NextResponse.json({ success: true });
 }

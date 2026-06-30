@@ -52,6 +52,7 @@ const roleNavItems: Record<string, NavItem[]> = {
     { label: "Social Media", href: "/admin/social", icon: Share2 },
     { label: "WordPress", href: "/admin/wordpress", icon: Globe },
     { label: "Communications", href: "/admin/communications", icon: MessageSquare },
+    { label: "Live Chat", href: "/admin/chat", icon: MessageSquare },
     { label: "Documents", href: "/admin/documents", icon: FileSignature },
     { label: "Reports", href: "/admin/reports", icon: BarChart3 },
     { label: "Automation", href: "/admin/automation", icon: Zap },
