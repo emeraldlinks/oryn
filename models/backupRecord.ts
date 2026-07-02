@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface BackupRecord {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:50;not null
@@ -20,8 +20,8 @@ export interface BackupRecord {
   startedAt?: string;
  // @nullable
   completedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

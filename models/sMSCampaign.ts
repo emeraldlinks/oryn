@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface SMSCampaign {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:200;not null
@@ -21,8 +21,8 @@ export interface SMSCampaign {
   deliveredCount: number;
  // @nullable;json
   targetFilters?: Record<string, unknown>;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

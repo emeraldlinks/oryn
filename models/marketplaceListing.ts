@@ -2,7 +2,7 @@
 export interface MarketplaceListing {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @length:50;not null
   type: string;
  // @length:200;not null
@@ -35,7 +35,7 @@ export interface MarketplaceListing {
   categories?: string[];
  // @json;nullable
   tags?: string[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
 }

@@ -1,36 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DashboardShell } from "@/components/dashboards/dashboard-shell";
 import { BentoGrid } from "@/components/shared/bento-grid";
 import { StatCard } from "@/components/shared/stat-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Target, Users, TrendingUp, UserPlus, Search, Download } from "lucide-react";
+import { Target, Users, TrendingUp, Search, Download, Loader2 } from "lucide-react";
 
 export default function ManagerLeadsPage() {
+  const [leads, setLeads] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<string>("all");
+  const [filter, setFilter] = useState("all");
 
-  const leads = [
-    { id: 1, company: "Acme Corp", contact: "John Smith", source: "Website", status: "qualified", value: "$50,000", owner: "Alice J.", score: 85 },
-    { id: 2, company: "TechFlow Inc", contact: "Sarah Johnson", source: "Referral", status: "contacted", value: "$120,000", owner: "Bob S.", score: 92 },
-    { id: 3, company: "GlobalTech Solutions", contact: "Mike Chen", source: "LinkedIn", status: "qualified", value: "$75,000", owner: "Carol D.", score: 78 },
-    { id: 4, company: "StartupXYZ", contact: "Emily Davis", source: "Conference", status: "new", value: "$25,000", owner: "Alice J.", score: 45 },
-    { id: 5, company: "DataFlow Corp", contact: "Robert Wilson", source: "Website", status: "contacted", value: "$200,000", owner: "David L.", score: 88 },
-    { id: 6, company: "InnovateLab", contact: "Lisa Park", source: "Referral", status: "new", value: "$30,000", owner: "Bob S.", score: 35 },
-    { id: 7, company: "NexGen Software", contact: "Tom Brown", source: "Cold Call", status: "qualified", value: "$95,000", owner: "Carol D.", score: 71 },
-    { id: 8, company: "CloudBase Inc", contact: "Anna White", source: "Website", status: "new", value: "$60,000", owner: "David L.", score: 52 },
-  ];
+  useEffect(() => {
+    fetch("/api/manager/leads")
+      .then((r) => r.json())
+      .then(setLeads)
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
   const filtered = leads.filter((l) => {
     if (filter !== "all" && l.status !== filter) return false;
-    if (search && !l.company.toLowerCase().includes(search.toLowerCase()) && !l.contact.toLowerCase().includes(search.toLowerCase())) return false;
+    if (search && !l.name?.toLowerCase().includes(search.toLowerCase()) && !l.firstName?.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
 
-  const totalValue = leads.reduce((acc, l) => acc + parseInt(l.value.replace(/[^0-9]/g, "")), 0);
+  if (loading) {
+    return (
+      <DashboardShell>
+        <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+      </DashboardShell>
+    );
+  }
 
   return (
     <DashboardShell>
@@ -48,8 +53,7 @@ export default function ManagerLeadsPage() {
         <BentoGrid>
           <StatCard title="Total Leads" value={leads.length} icon={Target} />
           <StatCard title="Qualified" value={leads.filter((l) => l.status === "qualified").length} icon={TrendingUp} />
-          <StatCard title="Team Members" value={4} icon={Users} />
-          <StatCard title="Pipeline Value" value={`$${(totalValue / 1000).toFixed(0)}K`} icon={UserPlus} trend={{ value: 18, positive: true }} />
+          <StatCard title="New" value={leads.filter((l) => l.status === "new").length} icon={Users} />
         </BentoGrid>
 
         <div className="flex items-center gap-4">
@@ -67,23 +71,23 @@ export default function ManagerLeadsPage() {
         </div>
 
         <div className="rounded-lg border overflow-hidden">
-          <div className="grid grid-cols-[1fr_1fr_auto_auto_auto] gap-4 px-4 py-3 bg-muted/30 text-sm font-medium text-muted-foreground">
-            <span>Company / Contact</span>
-            <span>Owner</span>
-            <span>Value</span>
-            <span>Score</span>
+          <div className="grid grid-cols-[1fr_1fr_auto] gap-4 px-4 py-3 bg-muted/30 text-sm font-medium text-muted-foreground">
+            <span>Name</span>
+            <span>Email</span>
             <span>Status</span>
           </div>
-          {filtered.map((l) => (
-            <div key={l.id} className="grid grid-cols-[1fr_1fr_auto_auto_auto] gap-4 items-center px-4 py-3 border-t hover:bg-muted/30">
+          {filtered.length === 0 ? (
+            <p className="text-sm text-muted-foreground text-center py-12">No leads found.</p>
+          ) : filtered.map((l) => (
+            <div key={l.id} className="grid grid-cols-[1fr_1fr_auto] gap-4 items-center px-4 py-3 border-t hover:bg-muted/30">
               <div>
-                <p className="font-medium">{l.company}</p>
-                <p className="text-xs text-muted-foreground">{l.contact} · {l.source}</p>
+                <p className="font-medium">{l.firstName || l.name} {l.lastName || ""}</p>
+                {l.company && <p className="text-xs text-muted-foreground">{l.company}</p>}
               </div>
-              <span className="text-sm">{l.owner}</span>
-              <span className="text-sm font-medium">{l.value}</span>
-              <span className={`text-sm font-medium ${l.score >= 80 ? "text-emerald-500" : l.score >= 60 ? "text-amber-500" : "text-muted-foreground"}`}>{l.score}</span>
-              <Badge variant={l.status === "qualified" ? "success" : l.status === "contacted" ? "warning" : "secondary"}>{l.status}</Badge>
+              <span className="text-sm">{l.email || "-"}</span>
+              <Badge variant={l.status === "qualified" ? "success" as const : l.status === "contacted" ? "warning" as const : "secondary" as const}>
+                {l.status}
+              </Badge>
             </div>
           ))}
         </div>

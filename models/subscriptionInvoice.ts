@@ -4,7 +4,7 @@ import type { Subscription } from "./subscription";
 export interface SubscriptionInvoice {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   subscriptionId: number;
  // @index;not null
@@ -13,8 +13,8 @@ export interface SubscriptionInvoice {
   periodStart: string;
  // @not null
   periodEnd: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Subscription;foreignKey:subscriptionId;onDelete:CASCADE
   subscription?: Subscription;

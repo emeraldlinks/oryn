@@ -5,8 +5,7 @@ export async function POST(req: Request) {
   const { wsId, page, referrer, visitorId } = body;
 
   try {
-    const { initDb } = await import("@/lib/db");
-    const db = await initDb();
+    const { db } = await import("@/lib/db");
 
     await db.Activity.insert({
       workspaceId: Number(wsId) || 1,

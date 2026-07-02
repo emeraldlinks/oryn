@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface SubscriptionPlan {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @unique;length:200;not null
@@ -20,8 +20,8 @@ export interface SubscriptionPlan {
   features?: string[];
  // @default:true
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

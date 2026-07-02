@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface FAQItem {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:200;not null
@@ -15,8 +15,8 @@ export interface FAQItem {
   sortOrder: number;
  // @default:true
   published: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

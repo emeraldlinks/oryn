@@ -1,11 +1,35 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { DashboardShell } from "@/components/dashboards/dashboard-shell";
 import { BentoGrid, BentoCard } from "@/components/shared/bento-grid";
 import { StatCard } from "@/components/shared/stat-card";
-import { Target, Users, CheckCircle, TrendingUp, BarChart3 } from "lucide-react";
+import { Target, Users, CheckCircle, TrendingUp, Loader2 } from "lucide-react";
 
 export default function ManagerPage() {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/manager/dashboard")
+      .then((r) => r.json())
+      .then(setData)
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <DashboardShell>
+        <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+      </DashboardShell>
+    );
+  }
+
+  const team = data?.team || [];
+  const pipelineStages = data?.pipelineStages || {};
+  const totalDeals = Object.values(pipelineStages).reduce((a: number, b: any) => a + (b || 0), 0);
+
   return (
     <DashboardShell>
       <div className="space-y-6">
@@ -15,34 +39,30 @@ export default function ManagerPage() {
         </div>
 
         <BentoGrid>
-          <StatCard title="Team Deals Won" value="18" icon={Target} trend={{ value: 15, positive: true }} />
-          <StatCard title="Team Members" value="8" icon={Users} />
-          <StatCard title="Tasks Completed" value="142" icon={CheckCircle} trend={{ value: 22, positive: true }} />
-          <StatCard title="Lead Conversion" value="31.2%" icon={TrendingUp} trend={{ value: 4.5, positive: true }} />
+          <StatCard title="Team Members" value={team.length} icon={Users} />
+          <StatCard title="Active Deals" value={totalDeals} icon={Target} />
+          <StatCard title="Tasks" value={data?.tasks?.length || 0} icon={CheckCircle} />
+          <StatCard title="Pipeline Stages" value={Object.keys(pipelineStages).length} icon={TrendingUp} />
         </BentoGrid>
 
         <BentoGrid>
           <BentoCard colSpan={2}>
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Team Performance</h3>
+              <h3 className="text-lg font-semibold">Team Members</h3>
               <div className="space-y-3">
-                {[
-                  { name: "Alice Johnson", deals: 8, revenue: "$120,000", tasks: 45, avatar: "AJ" },
-                  { name: "Bob Smith", deals: 5, revenue: "$85,000", tasks: 38, avatar: "BS" },
-                  { name: "Carol Davis", deals: 3, revenue: "$52,000", tasks: 32, avatar: "CD" },
-                  { name: "David Lee", deals: 2, revenue: "$31,000", tasks: 27, avatar: "DL" },
-                ].map((member) => (
-                  <div key={member.name} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+                {team.length === 0 ? (
+                  <p className="text-sm text-muted-foreground text-center py-8">No team members</p>
+                ) : team.slice(0, 10).map((m: any, i: number) => (
+                  <div key={m.id || i} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
                     <div className="flex items-center gap-3">
                       <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">
-                        {member.avatar}
+                        {(m.name || m.userName || "?").charAt(0)}
                       </div>
                       <div>
-                        <p className="text-sm font-medium">{member.name}</p>
-                        <p className="text-xs text-muted-foreground">{member.deals} deals · {member.tasks} tasks</p>
+                        <p className="text-sm font-medium">{m.name || m.userName || "Member"}</p>
+                        <p className="text-xs text-muted-foreground">{m.role || m.position || ""}</p>
                       </div>
                     </div>
-                    <span className="text-sm font-medium">{member.revenue}</span>
                   </div>
                 ))}
               </div>
@@ -53,53 +73,40 @@ export default function ManagerPage() {
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">Pipeline by Stage</h3>
               <div className="space-y-3">
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span>Prospecting</span>
-                    <span className="text-muted-foreground">24</span>
+                {Object.keys(pipelineStages).length === 0 ? (
+                  <p className="text-sm text-muted-foreground text-center py-8">No pipeline data</p>
+                ) : Object.entries(pipelineStages).map(([stage, count]) => (
+                  <div key={stage}>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="capitalize">{stage.replace(/_/g, " ")}</span>
+                      <span className="text-muted-foreground">{count as number}</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-muted overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-primary"
+                        style={{ width: `${(count as number / totalDeals) * 100}%` }}
+                      />
+                    </div>
                   </div>
-                  <div className="h-2 rounded-full bg-muted overflow-hidden">
-                    <div className="h-full rounded-full bg-blue-500 w-3/4" />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span>Qualified</span>
-                    <span className="text-muted-foreground">18</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-muted overflow-hidden">
-                    <div className="h-full rounded-full bg-indigo-500 w-1/2" />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span>Proposal</span>
-                    <span className="text-muted-foreground">12</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-muted overflow-hidden">
-                    <div className="h-full rounded-full bg-amber-500 w-1/3" />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </BentoCard>
 
           <BentoCard>
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Needs Review</h3>
+              <h3 className="text-lg font-semibold">Recent Tasks</h3>
               <div className="space-y-2 text-sm">
-                <div className="flex items-center justify-between p-2 rounded bg-amber-50 dark:bg-amber-950">
-                  <span>Social post approval</span>
-                  <span className="text-xs text-muted-foreground">2 pending</span>
-                </div>
-                <div className="flex items-center justify-between p-2 rounded bg-blue-50 dark:bg-blue-950">
-                  <span>Leave requests</span>
-                  <span className="text-xs text-muted-foreground">3 pending</span>
-                </div>
-                <div className="flex items-center justify-between p-2 rounded bg-red-50 dark:bg-red-950">
-                  <span>Overdue tasks</span>
-                  <span className="text-xs text-muted-foreground">5</span>
-                </div>
+                {data?.tasks?.length === 0 ? (
+                  <p className="text-sm text-muted-foreground text-center py-8">No tasks</p>
+                ) : data?.tasks?.slice(0, 5).map((t: any, i: number) => (
+                  <div key={t.id || i} className="flex items-center justify-between p-2 rounded bg-muted/50">
+                    <span>{t.title}</span>
+                    <span className={`text-xs ${t.status === "completed" ? "text-emerald-500" : t.status === "in_progress" ? "text-blue-500" : "text-amber-500"}`}>
+                      {t.status?.replace(/_/g, " ") || "pending"}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </BentoCard>

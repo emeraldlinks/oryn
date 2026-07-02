@@ -4,7 +4,7 @@ import type { Quote } from "./quote";
 export interface QuoteLineItem {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   quoteId: number;
  // @index;not null
@@ -18,8 +18,8 @@ export interface QuoteLineItem {
   total: number;
  // @nullable
   description?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Quote;foreignKey:quoteId;onDelete:CASCADE
   quote?: Quote;

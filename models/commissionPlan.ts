@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface CommissionPlan {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:200;not null
@@ -19,8 +19,8 @@ export interface CommissionPlan {
   tiers?: Record<string, unknown>;
  // @default:true
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

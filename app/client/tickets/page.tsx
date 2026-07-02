@@ -1,26 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DashboardShell } from "@/components/dashboards/dashboard-shell";
 import { BentoGrid } from "@/components/shared/bento-grid";
 import { StatCard } from "@/components/shared/stat-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Ticket, Plus, MessageSquare } from "lucide-react";
+import { Ticket, Plus, MessageSquare, Loader2 } from "lucide-react";
 
 export default function ClientTicketsPage() {
+  const [tickets, setTickets] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [showNew, setShowNew] = useState(false);
   const [form, setForm] = useState({ subject: "", body: "" });
-  const tickets = [
-    { id: "TKT-001", subject: "Billing question", status: "open", priority: "medium", created: "Mar 15" },
-    { id: "TKT-002", subject: "Feature request: Export to PDF", status: "closed", priority: "low", created: "Mar 10" },
-  ];
+
+  useEffect(() => {
+    fetch("/api/client/tickets")
+      .then((r) => r.json())
+      .then(setTickets)
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
   async function submitTicket(e: React.FormEvent) {
     e.preventDefault();
-    setShowNew(false);
-    setForm({ subject: "", body: "" });
+    const res = await fetch("/api/client/tickets", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    if (res.ok) {
+      const ticket = await res.json();
+      setTickets((prev) => [ticket, ...prev]);
+      setShowNew(false);
+      setForm({ subject: "", body: "" });
+    }
+  }
+
+  if (loading) {
+    return (
+      <DashboardShell>
+        <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+      </DashboardShell>
+    );
   }
 
   return (
@@ -56,11 +79,13 @@ export default function ClientTicketsPage() {
         )}
 
         <div className="rounded-lg border overflow-hidden">
-          {tickets.map((t) => (
+          {tickets.length === 0 ? (
+            <p className="text-sm text-muted-foreground text-center py-12">No tickets yet.</p>
+          ) : tickets.map((t) => (
             <div key={t.id} className="flex items-center justify-between p-4 border-b last:border-0 hover:bg-muted/30">
               <div>
                 <p className="font-medium">{t.subject}</p>
-                <p className="text-xs text-muted-foreground">{t.id} · {t.created}</p>
+                <p className="text-xs text-muted-foreground">{t.id} · {t.createdAt ? new Date(t.createdAt).toLocaleDateString() : ""}</p>
               </div>
               <Badge variant={t.status === "open" ? "warning" : "success"}>{t.status}</Badge>
             </div>

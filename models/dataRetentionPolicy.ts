@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface DataRetentionPolicy {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:100;not null
@@ -14,8 +14,8 @@ export interface DataRetentionPolicy {
   action: string;
  // @default:true
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

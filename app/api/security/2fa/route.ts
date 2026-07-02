@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 import crypto from "crypto";
 
 export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const db = await initDb();
   const setting = await db.TwoFactorSetting.get({ userId: Number((session.user as any).id) });
 
   return NextResponse.json({
@@ -28,7 +27,6 @@ export async function POST() {
     crypto.randomBytes(6).toString("hex")
   );
 
-  const db = await initDb();
 
   const existing = await db.TwoFactorSetting.get({ userId });
   if (existing) {
@@ -60,7 +58,6 @@ export async function PUT(req: Request) {
   const { token } = body;
   const userId = Number((session.user as any).id);
 
-  const db = await initDb();
   const setting = await db.TwoFactorSetting.get({ userId });
 
   if (!setting || !setting.secret) {
@@ -81,7 +78,6 @@ export async function DELETE() {
 
   const userId = Number((session.user as any).id);
 
-  const db = await initDb();
   const setting = await db.TwoFactorSetting.get({ userId });
 
   if (setting) {

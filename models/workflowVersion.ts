@@ -3,7 +3,7 @@ import type { Workflow } from "./workflow";
 export interface WorkflowVersion {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workflowId: number;
  // @not null
@@ -12,8 +12,8 @@ export interface WorkflowVersion {
   definition: Record<string, unknown>;
  // @nullable
   notes?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workflow;foreignKey:workflowId;onDelete:CASCADE
   workflow?: Workflow;

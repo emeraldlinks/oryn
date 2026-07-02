@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { initDb } from "./db";
+import { db } from "./db";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -26,7 +26,6 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Email and password required");
         }
 
-        const db = await initDb();
         const user = await db.User.get({ email: credentials.email });
 
         if (!user || !user.passwordHash) {
@@ -56,8 +55,25 @@ export const authOptions: NextAuthOptions = {
     token.workspaceId = (user as any).workspaceId;
   }
 
+  const wsId = token.workspaceId as number | undefined;
+
+  if (wsId && token.canUseStaffManagement === undefined) {
+    try {
+      const quota = await db.WorkspaceQuota.get({ workspaceId: wsId });
+      if (quota) {
+        token.canUseStaffManagement = quota.canUseStaffManagement;
+        token.canUseInventory = quota.canUseInventory;
+      } else {
+        token.canUseStaffManagement = false;
+        token.canUseInventory = false;
+      }
+    } catch {
+      token.canUseStaffManagement = false;
+      token.canUseInventory = false;
+    }
+  }
+
   if (account?.provider === "google" || account?.provider === "facebook") {
-    const db = await initDb();
     const existing = await db.User.get({ email: token.email! });
 
     let finalUser: typeof existing;
@@ -96,6 +112,8 @@ export const authOptions: NextAuthOptions = {
         (session.user as any).id = token.id;
         (session.user as any).role = token.role;
         (session.user as any).workspaceId = token.workspaceId;
+        (session.user as any).canUseStaffManagement = token.canUseStaffManagement;
+        (session.user as any).canUseInventory = token.canUseInventory;
       }
       return session;
     },

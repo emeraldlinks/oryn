@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 
 export async function GET(req: Request) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const db = await initDb();
     const wsId = Number(session.user.workspaceId);
     const { searchParams } = new URL(req.url);
 
@@ -81,7 +80,6 @@ export async function POST(req: Request) {
     const session = await getServerSession(authOptions);
     if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const db = await initDb();
     const wsId = Number(session.user.workspaceId);
     const body = await req.json();
     const { searchParams } = new URL(req.url);
@@ -146,7 +144,6 @@ export async function PUT(req: Request) {
     const { id, ...data } = body;
     if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-    const db = await initDb();
     const wsId = Number(session.user.workspaceId);
 
     // If status changing to published and no publishedAt, set it
@@ -188,7 +185,6 @@ export async function DELETE(req: Request) {
     const id = searchParams.get("id");
     if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-    const db = await initDb();
     const wsId = Number(session.user.workspaceId);
 
     await db.SocialPost.delete({ id: Number(id), workspaceId: wsId });

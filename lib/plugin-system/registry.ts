@@ -1,4 +1,4 @@
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 import type { PluginAITool, PluginAction, PluginInstance, PluginManifest, PluginModel, PluginPage, PluginWebhook, PluginWidget } from "./types";
 import type { ExtensionType } from "./types";
 
@@ -16,7 +16,6 @@ function getOrCreateWorkspaceMap(workspaceId: number): Map<string, PluginInstanc
 }
 
 export async function loadWorkspacePlugins(workspaceId: number): Promise<PluginInstance[]> {
-  const db = await initDb();
   const plugins = await db.Plugin.where("workspaceId")
     .equals(workspaceId)
     .and((p: { enabled: boolean }) => p.enabled === true)

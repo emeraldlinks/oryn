@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface WorkspaceQuota {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @not null
@@ -20,12 +20,16 @@ export interface WorkspaceQuota {
   canUseAI: boolean;
  // @default:false
   canUseAPI: boolean;
- // @default:false
+  // @default:false
   canUseAutomation: boolean;
- // @json;nullable
+  // @default:false
+  canUseStaffManagement: boolean;
+  // @default:false
+  canUseInventory: boolean;
+  // @json;nullable
   limits?: Record<string, number>;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

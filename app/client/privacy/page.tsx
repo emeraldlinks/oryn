@@ -1,46 +1,69 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { DashboardShell } from "@/components/dashboards/dashboard-shell";
 import { BentoCard } from "@/components/shared/bento-grid";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Download, Eye, CheckCircle, XCircle } from "lucide-react";
+import { Shield, Download, Eye, CheckCircle, Loader2 } from "lucide-react";
 
 export default function ClientPrivacyPage() {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    fetch("/api/client/dashboard")
+      .then((r) => r.json())
+      .then(setData)
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <DashboardShell>
+        <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+      </DashboardShell>
+    );
+  }
+
+  const contact = data?.contact;
+  const personalData = contact ? [
+    { label: "Name", value: contact.name || contact.firstName + " " + contact.lastName || "—", category: "Identity" },
+    { label: "Email", value: contact.email || "—", category: "Contact" },
+    { label: "Phone", value: contact.phone || "—", category: "Contact" },
+    { label: "Company", value: contact.company || "—", category: "Professional" },
+  ] : [];
+
   return (
     <DashboardShell>
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold">Privacy Portal</h1>
-          <p className="text-muted-foreground">Your data, your control. See what data Oryn holds about you.</p>
+          <p className="text-muted-foreground">Your data, your control.</p>
         </div>
 
         <BentoCard>
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Data We Hold About You</h3>
-            <div className="space-y-2">
-              {[
-                { label: "Name", value: "John Doe", category: "Identity" },
-                { label: "Email", value: "john@example.com", category: "Contact" },
-                { label: "Phone", value: "+1 (555) 123-4567", category: "Contact" },
-                { label: "Company", value: "Acme Corp", category: "Professional" },
-                { label: "Communication History", value: "47 messages", category: "Activity" },
-                { label: "Support Tickets", value: "3 tickets", category: "Activity" },
-                { label: "Order History", value: "5 orders", category: "Transaction" },
-                { label: "Consent Status", value: "GDPR Opt-in", category: "Compliance" },
-              ].map((item) => (
-                <div key={item.label} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
-                  <div className="flex items-center gap-3">
-                    <Eye className="h-4 w-4 text-muted-foreground" />
-                    <div>
-                      <p className="text-sm font-medium">{item.label}</p>
-                      <p className="text-xs text-muted-foreground">{item.category}</p>
+            {personalData.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No personal data found for your account.</p>
+            ) : (
+              <div className="space-y-2">
+                {personalData.map((item) => (
+                  <div key={item.label} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+                    <div className="flex items-center gap-3">
+                      <Eye className="h-4 w-4 text-muted-foreground" />
+                      <div>
+                        <p className="text-sm font-medium">{item.label}</p>
+                        <p className="text-xs text-muted-foreground">{item.category}</p>
+                      </div>
                     </div>
+                    <span className="text-sm">{item.value}</span>
                   </div>
-                  <span className="text-sm">{item.value}</span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </BentoCard>
 
@@ -50,19 +73,15 @@ export default function ClientPrivacyPage() {
               <h3 className="text-lg font-semibold">Your Rights</h3>
               <div className="space-y-2">
                 {[
-                  { right: "Right to Access", active: true },
-                  { right: "Right to Rectification", active: true },
-                  { right: "Right to Erasure", active: true },
-                  { right: "Right to Data Portability", active: true },
-                  { right: "Right to Object", active: true },
-                ].map((r) => (
-                  <div key={r.right} className="flex items-center gap-2 text-sm">
-                    {r.active ? (
-                      <CheckCircle className="h-4 w-4 text-emerald-500" />
-                    ) : (
-                      <XCircle className="h-4 w-4 text-muted-foreground" />
-                    )}
-                    {r.right}
+                  "Right to Access",
+                  "Right to Rectification",
+                  "Right to Erasure",
+                  "Right to Data Portability",
+                  "Right to Object",
+                ].map((right) => (
+                  <div key={right} className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-emerald-500" />
+                    {right}
                   </div>
                 ))}
               </div>
@@ -86,25 +105,6 @@ export default function ClientPrivacyPage() {
             </div>
           </BentoCard>
         </div>
-
-        <BentoCard>
-          <h3 className="text-lg font-semibold mb-4">Consent History</h3>
-          <div className="space-y-3">
-            {[
-              { source: "Registration form", consent: "Marketing emails", date: "Jan 15, 2024", status: "Active" },
-              { source: "Cookie banner", consent: "Analytics cookies", date: "Jan 15, 2024", status: "Active" },
-              { source: "Email opt-out", consent: "SMS marketing", date: "Feb 20, 2024", status: "Withdrawn" },
-            ].map((c) => (
-              <div key={c.source} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
-                <div>
-                  <p className="text-sm font-medium">{c.consent}</p>
-                  <p className="text-xs text-muted-foreground">{c.source} · {c.date}</p>
-                </div>
-                <Badge variant={c.status === "Active" ? "success" : "secondary"}>{c.status}</Badge>
-              </div>
-            ))}
-          </div>
-        </BentoCard>
       </div>
     </DashboardShell>
   );

@@ -1,11 +1,11 @@
 # Oryn — All-in-One CRM Platform
 
 ## Overview
-Oryn is a full-stack CRM platform (HubSpot/Zoho alternative) built with Next.js 14, SlintORM (PostgreSQL), NextAuth, and shadcn/ui. **122 database models, 115+ REST API routes, 44 admin pages, and an embeddable widget** for external sites.
+Oryn is a full-stack CRM platform (HubSpot/Zoho alternative) built with Next.js 16, SlintORM (PostgreSQL), NextAuth, and shadcn/ui. **170+ database models, 155+ REST API routes, 100+ UI pages across 5 roles, and an embeddable widget** for external sites.
 
 ---
 
-## Database Models (122)
+## Database Models (170+)
 
 | Module | Models |
 |--------|--------|
@@ -41,17 +41,24 @@ Oryn is a full-stack CRM platform (HubSpot/Zoho alternative) built with Next.js 
 | **Internationalization** | LanguagePack, TranslationEntry |
 | **Marketplace** | MarketplaceListing, InstalledItem |
 | **Plugin SDK** | Plugin, PluginExtension |
+| **Payments** | PaystackPayment |
+| **Hiring** | JobPosting, Candidate, JobApplication, Interview, OfferLetter, HiringMetric, HiringStage |
+| **Staff Management (19)** | StaffDepartment, StaffPosition, StaffShift, StaffSchedule, StaffTimesheet, StaffAttendanceRecord, StaffLeaveType, StaffLeaveRequest, StaffPerformanceReview, StaffGoal, StaffTrainingCourse, StaffTrainingEnrollment, StaffCertification, StaffSkill, StaffEmployeeSkill, StaffDocument, StaffComplianceItem, StaffDisciplinaryAction, StaffExpenseReport |
+| **Inventory (17)** | InventoryWarehouse, InventoryCategory, InventoryBrand, InventoryItem, InventoryVariant, InventoryStock, InventoryMovement, InventorySupplier, InventoryPurchaseOrder, InventoryPurchaseOrderItem, InventoryGoodsReceivedNote, InventoryStockTransfer, InventoryStockCount, InventoryReorderRule, InventoryBatch, InventoryReturn, InventoryCostHistory |
+| **Department Dashboard** | DepartmentModule, DepartmentModuleAssignment |
 
 ---
 
 ## Authentication & Authorization
 
 - **NextAuth v4** with 3 providers: Google OAuth, Facebook OAuth, Credentials (email/password)
-- JWT session with `id`, `role`, `workspaceId` attached
+- JWT session with `id`, `role`, `workspaceId`, `canUseStaffManagement`, `canUseInventory` attached
 - **5 roles**: superadmin, admin, manager, employee, client
-- Middleware enforces role-based route access with redirects
+- **Proxy.ts** (Next.js 16) replaces deprecated middleware.ts — enforces role-based route access with redirects
+- Staff & Inventory feature flags enforced at proxy level (403 for APIs, redirect for pages)
 - Public paths excluded: `/login`, `/register`, `/forgot-password`, `/api/auth/*`
-- Registration API creates workspace + superadmin user
+- Registration API creates workspace + superadmin user, redirects to `/admin`
+- Password reset API at `/api/auth/forgot-password` with security best practices
 
 ---
 
@@ -175,7 +182,8 @@ Oryn is a full-stack CRM platform (HubSpot/Zoho alternative) built with Next.js 
 
 ### Employees
 - Employee profiles linked to User accounts
-- Department, job title, salary, branch assignment
+- Department FK relationship (`departmentId` → `StaffDepartment`)
+- Job title, salary, branch assignment
 
 ### Attendance
 - Clock in/out tracking with notes
@@ -298,6 +306,7 @@ Oryn is a full-stack CRM platform (HubSpot/Zoho alternative) built with Next.js 
 - Priority levels: low, medium, high, urgent
 - Assignee assignment
 - Ticket messages with client/agent indicator
+- Support stats API (avg resolution time, status distribution)
 
 ---
 
@@ -496,27 +505,6 @@ Oryn is a full-stack CRM platform (HubSpot/Zoho alternative) built with Next.js 
 - 8 providers supported: OpenAI, Gemini, DeepSeek, Claude, Qwen, Kimi, NVIDIA, OpenCode
 - Active/inactive toggle, masked display
 
-### AI Meeting Summaries
-- AI-powered meeting transcription and summary generation
-
-### AI Email Writing
-- AI-assisted email composition from natural language prompts
-
-### AI Workflow Generation
-- Generate workflow definitions from natural language descriptions
-
-### AI Report Insights
-- AI-generated analysis of report data with actionable insights
-
-### AI Lead Qualification
-- AI-driven lead scoring and qualification recommendations
-
-### AI Sales Recommendations
-- AI-powered next-best-action suggestions for deals
-
-### AI Chatbot Training
-- Train chatbots with AI provider models for intelligent responses
-
 ---
 
 ## Bot Connections (External AI Bots)
@@ -563,8 +551,12 @@ Users connect external AI bots (Claude connectors, Perplexity, Make.com, Zapier,
 - Status: open, resolved, closed, locked
 - Pin important topics, view tracking
 
-### Self-Service
-- Orders, invoices, tickets, documents views
+### Self-Service (Live API Integration)
+- Orders view with real API data
+- Invoices view with real API data
+- Support tickets with create/view via API
+- Documents view with real API data
+- Dashboard with aggregated stats
 - Privacy & GDPR page
 - Password reset flow
 
@@ -748,11 +740,284 @@ Users connect external AI bots (Claude connectors, Perplexity, Make.com, Zapier,
 
 ---
 
+## Paystack Payment System
+
+### Secure Payment Processing
+- AES-256-GCM encrypted API key storage at rest
+- Server-authoritative amounts (amount always fetched from DB invoice, client-supplied amount ignored)
+- HMAC-SHA256 webhook signature verification with `crypto.timingSafeEqual`
+- IP allowlisting as secondary webhook filter
+- Webhook re-verification with Paystack API before processing (defense in depth)
+
+### Payment Flow
+- Customer payment page at `/pay/:reference`
+- Initialize transaction via Paystack API with invoice data
+- Verify transaction before processing
+- Webhook receives payment confirmation asynchronously
+
+### Receipts & Invoices
+- HTML invoice generation (professional layout with logo, billing info, line items)
+- Email receipts sent via nodemailer (SMTP)
+- Payment confirmation with transaction reference
+- Admin payment dashboard with full history
+
+### Admin Settings
+- Configure Paystack public + secret keys (encrypted at rest)
+- Webhook URL display for Paystack dashboard configuration
+- Test webhook endpoint for debugging
+
+---
+
+## Hiring Management
+
+### Job Postings
+- Full CRUD for job listings
+- Status: draft, published, closed, filled
+- Department and location tracking
+
+### Candidates
+- Applicant tracking with contact info, resume URL, current role
+- AI CV scanning with 8-metric scoring engine
+- Metrics: Experience, Education, Skills, Certifications, Stability, Communication, Leadership, Cultural Fit
+
+### Job Applications
+- Link candidates to job postings
+- Stage tracking through hiring pipeline
+- AI-generated scoring and notes
+
+### Interviews
+- Schedule interviews linked to applications
+- Interviewer assignment, location/URL tracking
+- Feedback and rating collection
+
+### Offer Letters
+- Generate offer letters for candidates
+- Status: draft, sent, accepted, rejected, withdrawn
+- Salary, start date, and terms tracking
+
+### Hiring Metrics
+- Configurable metric definitions for CV scoring
+- Customizable weights, max scores, and enable/disable per metric
+- 8 default metrics with sensible defaults
+
+### Hiring Stages
+- Configurable hiring pipeline stages per job
+- Stage ordering, active/inactive toggle
+- Default stages: Applied, Screening, Interviewing, Shortlisted, Offer, Hired, Rejected
+
+### Dashboard
+- Pipeline funnel visualization
+- Recent applications feed
+- Quick-nav to Jobs, Candidates, Interviews, Offers, Metrics, Stages
+
+---
+
+## Staff Management
+
+### Departments
+- Hierarchical departments with parent-child relationships
+- Head employee assignment
+- Department color coding
+- Configurable department modules (see Department Dashboard section)
+
+### Positions
+- Job positions linked to departments
+- Position hierarchy with parent-child relationships
+- Active/inactive toggle
+
+### Shifts & Schedules
+- Shift templates with start/end times
+- Employee shift scheduling
+- Schedule date ranges
+
+### Timesheets
+- Employee time tracking with start/end times
+- Break duration tracking
+- Hourly rate calculation for cost tracking
+
+### Attendance
+- Daily attendance records per employee
+- Status: present, absent, late, half-day, holiday
+- Check-in/check-out time tracking
+
+### Leave Management
+- Leave types (vacation, sick, personal, etc.) with policies
+- Leave requests with date range and reason
+- Approval workflow: pending → approved → rejected → cancelled
+- Half-day option per request
+
+### Performance Reviews
+- Employee performance evaluations
+- Rating system, strengths, areas for improvement
+- Reviewer assignment, review period tracking
+
+### Goals & OKRs
+- Employee goals with key results (JSON)
+- Status: draft, active, completed, cancelled
+- Progress percentage tracking
+
+### Training & Development
+- Training courses with description, duration, max participants
+- Training enrollments with status, score tracking
+- Certification management with expiry tracking
+
+### Skills Matrix
+- Skill definitions (name, category, description)
+- Employee skill assignments with proficiency levels (1-5)
+- Primary skill designation per employee
+
+### Staff Documents
+- Upload contracts, NDAs, and other staff documents
+- Document type categorization
+- Status: active, archived, expired
+- Expiry date tracking
+
+### Compliance
+- Compliance item definitions per department
+- Employee assignments with status tracking
+- Due date monitoring
+
+### Disciplinary Actions
+- Record disciplinary actions per employee
+- Type: written_warning, final_warning, suspension, termination
+- Status: pending, active, resolved, appealed
+- Description and resolution tracking
+
+### Staff Expenses
+- Expense reports by employees
+- Categories, amounts, receipt tracking
+- Status: pending, approved, reimbursed, rejected
+- Approval workflow with admin review
+
+### Dashboard & Stats
+- Aggregated stats across all staff modules
+- Quick-nav grid to all 19 sub-pages
+- Key metrics: total employees, departments, positions, schedules, pending leave, open disciplinary
+
+---
+
+## Inventory Management
+
+### Warehouses
+- Multi-warehouse support with location tracking
+- Contact person and contact info
+- Active/inactive toggle
+
+### Categories & Brands
+- Hierarchical inventory categories
+- Brand management with description
+- Category-brand associations
+
+### Items & Variants
+- Full item catalog with SKU, barcode, dimensions, weight
+- Item types: physical, digital, service
+- Tracking flags: serialized, batch_tracked, perishable
+- Variant support (size, color, etc.) with JSON attributes
+- Unit price, cost price, tax rate, reorder point
+
+### Stock Management
+- Per-warehouse stock levels with reserved and available quantities
+- Minimum and maximum stock thresholds
+- Reorder point alerts
+
+### Stock Movements
+- Complete audit trail of all stock changes
+- Movement types: purchase_received, sale, transfer, adjustment, return, write_off
+- Quantity before/after tracking
+- Reference linking (PO, transfer, etc.)
+
+### Suppliers
+- Supplier management with payment terms
+- Contact info, rating system
+- Active/inactive toggle
+
+### Purchase Orders
+- Create POs with line items (products, quantity, unit price)
+- Status: draft, pending, approved, sent, partially_received, received, cancelled
+- Expected delivery date, shipping cost, tax
+- Full preloading of items and product details
+
+### Goods Received Notes
+- Record receipt of purchase orders
+- Line-item quantity acceptance
+- Decrement remaining PO quantities
+- Auto-receipt completion detection
+
+### Stock Transfers
+- Inter-warehouse stock transfers
+- Status: draft, in_transit, received, cancelled
+- Expected and actual arrival dates
+- Partial receipt support
+
+### Stock Counts
+- Physical inventory counting
+- Count types: full, partial, spot_check, cycle_count
+- Discrepancy calculation
+- Status: draft, in_progress, completed, verified
+
+### Reorder Rules
+- Automated reorder point rules per item
+- Lead time, safety stock, economic order quantity
+- Preferred supplier assignment
+- Active/inactive toggle
+
+### Batch Tracking
+- Lot/batch tracking for batch-tracked items
+- Manufacturing date, expiry date tracking
+- Quantity tracking per batch
+
+### Returns
+- Customer returns and supplier returns
+- Return reasons, condition assessment
+- Status: pending, approved, rejected, restocked, refunded
+- Quantity and refund amount tracking
+
+### Cost History (Audit)
+- Immutable audit log of cost price changes
+- Old cost, new cost tracking
+- Changed by attribution
+
+### Dashboard & Stats
+- Aggregated stats: total items, warehouses, categories, brands, suppliers, low stock alerts
+- Quick-nav grid to all 17 sub-pages
+- DataTable access to all inventory entities
+
+---
+
+## Department Dashboard (Configurable)
+
+### Module Catalog
+- Pre-seeded 65+ system modules across 8 categories on first visit
+- Categories: HR (20 modules), Sales (9), Finance (6), Business Development (7), Operations (6), Marketing (7), IT/Engineering (9), Customer Success (4)
+- Each module has: key, name, description, icon, category, route href
+- Create custom modules with any name, key, icon, and route
+- Modules page at `/admin/staff/departments/modules`
+
+### Module Assignment
+- Per-department module assignment (toggle on/off)
+- Department detail page at `/admin/staff/departments/[id]`
+- Two views: assigned "Department Tools" grid with working links, and full "Available Modules" browser
+- Quick add/remove with one click
+
+### Department Dashboard
+- Department info display with stats (employee count, module count)
+- Assigned tool grid with icon cards linking to feature pages
+- Department names link to detail pages from Departments list
+- Staff dashboard includes "Dept. Modules" nav link
+
+### Departments List
+- Hierarchical department management with parent-child
+- Head employee assignment, color coding
+- Active/inactive toggle, DataTable display
+- "Manage Modules" button linking to module catalog
+
+---
+
 ## Roles & Permissions
 
 - Role-based permission map per entity (contacts, deals, products, orders, invoices, tickets, email, reports, automation, settings)
-- 4 roles × 10 entities permission matrix
-- Permission levels: Read, Own, Write
+- 5 roles × 10 entities permission matrix
+- Permission levels: create, read, update, delete, export, import, send
 - Visual permission table in Settings
 
 ---
@@ -760,10 +1025,25 @@ Users connect external AI bots (Claude connectors, Perplexity, Make.com, Zapier,
 ## Billing
 
 - Plan comparison (Starter, Growth, Scale, Enterprise)
-- Feature list per plan
+- Feature list per plan with Staff Management + Inventory
 - Upgrade flow
+- Usage tracking per plan
 
 ---
+
+## Feature Flag Enforcement
+
+### Multi-tenancy Feature Toggles
+- Toggle AI, API, Automation, Staff Management, Inventory per workspace
+- WorkspaceQuota model with all feature flags
+- Admin toggle page at `/admin/multi-tenancy`
+
+### Proxy-Level Enforcement
+- JWT-stamped feature flags (no DB query on every request)
+- Lazy DB fallback if flags missing from token
+- API routes return 403 JSON when feature disabled
+- Page routes redirect when feature disabled
+- Staff and Inventory routes fully gate-checked
 
 ---
 
@@ -845,7 +1125,7 @@ Users connect external AI bots (Claude connectors, Perplexity, Make.com, Zapier,
 
 ### Workspace Quotas
 - Configurable per-workspace limits: max users, storage, contacts, deals, projects
-- Feature toggles: canUseAI, canUseAPI, canUseAutomation
+- Feature toggles: canUseAI, canUseAPI, canUseAutomation, canUseStaffManagement, canUseInventory
 - Custom limits via JSON for extensibility
 - Find-or-create pattern with sensible defaults (10 users, 5GB, 1000 contacts, 500 deals, 20 projects)
 
@@ -904,6 +1184,11 @@ Users connect external AI bots (Claude connectors, Perplexity, Make.com, Zapier,
 - Cascade delete on plugin removal
 - Eager-loaded plugin details
 
+### Lifecycle Hooks
+- Plugin lifecycle hooks: onInstall, onUninstall, onActivate, onDeactivate
+- Background job queue for async hook execution
+- Plugin manifest validation
+
 ---
 
 ## Mobile
@@ -921,9 +1206,9 @@ Users connect external AI bots (Claude connectors, Perplexity, Make.com, Zapier,
 
 | Layer | Technology |
 |-------|-----------|
-| **Framework** | Next.js 14 (App Router, TypeScript) |
+| **Framework** | Next.js 16 (App Router, TypeScript) |
 | **Database** | PostgreSQL via SlintORM v1.1.5 (pg driver) |
-| **ORM** | SlintORM with 122 annotated model interfaces |
+| **ORM** | SlintORM with 170+ annotated model interfaces |
 | **Auth** | NextAuth.js v4 (Google + Facebook + Credentials) |
 | **UI** | Tailwind CSS, shadcn/ui Radix primitives |
 | **Icons** | Lucide React |
@@ -935,3 +1220,4 @@ Users connect external AI bots (Claude connectors, Perplexity, Make.com, Zapier,
 | **State** | Zustand |
 | **Dates** | date-fns v4 |
 | **CSV** | csv-parse + csv-stringify |
+| **Encryption** | Node.js crypto (AES-256-GCM) |

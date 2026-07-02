@@ -6,7 +6,7 @@ import type { Workspace } from "./workspace";
 export interface Activity {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @enum:(call,email,meeting,task,note,deal-status-change,social);not null
@@ -25,8 +25,8 @@ export interface Activity {
   dueAt?: string;
  // @nullable
   completedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

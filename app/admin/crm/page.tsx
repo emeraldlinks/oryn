@@ -20,6 +20,8 @@ import {
   Loader2,
   Download,
   Upload,
+  Kanban,
+  ListChecks,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -260,6 +262,11 @@ export default function CRMPage() {
         <div>
           <h1 className="text-3xl font-bold">CRM</h1>
           <p className="text-muted-foreground">Manage contacts, deals, and pipeline</p>
+        </div>
+
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" asChild><a href="/admin/crm/pipeline"><Kanban className="mr-2 h-4 w-4" /> Pipeline</a></Button>
+          <Button variant="outline" size="sm" asChild><a href="/admin/crm/activities"><ListChecks className="mr-2 h-4 w-4" /> Activities</a></Button>
         </div>
 
         <BentoGrid>

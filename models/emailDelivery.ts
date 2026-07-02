@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface EmailDelivery {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:254;not null
@@ -27,8 +27,8 @@ export interface EmailDelivery {
   metadata?: Record<string, unknown>;
  // @index
   sentById?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

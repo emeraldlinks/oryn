@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface PushNotification {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -20,8 +20,8 @@ export interface PushNotification {
   sentAt?: string;
  // @nullable
   readAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

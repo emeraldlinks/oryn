@@ -8,7 +8,7 @@ import type { Workspace } from "./workspace";
 export interface User {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:100;not null
@@ -25,8 +25,8 @@ export interface User {
   lastLoginAt?: string;
  // @nullable;json
   preferences?: Record<string, unknown>;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
  // @softDelete
   deletedAt?: string;
 

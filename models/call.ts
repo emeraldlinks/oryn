@@ -5,7 +5,7 @@ import type { Workspace } from "./workspace";
 export interface Call {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @nullable;index
@@ -26,8 +26,8 @@ export interface Call {
   sentiment?: string;
  // @nullable
   notes?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

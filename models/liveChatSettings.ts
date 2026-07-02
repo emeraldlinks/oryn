@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface LiveChatSettings {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @unique;not null
   workspaceId: number;
  // @default:true
@@ -18,8 +18,8 @@ export interface LiveChatSettings {
   collectEmail: boolean;
  // @default:true
   showAgentNames: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation onetoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

@@ -7,7 +7,7 @@ import type { Workspace } from "./workspace";
 export interface Deal {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -35,8 +35,8 @@ export interface Deal {
   lostReason?: string;
  // @nullable;json
   notes?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
  // @softDelete
   deletedAt?: string;
 

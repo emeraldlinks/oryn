@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { DashboardShell } from "@/components/dashboards/dashboard-shell";
 import { DataTable, type Column } from "@/components/shared/data-table";
 import { BentoGrid, BentoCard } from "@/components/shared/bento-grid";
@@ -11,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import {
   Package, DollarSign, Plus, Percent, Trash2,
-  X, Loader2,
+  X, Loader2, ShoppingCart, FileText,
 } from "lucide-react";
 
 interface Product {
@@ -168,9 +169,15 @@ export default function ProductsPage() {
   return (
     <DashboardShell>
       <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold">Products & Services</h1>
-          <p className="text-muted-foreground">Manage your catalog and discounts</p>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-3xl font-bold">Products & Services</h1>
+            <p className="text-muted-foreground">Manage your catalog and discounts</p>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" asChild><a href="/admin/products/orders"><ShoppingCart className="mr-2 h-4 w-4" /> Orders</a></Button>
+            <Button variant="outline" size="sm" asChild><a href="/admin/products/invoices"><FileText className="mr-2 h-4 w-4" /> Invoices</a></Button>
+          </div>
         </div>
 
         <div className="flex gap-2 flex-wrap border-b pb-2">

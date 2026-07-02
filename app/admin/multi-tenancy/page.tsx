@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Save, Loader2, Users, Database, Globe, Bot, Key, Cpu, RefreshCw } from "lucide-react";
+import { Save, Loader2, Users, Database, Globe, Bot, Key, Cpu, RefreshCw, Users2, Package } from "lucide-react";
 
 interface Quota {
   maxUsers: number;
@@ -18,6 +18,8 @@ interface Quota {
   canUseAi: boolean;
   canUseApi: boolean;
   canUseAutomation: boolean;
+  canUseStaffManagement: boolean;
+  canUseInventory: boolean;
 }
 
 interface UsageRecord {
@@ -29,7 +31,7 @@ interface UsageRecord {
 }
 
 export default function MultiTenancyPage() {
-  const [quota, setQuota] = useState<Quota>({ maxUsers: 10, maxStorageGB: 50, maxContacts: 1000, maxDeals: 500, maxProjects: 50, canUseAi: true, canUseApi: true, canUseAutomation: true });
+  const [quota, setQuota] = useState<Quota>({ maxUsers: 10, maxStorageGB: 50, maxContacts: 1000, maxDeals: 500, maxProjects: 50, canUseAi: true, canUseApi: true, canUseAutomation: true, canUseStaffManagement: true, canUseInventory: true });
   const [usage, setUsage] = useState<UsageRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -127,6 +129,8 @@ export default function MultiTenancyPage() {
                   { key: "canUseAi", label: "AI Features", icon: Bot },
                   { key: "canUseApi", label: "API Access", icon: Key },
                   { key: "canUseAutomation", label: "Automation", icon: Cpu },
+                  { key: "canUseStaffManagement", label: "Staff Management", icon: Users2 },
+                  { key: "canUseInventory", label: "Inventory", icon: Package },
                 ].map(({ key, label, icon: Icon }) => (
                   <div key={key} className="flex items-center justify-between">
                     <div className="flex items-center gap-2">

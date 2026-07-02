@@ -3,7 +3,7 @@ import type { WordpressSite } from "./wordpressSite";
 export interface WordpressPost {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   wordpressSiteId: number;
  // @nullable
@@ -23,8 +23,8 @@ export interface WordpressPost {
   tags?: string[];
  // @nullable;length:500
   featuredImageUrl?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:WordpressSite;foreignKey:wordpressSiteId;onDelete:CASCADE
   site?: WordpressSite;

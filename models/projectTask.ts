@@ -6,7 +6,7 @@ import type { Workspace } from "./workspace";
 export interface ProjectTask {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   projectId: number;
  // @index;not null
@@ -35,8 +35,8 @@ export interface ProjectTask {
   sortOrder: number;
  // @nullable
   completedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
  // @softDelete
   deletedAt?: string;
 

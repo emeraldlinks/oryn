@@ -1,4 +1,4 @@
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 import { pluginRegistry } from "./registry";
 
 export async function dispatchToPluginWebhooks(
@@ -9,7 +9,6 @@ export async function dispatchToPluginWebhooks(
   const webhooks = pluginRegistry.getWebhooksByEvent(workspaceId, event);
   if (webhooks.length === 0) return;
 
-  const db = await initDb();
   const requestBody = JSON.stringify(payload);
 
   for (const wh of webhooks) {

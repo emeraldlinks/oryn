@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface OAuthApp {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:200;not null
@@ -18,8 +18,8 @@ export interface OAuthApp {
   scopes?: string[];
  // @default:true
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface UTMLink {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:255;not null
@@ -22,8 +22,8 @@ export interface UTMLink {
   term?: string;
  // @default:0
   clicks: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

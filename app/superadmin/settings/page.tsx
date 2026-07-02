@@ -1,19 +1,55 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DashboardShell } from "@/components/dashboards/dashboard-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Settings, Globe, Mail, Shield, Bell, Palette, Save } from "lucide-react";
+import { Globe, Mail, Shield, Save, Loader2 } from "lucide-react";
 
 export default function SuperAdminSettingsPage() {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [form, setForm] = useState<any>({});
+
+  useEffect(() => {
+    fetch("/api/superadmin/settings")
+      .then((r) => r.json())
+      .then((d) => {
+        setData(d);
+        setForm(d);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    setSaving(true);
+    try {
+      await fetch("/api/superadmin/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch {}
+    setSaving(false);
+  }
+
+  function set<K extends string>(key: K, value: string) {
+    setForm((prev: any) => ({ ...prev, [key]: value }));
+  }
+
+  if (loading) {
+    return (
+      <DashboardShell>
+        <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+      </DashboardShell>
+    );
   }
 
   return (
@@ -33,15 +69,15 @@ export default function SuperAdminSettingsPage() {
             <div className="grid grid-cols-2 gap-4 p-4 rounded-lg border bg-muted/20">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Platform Name</label>
-                <Input defaultValue="Oryn" />
+                <Input value={form.platformName || ""} onChange={(e) => set("platformName", e.target.value)} />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Support Email</label>
-                <Input type="email" defaultValue="support@oryn.com" />
+                <Input type="email" value={form.supportEmail || ""} onChange={(e) => set("supportEmail", e.target.value)} />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Default Locale</label>
-                <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm">
+                <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" value={form.defaultLocale || "en"} onChange={(e) => set("defaultLocale", e.target.value)}>
                   <option value="en">English</option>
                   <option value="es">Spanish</option>
                   <option value="fr">French</option>
@@ -50,7 +86,7 @@ export default function SuperAdminSettingsPage() {
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Timezone</label>
-                <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm">
+                <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" value={form.timezone || "UTC"} onChange={(e) => set("timezone", e.target.value)}>
                   <option value="UTC">UTC</option>
                   <option value="EST">Eastern (EST)</option>
                   <option value="PST">Pacific (PST)</option>
@@ -67,19 +103,19 @@ export default function SuperAdminSettingsPage() {
             <div className="grid grid-cols-2 gap-4 p-4 rounded-lg border bg-muted/20">
               <div className="space-y-2">
                 <label className="text-sm font-medium">SMTP Host</label>
-                <Input defaultValue="smtp.sendgrid.net" />
+                <Input value={form.smtpHost || ""} onChange={(e) => set("smtpHost", e.target.value)} />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">SMTP Port</label>
-                <Input defaultValue="587" />
+                <Input value={form.smtpPort || ""} onChange={(e) => set("smtpPort", e.target.value)} />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">From Name</label>
-                <Input defaultValue="Oryn CRM" />
+                <Input value={form.fromName || ""} onChange={(e) => set("fromName", e.target.value)} />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">From Email</label>
-                <Input type="email" defaultValue="noreply@oryn.com" />
+                <Input type="email" value={form.fromEmail || ""} onChange={(e) => set("fromEmail", e.target.value)} />
               </div>
             </div>
           </section>
@@ -92,7 +128,7 @@ export default function SuperAdminSettingsPage() {
             <div className="grid grid-cols-2 gap-4 p-4 rounded-lg border bg-muted/20">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Password Policy</label>
-                <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm">
+                <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" value={form.passwordPolicy || "standard"} onChange={(e) => set("passwordPolicy", e.target.value)}>
                   <option value="standard">Standard (8+ chars)</option>
                   <option value="strong">Strong (12+ chars, special)</option>
                   <option value="strict">Strict (16+ chars, 2FA required)</option>
@@ -100,7 +136,7 @@ export default function SuperAdminSettingsPage() {
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Session Timeout</label>
-                <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm">
+                <select className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" value={form.sessionTimeout || "60"} onChange={(e) => set("sessionTimeout", e.target.value)}>
                   <option value="30">30 minutes</option>
                   <option value="60">1 hour</option>
                   <option value="240">4 hours</option>
@@ -109,18 +145,18 @@ export default function SuperAdminSettingsPage() {
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Rate Limit (req/min)</label>
-                <Input type="number" defaultValue="100" />
+                <Input type="number" value={form.rateLimit || "100"} onChange={(e) => set("rateLimit", e.target.value)} />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Max Login Attempts</label>
-                <Input type="number" defaultValue="5" />
+                <Input type="number" value={form.maxLoginAttempts || "5"} onChange={(e) => set("maxLoginAttempts", e.target.value)} />
               </div>
             </div>
           </section>
 
           <div className="flex items-center gap-3">
-            <Button type="submit">
-              <Save className="mr-2 h-4 w-4" /> Save Settings
+            <Button type="submit" disabled={saving}>
+              <Save className="mr-2 h-4 w-4" /> {saving ? "Saving..." : "Save Settings"}
             </Button>
             {saved && <Badge variant="success">Saved successfully</Badge>}
           </div>

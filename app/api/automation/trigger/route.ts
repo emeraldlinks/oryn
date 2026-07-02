@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
@@ -9,7 +9,6 @@ export async function POST(req: Request) {
 
   const body = await req.json();
   const { triggerType, entityId, entityData } = body;
-  const db = await initDb();
   const wsId = Number(session.user.workspaceId);
 
   const workflows = await db.Workflow.query()

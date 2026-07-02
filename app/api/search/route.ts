@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
@@ -11,7 +11,6 @@ export async function GET(req: Request) {
   const q = searchParams.get("q");
   if (!q || q.length < 2) return NextResponse.json({ results: [] });
 
-  const db = await initDb();
   const wsId = Number(session.user.workspaceId);
   const query = `%${q}%`;
 

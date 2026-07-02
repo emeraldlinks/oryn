@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
@@ -11,7 +11,6 @@ export async function GET(req: Request) {
   const contactId = searchParams.get("contactId");
   const wsId = Number(session.user.workspaceId);
 
-  const db = await initDb();
   let query = db.CLVCalculation.query().where("workspaceId", "=", wsId);
 
   if (contactId) {
@@ -41,7 +40,6 @@ export async function POST(req: Request) {
 
   const clv = Math.round(averageOrderValue * purchaseFrequency * customerLifespan * 100) / 100;
 
-  const db = await initDb();
   const calculation = await db.CLVCalculation.insert({
     workspaceId: wsId,
     contactId: contactId ? Number(contactId) : null,
@@ -63,7 +61,6 @@ export async function DELETE(req: Request) {
   const id = searchParams.get("id");
   if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-  const db = await initDb();
   await db.CLVCalculation.delete({ id: Number(id), workspaceId: Number(session.user.workspaceId) });
 
   return NextResponse.json({ success: true });

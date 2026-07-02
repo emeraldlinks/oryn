@@ -2,7 +2,7 @@
 export interface ChatMessage {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @nullable;length:100
@@ -21,6 +21,7 @@ export interface ChatMessage {
   sender: string;
  // @nullable
   readAt?: string;
-  createdAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
 }

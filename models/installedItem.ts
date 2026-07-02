@@ -5,7 +5,7 @@ import type { Workspace } from "./workspace";
 export interface InstalledItem {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -16,8 +16,8 @@ export interface InstalledItem {
   active: boolean;
  // @nullable
   installedById?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

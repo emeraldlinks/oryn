@@ -4,7 +4,7 @@ import type { User } from "./user";
 export interface MarketplaceReview {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   listingId: number;
  // @index;not null
@@ -13,8 +13,8 @@ export interface MarketplaceReview {
   rating: number;
  // @nullable
   content?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:MarketplaceListing;foreignKey:listingId;onDelete:CASCADE
   listing?: MarketplaceListing;

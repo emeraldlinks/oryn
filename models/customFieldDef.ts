@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface CustomFieldDef {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @enum:(contact,deal,ticket,order,product,lead);not null
@@ -18,8 +18,8 @@ export interface CustomFieldDef {
   required: boolean;
  // @default:0
   sortOrder: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

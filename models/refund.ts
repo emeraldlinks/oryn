@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface Refund {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -18,8 +18,8 @@ export interface Refund {
   status: string;
  // @nullable
   processedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

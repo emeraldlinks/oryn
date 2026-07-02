@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface SocialMention {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:100;not null
@@ -21,8 +21,8 @@ export interface SocialMention {
   postUrl?: string;
  // @default:unread;enum:(unread,read,replied,ignored)
   status: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

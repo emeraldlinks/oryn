@@ -6,7 +6,7 @@ import type { Workspace } from "./workspace";
 export interface Project {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:200;not null
@@ -27,8 +27,8 @@ export interface Project {
   tags?: string[];
  // @nullable
   completedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
  // @softDelete
   deletedAt?: string;
 

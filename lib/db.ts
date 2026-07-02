@@ -129,7 +129,53 @@ export type { MarketplaceReview } from "../models/marketplaceReview";
 export type { InstalledItem } from "../models/installedItem";
 export type { Plugin } from "../models/plugin";
 export type { PluginExtension } from "../models/pluginExtension";
-
+export type { PaystackPayment } from "../models/paystackPayment";
+export type { JobPosting } from "../models/jobPosting";
+export type { Candidate } from "../models/candidate";
+export type { JobApplication } from "../models/jobApplication";
+export type { Interview } from "../models/interview";
+export type { OfferLetter } from "../models/offerLetter";
+export type { HiringMetric } from "../models/hiringMetric";
+export type { HiringStage } from "../models/hiringStage";
+export type { StaffDepartment } from "../models/staffDepartment";
+export type { StaffPosition } from "../models/staffPosition";
+export type { StaffShift } from "../models/staffShift";
+export type { StaffSchedule } from "../models/staffSchedule";
+export type { StaffTimesheet } from "../models/staffTimesheet";
+export type { StaffAttendanceRecord } from "../models/staffAttendanceRecord";
+export type { StaffLeaveType } from "../models/staffLeaveType";
+export type { StaffLeaveRequest } from "../models/staffLeaveRequest";
+export type { StaffPerformanceReview } from "../models/staffPerformanceReview";
+export type { StaffGoal } from "../models/staffGoal";
+export type { StaffTrainingCourse } from "../models/staffTrainingCourse";
+export type { StaffTrainingEnrollment } from "../models/staffTrainingEnrollment";
+export type { StaffCertification } from "../models/staffCertification";
+export type { StaffSkill } from "../models/staffSkill";
+export type { StaffEmployeeSkill } from "../models/staffEmployeeSkill";
+export type { StaffDocument } from "../models/staffDocument";
+export type { StaffComplianceItem } from "../models/staffComplianceItem";
+export type { StaffDisciplinaryAction } from "../models/staffDisciplinaryAction";
+export type { StaffExpenseReport } from "../models/staffExpenseReport";
+export type { InventoryWarehouse } from "../models/inventoryWarehouse";
+export type { InventoryCategory } from "../models/inventoryCategory";
+export type { InventoryBrand } from "../models/inventoryBrand";
+export type { InventoryItem } from "../models/inventoryItem";
+export type { InventoryVariant } from "../models/inventoryVariant";
+export type { InventoryStock } from "../models/inventoryStock";
+export type { InventoryMovement } from "../models/inventoryMovement";
+export type { InventorySupplier } from "../models/inventorySupplier";
+export type { InventoryPurchaseOrder } from "../models/inventoryPurchaseOrder";
+export type { InventoryPurchaseOrderItem } from "../models/inventoryPurchaseOrderItem";
+export type { InventoryGoodsReceivedNote } from "../models/inventoryGoodsReceivedNote";
+export type { InventoryStockTransfer } from "../models/inventoryStockTransfer";
+export type { InventoryStockCount } from "../models/inventoryStockCount";
+export type { InventoryReorderRule } from "../models/inventoryReorderRule";
+export type { InventoryBatch } from "../models/inventoryBatch";
+export type { InventoryReturn } from "../models/inventoryReturn";
+export type { InventoryCostHistory } from "../models/inventoryCostHistory";
+export type { Task } from "../models/task";
+export type { DepartmentModule } from "../models/departmentModule";
+export type { DepartmentModuleAssignment } from "../models/departmentModuleAssignment";
 
 export type { ModelMap } from "../models/schema/generated";
 
@@ -146,7 +192,7 @@ export function getDb(): DBStore<ModelMap> {
   throw new Error("Database not initialized. Call initDb() first.");
 }
 
-export async function initDb() {
+export function initDb() {
   if (cachedDb) return cachedDb;
 
   const orm = new ORMManager<ModelMap>({
@@ -160,18 +206,15 @@ export async function initDb() {
 
   registerModels(orm);
 
-  // if (process.env.NODE_ENV !== "edge") {
-  //   await orm.migrate();
-  // }
-
   cachedDb = orm.DB;
   return cachedDb;
 }
 
+export const db = initDb();
+
 export async function withDb<T>(
   fn: (db: DBStore<ModelMap>) => Promise<T>
 ): Promise<T> {
-  const db = await initDb();
   return fn(db);
 }
 
@@ -192,27 +235,3 @@ export function defineHooks<
     },
   };
 }
-
-
-async function testdb() {
-console.log("Testing database connection and operations...");
-await initDb();
-  const ng = await cachedDb.ABTest.insert({
-    name: "Test AB Test",
-    description: "This is a test AB test",
-    workspaceId: 1,
-    status: "draft",
-    variants: { "variantA": "some value", "variantB": "another value" },
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  });
-  console.log("Inserted ABTest:", ng);
-  console.log("Inserted ABTest:", ng);
-
-  const fetched = await cachedDb.ABTest.get({ id: ng?.id! });
-  console.log("Fetched ABTest:", fetched);
-}
-  
-testdb().catch((err) => {
-  console.error("Error in testdb:", err);
-});

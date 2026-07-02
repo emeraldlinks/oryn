@@ -4,7 +4,7 @@ import type { User } from "./user";
 export interface TicketMessage {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   ticketId: number;
  // @nullable;index
@@ -12,8 +12,8 @@ export interface TicketMessage {
   body: string;
  // @default:false
   isFromClient: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Ticket;foreignKey:ticketId;onDelete:CASCADE
   ticket?: Ticket;

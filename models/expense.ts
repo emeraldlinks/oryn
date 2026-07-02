@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface Expense {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:200;not null
@@ -22,8 +22,8 @@ export interface Expense {
   receiptUrl?: string;
  // @nullable
   reimbursedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

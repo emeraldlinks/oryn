@@ -5,7 +5,7 @@ import type { Workspace } from "./workspace";
 export interface Branch {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:100;not null
@@ -20,8 +20,8 @@ export interface Branch {
   phone?: string;
  // @nullable;index
   managerId?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

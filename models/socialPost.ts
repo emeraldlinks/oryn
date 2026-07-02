@@ -4,7 +4,7 @@ import type { SocialReply } from "./socialReply";
 export interface SocialPost {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -28,8 +28,8 @@ export interface SocialPost {
   shares?: number;
  // @default:0
   reach?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:SocialAccount;foreignKey:socialAccountId;onDelete:CASCADE
   account?: SocialAccount;

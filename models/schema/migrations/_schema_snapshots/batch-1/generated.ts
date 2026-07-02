@@ -4,14 +4,14 @@
 // Source Hash: 53aa0c2458e29867
 
 export interface Workspace {
-  id: number;
+  id?: number;
   name: string;
   slug: string;
   plan: string;
   active: boolean;
   settings?: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   deletedAt?: string;
   users?: User[];
   branches?: Branch[];
@@ -23,7 +23,7 @@ export interface Workspace {
 }
 
 export interface User {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   email: string;
@@ -32,8 +32,8 @@ export interface User {
   avatarUrl?: string;
   lastLoginAt?: string;
   preferences?: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   deletedAt?: string;
   workspace?: Workspace;
   activities?: Activity[];
@@ -44,7 +44,7 @@ export interface User {
 }
 
 export interface Branch {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   address?: string;
@@ -52,15 +52,15 @@ export interface Branch {
   country: string;
   phone?: string;
   managerId?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   manager?: User;
   employees?: Employee[];
 }
 
 export interface Contact {
-  id: number;
+  id?: number;
   workspaceId: number;
   firstName: string;
   lastName: string;
@@ -75,8 +75,8 @@ export interface Contact {
   customFields?: Record <string ,unknown >;
   lastContactedAt?: string;
   dealScore?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   deletedAt?: string;
   workspace?: Workspace;
   assignee?: User;
@@ -90,7 +90,7 @@ export interface Contact {
 }
 
 export interface Deal {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId: number;
   title: string;
@@ -105,8 +105,8 @@ export interface Deal {
   lostAt?: string;
   lostReason?: string;
   notes?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   deletedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
@@ -116,7 +116,7 @@ export interface Deal {
 }
 
 export interface Activity {
-  id: number;
+  id?: number;
   workspaceId: number;
   type: string;
   subject: string;
@@ -126,8 +126,8 @@ export interface Activity {
   userId: number;
   dueAt?: string;
   completedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
   deal?: Deal;
@@ -135,7 +135,7 @@ export interface Activity {
 }
 
 export interface Product {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   sku?: string;
@@ -146,15 +146,15 @@ export interface Product {
   category?: string;
   imageUrl?: string;
   isService: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   deletedAt?: string;
   workspace?: Workspace;
   orderItems?: OrderItem[];
 }
 
 export interface Order {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId: number;
   status: string;
@@ -162,8 +162,8 @@ export interface Order {
   currency: string;
   paidAt?: string;
   branchId?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
   items?: OrderItem[];
@@ -171,19 +171,19 @@ export interface Order {
 }
 
 export interface OrderItem {
-  id: number;
+  id?: number;
   orderId: number;
   productId: number;
   quantity: number;
   unitPrice: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   order?: Order;
   product?: Product;
 }
 
 export interface Invoice {
-  id: number;
+  id?: number;
   workspaceId: number;
   orderId?: number;
   contactId: number;
@@ -193,15 +193,15 @@ export interface Invoice {
   paidAt?: string;
   pdfUrl?: string;
   invoiceNumber?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   order?: Order;
   contact?: Contact;
 }
 
 export interface Employee {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId: number;
   branchId?: number;
@@ -209,8 +209,8 @@ export interface Employee {
   jobTitle?: string;
   salary?: number;
   startDate?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   deletedAt?: string;
   workspace?: Workspace;
   user?: User;
@@ -220,18 +220,18 @@ export interface Employee {
 }
 
 export interface Attendance {
-  id: number;
+  id?: number;
   employeeId: number;
   clockedInAt: string;
   clockedOutAt?: string;
   notes?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   employee?: Employee;
 }
 
 export interface LeaveRequest {
-  id: number;
+  id?: number;
   employeeId: number;
   type: string;
   startDate: string;
@@ -239,14 +239,14 @@ export interface LeaveRequest {
   status: string;
   reason?: string;
   approvedBy?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   employee?: Employee;
   approver?: User;
 }
 
 export interface EmailCampaign {
-  id: number;
+  id?: number;
   workspaceId: number;
   templateId?: number;
   name: string;
@@ -259,28 +259,28 @@ export interface EmailCampaign {
   openCount?: number;
   clickCount?: number;
   targetFilters?: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   template?: EmailTemplate;
 }
 
 export interface EmailTemplate {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   subject: string;
   bodyHtml: string;
   variables?: string[];
   status: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   campaigns?: EmailCampaign[];
 }
 
 export interface LandingPage {
-  id: number;
+  id?: number;
   workspaceId: number;
   slug: string;
   title: string;
@@ -288,37 +288,37 @@ export interface LandingPage {
   published: boolean;
   views?: number;
   conversions?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface Form {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   fieldsJson: Record <string ,unknown >;
   submissions?: number;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   submissionsList?: FormSubmission[];
 }
 
 export interface FormSubmission {
-  id: number;
+  id?: number;
   formId: number;
   data: Record <string ,unknown >;
   contactId?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   form?: Form;
   contact?: Contact;
 }
 
 export interface SocialAccount {
-  id: number;
+  id?: number;
   workspaceId: number;
   platform: string;
   accountName: string;
@@ -327,15 +327,15 @@ export interface SocialAccount {
   expiresAt?: string;
   profileImageUrl?: string;
   connectedAt: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   posts?: SocialPost[];
   adCampaigns?: AdCampaign[];
 }
 
 export interface SocialPost {
-  id: number;
+  id?: number;
   workspaceId: number;
   socialAccountId: number;
   content: string;
@@ -348,27 +348,27 @@ export interface SocialPost {
   comments?: number;
   shares?: number;
   reach?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   account?: SocialAccount;
   replies?: SocialReply[];
 }
 
 export interface SocialReply {
-  id: number;
+  id?: number;
   socialPostId: number;
   platformCommentId: string;
   authorName: string;
   content: string;
   repliedContent?: string;
   repliedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   post?: SocialPost;
 }
 
 export interface AdCampaign {
-  id: number;
+  id?: number;
   workspaceId: number;
   socialAccountId: number;
   platformCampaignId?: string;
@@ -382,27 +382,27 @@ export interface AdCampaign {
   conversions?: number;
   startDate: string;
   endDate?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   socialAccount?: SocialAccount;
 }
 
 export interface WordpressSite {
-  id: number;
+  id?: number;
   workspaceId: number;
   siteUrl: string;
   appUsername: string;
   appPassword: string;
   siteName?: string;
   connectedAt: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   posts?: WordpressPost[];
 }
 
 export interface WordpressPost {
-  id: number;
+  id?: number;
   wordpressSiteId: number;
   platformPostId?: number;
   title: string;
@@ -413,13 +413,13 @@ export interface WordpressPost {
   categories?: string[];
   tags?: string[];
   featuredImageUrl?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   site?: WordpressSite;
 }
 
 export interface Message {
-  id: number;
+  id?: number;
   workspaceId: number;
   channel: string;
   direction: string;
@@ -431,14 +431,14 @@ export interface Message {
   status: string;
   sentAt?: string;
   readAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
 }
 
 export interface Call {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId?: number;
   userId: number;
@@ -449,15 +449,15 @@ export interface Call {
   transcript?: string;
   sentiment?: string;
   notes?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
   user?: User;
 }
 
 export interface Meeting {
-  id: number;
+  id?: number;
   workspaceId: number;
   title: string;
   contactId?: number;
@@ -468,8 +468,8 @@ export interface Meeting {
   meetingUrl?: string;
   notes?: string;
   status: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
   deal?: Deal;
@@ -477,7 +477,7 @@ export interface Meeting {
 }
 
 export interface Ticket {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId: number;
   subject: string;
@@ -485,8 +485,8 @@ export interface Ticket {
   priority: string;
   assignedTo?: number;
   resolvedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   deletedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
@@ -495,19 +495,19 @@ export interface Ticket {
 }
 
 export interface TicketMessage {
-  id: number;
+  id?: number;
   ticketId: number;
   userId?: number;
   body: string;
   isFromClient: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   ticket?: Ticket;
   user?: User;
 }
 
 export interface Document {
-  id: number;
+  id?: number;
   workspaceId: number;
   title: string;
   type: string;
@@ -517,15 +517,15 @@ export interface Document {
   dealId?: number;
   status: string;
   signedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
   deal?: Deal;
 }
 
 export interface Notification {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId: number;
   type: string;
@@ -533,28 +533,28 @@ export interface Notification {
   body: string;
   readAt?: string;
   meta?: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface AuditLog {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId?: number;
   action: string;
   entity: string;
   entityId?: number;
   meta?: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface CustomFieldDef {
-  id: number;
+  id?: number;
   workspaceId: number;
   entityType: string;
   fieldName: string;
@@ -562,26 +562,26 @@ export interface CustomFieldDef {
   options?: string[];
   required: boolean;
   sortOrder: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface CustomFieldValue {
-  id: number;
+  id?: number;
   workspaceId: number;
   entityType: string;
   entityId: number;
   fieldDefId: number;
   value?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   fieldDef?: CustomFieldDef;
 }
 
 export interface Workflow {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   triggerType: string;
@@ -589,13 +589,13 @@ export interface Workflow {
   actions: Record <string ,unknown >;
   active: boolean;
   runCount: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface EmailSync {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId: number;
   provider: string;
@@ -605,14 +605,14 @@ export interface EmailSync {
   email: string;
   lastSyncedAt?: string;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface LiveChatSettings {
-  id: number;
+  id?: number;
   workspaceId: number;
   enabled: boolean;
   widgetColor?: string;
@@ -620,13 +620,13 @@ export interface LiveChatSettings {
   awayMessage?: string;
   collectEmail: boolean;
   showAgentNames: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface ChatMessage {
-  id: number;
+  id?: number;
   workspaceId: number;
   visitorId?: string;
   visitorName?: string;
@@ -636,12 +636,12 @@ export interface ChatMessage {
   body: string;
   sender: string;
   readAt?: string;
-  createdAt: string;
+  createdAt?: string;
   updatedAt?: string;
 }
 
 export interface Project {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   description?: string;
@@ -652,8 +652,8 @@ export interface Project {
   endDate?: string;
   tags?: string[];
   completedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   deletedAt?: string;
   workspace?: Workspace;
   owner?: User;
@@ -662,7 +662,7 @@ export interface Project {
 }
 
 export interface ProjectTask {
-  id: number;
+  id?: number;
   projectId: number;
   workspaceId: number;
   title: string;
@@ -677,8 +677,8 @@ export interface ProjectTask {
   parentTaskId?: number;
   sortOrder: number;
   completedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   deletedAt?: string;
   workspace?: Workspace;
   project?: Project;
@@ -689,7 +689,7 @@ export interface ProjectTask {
 }
 
 export interface ProjectMilestone {
-  id: number;
+  id?: number;
   projectId: number;
   workspaceId: number;
   name: string;
@@ -697,14 +697,14 @@ export interface ProjectMilestone {
   dueDate: string;
   status: string;
   completedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   project?: Project;
   tasks?: ProjectTask[];
 }
 
 export interface Bot {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   channel: string;
@@ -714,13 +714,13 @@ export interface Bot {
   config?: Record <string ,unknown >;
   active: boolean;
   totalConversations: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface WidgetSettings {
-  id: number;
+  id?: number;
   workspaceId: number;
   enabled: boolean;
   primaryColor: string;
@@ -733,14 +733,14 @@ export interface WidgetSettings {
   allowedDomains?: string[];
   customCss?: string;
   position?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   defaultBot?: Bot;
 }
 
 export interface AIApiKey {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId?: number;
   provider: string;
@@ -748,28 +748,28 @@ export interface AIApiKey {
   scope: string;
   active: boolean;
   lastUsedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface AIConversation {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId: number;
   title: string;
   messages: Record <string ,unknown >;
   provider: string;
   status: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface AIAction {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId: number;
   conversationId?: number;
@@ -779,8 +779,8 @@ export interface AIAction {
   result?: Record <string ,unknown >;
   status: string;
   errorMessage?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
   conversation?: AIConversation;
@@ -788,7 +788,7 @@ export interface AIAction {
 }
 
 export interface BotConnection {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId: number;
   name: string;
@@ -801,8 +801,8 @@ export interface BotConnection {
   expiresAt?: string;
   allowedActions?: string[];
   totalRequests: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   deletedAt?: string;
   workspace?: Workspace;
   owner?: User;
@@ -810,48 +810,48 @@ export interface BotConnection {
 }
 
 export interface HealthScore {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId: number;
   score: number;
   category?: string;
   notes?: string;
   factors?: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
 }
 
 export interface NPSResponse {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId: number;
   score: number;
   comment?: string;
   surveyId?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
 }
 
 export interface CSATResponse {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId: number;
   ticketId?: number;
   score: number;
   comment?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
   ticket?: Ticket;
 }
 
 export interface OnboardingTask {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId: number;
   title: string;
@@ -861,42 +861,42 @@ export interface OnboardingTask {
   completedAt?: string;
   assignedTo?: number;
   sortOrder: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
   assignee?: User;
 }
 
 export interface ChurnPrediction {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId: number;
   riskScore: number;
   riskLevel: string;
   factors?: Record <string ,unknown >;
   predictedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
 }
 
 export interface SalesPipeline {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   stages: Record <string ,unknown >;
   isDefault: boolean;
   active: boolean;
   sortOrder: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface SalesGoal {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId: number;
   targetAmount: number;
@@ -906,14 +906,14 @@ export interface SalesGoal {
   achievedAmount: number;
   startDate?: string;
   endDate?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface CommissionPlan {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   rateType: string;
@@ -922,13 +922,13 @@ export interface CommissionPlan {
   maxDealValue?: number;
   tiers?: Record <string ,unknown >;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface CommissionEarning {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId: number;
   dealId: number;
@@ -936,8 +936,8 @@ export interface CommissionEarning {
   amount: number;
   status: string;
   paidAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
   deal?: Deal;
@@ -945,7 +945,7 @@ export interface CommissionEarning {
 }
 
 export interface Quote {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId: number;
   quoteNumber: string;
@@ -960,15 +960,15 @@ export interface Quote {
   acceptedAt?: string;
   notes?: string;
   terms?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
   lineItems?: QuoteLineItem[];
 }
 
 export interface QuoteLineItem {
-  id: number;
+  id?: number;
   quoteId: number;
   productId: number;
   quantity: number;
@@ -977,14 +977,14 @@ export interface QuoteLineItem {
   discountAmount: number;
   total: number;
   description?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   quote?: Quote;
   product?: Product;
 }
 
 export interface ProductDiscount {
-  id: number;
+  id?: number;
   workspaceId: number;
   productId?: number;
   name: string;
@@ -995,26 +995,26 @@ export interface ProductDiscount {
   startDate?: string;
   endDate?: string;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   product?: Product;
 }
 
 export interface Territory {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   regions?: Record <string ,unknown >;
   managerId?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   manager?: User;
 }
 
 export interface Subscription {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId: number;
   planId: number;
@@ -1025,8 +1025,8 @@ export interface Subscription {
   amount: number;
   currency: string;
   cancelledAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
   plan?: SubscriptionPlan;
@@ -1034,7 +1034,7 @@ export interface Subscription {
 }
 
 export interface SubscriptionPlan {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   description?: string;
@@ -1043,20 +1043,20 @@ export interface SubscriptionPlan {
   billingCycle: string;
   features?: string[];
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   subscriptions?: Subscription[];
 }
 
 export interface SubscriptionInvoice {
-  id: number;
+  id?: number;
   subscriptionId: number;
   invoiceId: number;
   periodStart: string;
   periodEnd: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   subscription?: Subscription;
   invoice?: Invoice;
 }
@@ -1072,37 +1072,37 @@ export interface ABTest {
   startedAt?: string;
   completedAt?: string;
   winner?: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface MarketingSegment {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   filters: Record <string ,unknown >;
   contactCount: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface LeadScoreRule {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   entityType: string;
   conditions: Record <string ,unknown >;
   scoreValue: number;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface MarketingJourney {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   description?: string;
@@ -1113,13 +1113,13 @@ export interface MarketingJourney {
   completedAt?: string;
   totalEntered: number;
   totalConverted: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface SMSCampaign {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   body: string;
@@ -1129,13 +1129,13 @@ export interface SMSCampaign {
   recipientCount: number;
   deliveredCount: number;
   targetFilters?: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface PushNotification {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId: number;
   title: string;
@@ -1144,14 +1144,14 @@ export interface PushNotification {
   status: string;
   sentAt?: string;
   readAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface SocialMention {
-  id: number;
+  id?: number;
   workspaceId: number;
   platform: string;
   authorName: string;
@@ -1161,13 +1161,13 @@ export interface SocialMention {
   sentiment?: string;
   postUrl?: string;
   status: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface UTMLink {
-  id: number;
+  id?: number;
   workspaceId: number;
   sourceUrl: string;
   targetUrl: string;
@@ -1177,13 +1177,13 @@ export interface UTMLink {
   content?: string;
   term?: string;
   clicks: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface SEOConfig {
-  id: number;
+  id?: number;
   workspaceId: number;
   pageId: number;
   metaTitle?: string;
@@ -1193,14 +1193,14 @@ export interface SEOConfig {
   canonicalUrl?: string;
   noIndex: boolean;
   structuredData?: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   page?: LandingPage;
 }
 
 export interface KnowledgeArticle {
-  id: number;
+  id?: number;
   workspaceId: number;
   title: string;
   bodyHtml: string;
@@ -1210,26 +1210,26 @@ export interface KnowledgeArticle {
   views: number;
   helpfulCount: number;
   notHelpfulCount: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface FAQItem {
-  id: number;
+  id?: number;
   workspaceId: number;
   question: string;
   bodyHtml: string;
   category?: string;
   sortOrder: number;
   published: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface ForumTopic {
-  id: number;
+  id?: number;
   workspaceId: number;
   title: string;
   authorId?: number;
@@ -1237,26 +1237,26 @@ export interface ForumTopic {
   views: number;
   status: string;
   pinned: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   author?: User;
 }
 
 export interface ForumPost {
-  id: number;
+  id?: number;
   topicId: number;
   authorId?: number;
   bodyHtml: string;
   isSolution: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   topic?: ForumTopic;
   author?: User;
 }
 
 export interface SLAPolicy {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   responseTimeMinutes: number;
@@ -1264,49 +1264,49 @@ export interface SLAPolicy {
   conditions?: Record <string ,unknown >;
   escalationRules?: Record <string ,unknown >;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface CannedResponse {
-  id: number;
+  id?: number;
   workspaceId: number;
   title: string;
   bodyHtml: string;
   shortcuts?: string[];
   category?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface Macro {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   actions: Record <string ,unknown >;
   description?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface EscalationRule {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   triggerType: string;
   conditions: Record <string ,unknown >;
   actions: Record <string ,unknown >;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface Asset {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId?: number;
   name: string;
@@ -1315,51 +1315,51 @@ export interface Asset {
   warrantyEnd?: string;
   value?: number;
   metadata?: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
 }
 
 export interface WorkflowTemplate {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   description?: string;
   definition: Record <string ,unknown >;
   category?: string;
   usageCount: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface WorkflowVersion {
-  id: number;
+  id?: number;
   workflowId: number;
   version: number;
   definition: Record <string ,unknown >;
   notes?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workflow?: Workflow;
 }
 
 export interface CustomDashboard {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   description?: string;
   widgets: Record <string ,unknown >;
   sortOrder: number;
   shared: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface ScheduledReport {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   config: Record <string ,unknown >;
@@ -1367,25 +1367,25 @@ export interface ScheduledReport {
   recipients?: string[];
   active: boolean;
   lastSentAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface CohortData {
-  id: number;
+  id?: number;
   workspaceId: number;
   cohortDate: string;
   period: string;
   userCount: number;
   retentionData: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface CLVCalculation {
-  id: number;
+  id?: number;
   workspaceId: number;
   contactId?: number;
   averageOrderValue: number;
@@ -1393,26 +1393,26 @@ export interface CLVCalculation {
   customerLifespan: number;
   clv: number;
   calculatedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   contact?: Contact;
 }
 
 export interface TwoFactorSetting {
-  id: number;
+  id?: number;
   userId: number;
   enabled: boolean;
   secret?: string;
   backupCodes?: string[];
   verifiedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   user?: User;
 }
 
 export interface UserDevice {
-  id: number;
+  id?: number;
   userId: number;
   deviceName: string;
   deviceType: string;
@@ -1420,24 +1420,24 @@ export interface UserDevice {
   ipAddress: string;
   lastUsedAt?: string;
   trusted: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   user?: User;
 }
 
 export interface IPAllowlistEntry {
-  id: number;
+  id?: number;
   workspaceId: number;
   ipAddress: string;
   description?: string;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface WebhookEndpoint {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   url: string;
@@ -1446,13 +1446,13 @@ export interface WebhookEndpoint {
   active: boolean;
   successCount: number;
   failureCount: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface OAuthApp {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   redirectUris: string;
@@ -1460,13 +1460,13 @@ export interface OAuthApp {
   clientSecret: string;
   scopes?: string[];
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface APILogEntry {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId?: number;
   method: string;
@@ -1474,14 +1474,14 @@ export interface APILogEntry {
   statusCode: number;
   durationMs?: number;
   ipAddress?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface InternalComment {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId: number;
   entityType: string;
@@ -1489,40 +1489,40 @@ export interface InternalComment {
   bodyHtml: string;
   mentions?: number[];
   editedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface SharedNote {
-  id: number;
+  id?: number;
   workspaceId: number;
   title: string;
   bodyHtml: string;
   sharedWith?: number[];
   createdBy?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   creator?: User;
 }
 
 export interface Whiteboard {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   data: Record <string ,unknown >;
   participants?: number[];
   createdBy?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   creator?: User;
 }
 
 export interface Expense {
-  id: number;
+  id?: number;
   workspaceId: number;
   description: string;
   amount: number;
@@ -1532,14 +1532,14 @@ export interface Expense {
   userId?: number;
   receiptUrl?: string;
   reimbursedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface PaymentGateway {
-  id: number;
+  id?: number;
   workspaceId: number;
   provider: string;
   apiKey: string;
@@ -1547,25 +1547,25 @@ export interface PaymentGateway {
   webhookSecret?: string;
   active: boolean;
   isDefault: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface TaxRate {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   rate: number;
   region?: string;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface Refund {
-  id: number;
+  id?: number;
   workspaceId: number;
   invoiceId: number;
   amount: number;
@@ -1573,14 +1573,14 @@ export interface Refund {
   reason: string;
   status: string;
   processedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   invoice?: Invoice;
 }
 
 export interface CalendarEvent {
-  id: number;
+  id?: number;
   workspaceId: number;
   title: string;
   description?: string;
@@ -1593,15 +1593,15 @@ export interface CalendarEvent {
   contactId?: number;
   location?: string;
   externalEventId?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
   contact?: Contact;
 }
 
 export interface BookingLink {
-  id: number;
+  id?: number;
   workspaceId: number;
   slug: string;
   title: string;
@@ -1611,13 +1611,13 @@ export interface BookingLink {
   bufferConfig?: Record <string ,unknown >;
   active: boolean;
   totalBookings: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface CalendarSync {
-  id: number;
+  id?: number;
   workspaceId: number;
   userId: number;
   provider: string;
@@ -1626,14 +1626,14 @@ export interface CalendarSync {
   expiresAt?: string;
   lastSyncedAt?: string;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface BrandingConfig {
-  id: number;
+  id?: number;
   workspaceId: number;
   logoUrl?: string;
   primaryColor?: string;
@@ -1642,13 +1642,13 @@ export interface BrandingConfig {
   customCss?: string;
   customJs?: string;
   companyName?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface CustomDomain {
-  id: number;
+  id?: number;
   workspaceId: number;
   domain: string;
   verified: boolean;
@@ -1656,25 +1656,25 @@ export interface CustomDomain {
   sslEnabled: boolean;
   sslExpiresAt?: string;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface FeatureFlag {
-  id: number;
+  id?: number;
   workspaceId: number;
   key: string;
   enabled: boolean;
   description?: string;
   rules?: Record <string ,unknown >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface BackupRecord {
-  id: number;
+  id?: number;
   workspaceId: number;
   type: string;
   fileUrl?: string;
@@ -1683,37 +1683,37 @@ export interface BackupRecord {
   errorMessage?: string;
   startedAt?: string;
   completedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface DataRetentionPolicy {
-  id: number;
+  id?: number;
   workspaceId: number;
   entityType: string;
   retentionDays: number;
   action: string;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface AuditSetting {
-  id: number;
+  id?: number;
   workspaceId: number;
   enabled: boolean;
   retentionDays: number;
   trackedEvents: string[];
   excludedUsers?: number[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface BackgroundJob {
-  id: number;
+  id?: number;
   workspaceId: number;
   type: string;
   payload?: Record <string ,unknown >;
@@ -1727,14 +1727,14 @@ export interface BackgroundJob {
   completedAt?: string;
   nextRetryAt?: string;
   userId?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   user?: User;
 }
 
 export interface WebhookDelivery {
-  id: number;
+  id?: number;
   workspaceId: number;
   endpointId: number;
   status: string;
@@ -1746,13 +1746,13 @@ export interface WebhookDelivery {
   errorMessage?: string;
   durationMs: number;
   nextRetryAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface EmailDelivery {
-  id: number;
+  id?: number;
   workspaceId: number;
   recipient: string;
   subject: string;
@@ -1764,27 +1764,27 @@ export interface EmailDelivery {
   clickCount: number;
   metadata?: Record <string ,unknown >;
   sentById?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   sentBy?: User;
 }
 
 export interface SystemHealthMetric {
-  id: number;
+  id?: number;
   workspaceId: number;
   metric: string;
   value: number;
   unit?: string;
   tags?: Record <string ,unknown >;
   recordedAt: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface WorkspaceQuota {
-  id: number;
+  id?: number;
   workspaceId: number;
   maxUsers: number;
   maxStorageGb: number;
@@ -1795,25 +1795,25 @@ export interface WorkspaceQuota {
   canUseAPI: boolean;
   canUseAutomation: boolean;
   limits?: Record <string ,number >;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface UsageRecord {
-  id: number;
+  id?: number;
   workspaceId: number;
   entityType: string;
   count: number;
   period: string;
   recordedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface LanguagePack {
-  id: number;
+  id?: number;
   workspaceId: number;
   locale: string;
   name: string;
@@ -1821,28 +1821,28 @@ export interface LanguagePack {
   isRtl: boolean;
   isDefault: boolean;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface TranslationEntry {
-  id: number;
+  id?: number;
   workspaceId: number;
   languagePackId: number;
   key: string;
   value: string;
   namespace?: string;
   approvedById?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   languagePack?: LanguagePack;
   approvedBy?: User;
 }
 
 export interface MarketplaceListing {
-  id: number;
+  id?: number;
   type: string;
   name: string;
   description?: string;
@@ -1859,38 +1859,38 @@ export interface MarketplaceListing {
   featured: boolean;
   categories?: string[];
   tags?: string[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface MarketplaceReview {
-  id: number;
+  id?: number;
   listingId: number;
   userId: number;
   rating: number;
   content?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   listing?: MarketplaceListing;
   user?: User;
 }
 
 export interface InstalledItem {
-  id: number;
+  id?: number;
   workspaceId: number;
   listingId: number;
   settings?: Record <string ,unknown >;
   active: boolean;
   installedById?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
   listing?: MarketplaceListing;
   installedBy?: User;
 }
 
 export interface Plugin {
-  id: number;
+  id?: number;
   workspaceId: number;
   name: string;
   version: string;
@@ -1899,20 +1899,20 @@ export interface Plugin {
   entryPoint?: string;
   enabled: boolean;
   permissions?: string[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   workspace?: Workspace;
 }
 
 export interface PluginExtension {
-  id: number;
+  id?: number;
   pluginId: number;
   extensionType: string;
   name: string;
   config: Record <string ,unknown >;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   plugin?: Plugin;
 }
 

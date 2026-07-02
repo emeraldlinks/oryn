@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const db = await initDb();
   const wsId = Number(session.user.workspaceId);
 
   const sites = await db.WordpressSite.query()
@@ -24,7 +23,6 @@ export async function POST(req: Request) {
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json();
-  const db = await initDb();
 
   const site = await db.WordpressSite.insert({
     ...body,
@@ -43,7 +41,6 @@ export async function DELETE(req: Request) {
   const id = searchParams.get("id");
   if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-  const db = await initDb();
   await db.WordpressSite.delete({ id: Number(id), workspaceId: Number(session.user.workspaceId) });
 
   return NextResponse.json({ success: true });

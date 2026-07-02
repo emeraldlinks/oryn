@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface Product {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:200;not null
@@ -25,8 +25,8 @@ export interface Product {
   imageUrl?: string;
  // @default:false
   isService: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
  // @softDelete
   deletedAt?: string;
 

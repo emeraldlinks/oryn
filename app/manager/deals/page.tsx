@@ -1,49 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DashboardShell } from "@/components/dashboards/dashboard-shell";
 import { BentoGrid } from "@/components/shared/bento-grid";
 import { StatCard } from "@/components/shared/stat-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, DollarSign, TrendingUp, PieChart, Search, Download } from "lucide-react";
+import { ShoppingCart, DollarSign, TrendingUp, PieChart, Search, Loader2 } from "lucide-react";
 
 export default function ManagerDealsPage() {
+  const [deals, setDeals] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<string>("all");
+  const [filter, setFilter] = useState("all");
 
-  const deals = [
-    { id: 1, title: "Acme Corp - Enterprise", company: "Acme Corp", value: "$50,000", stage: "negotiation", owner: "Alice J.", probability: 80, closeDate: "2024-04-15" },
-    { id: 2, title: "TechFlow - Platform", company: "TechFlow Inc", value: "$120,000", stage: "proposal", owner: "Bob S.", probability: 60, closeDate: "2024-05-01" },
-    { id: 3, title: "GlobalTech - Consulting", company: "GlobalTech", value: "$75,000", stage: "qualified", owner: "Carol D.", probability: 40, closeDate: "2024-06-01" },
-    { id: 4, title: "DataFlow - Pipeline", company: "DataFlow Corp", value: "$200,000", stage: "lead", owner: "David L.", probability: 20, closeDate: "2024-07-01" },
-    { id: 5, title: "StartupXYZ - Basic", company: "StartupXYZ", value: "$25,000", stage: "closed-won", owner: "Alice J.", probability: 100, closeDate: "2024-03-15" },
-    { id: 6, title: "NexGen - Suite", company: "NexGen Software", value: "$95,000", stage: "proposal", owner: "Carol D.", probability: 55, closeDate: "2024-05-15" },
-    { id: 7, title: "CloudBase - Migration", company: "CloudBase Inc", value: "$60,000", stage: "qualified", owner: "David L.", probability: 35, closeDate: "2024-06-15" },
-    { id: 8, title: "InnovateLab - Starter", company: "InnovateLab", value: "$30,000", stage: "closed-lost", owner: "Bob S.", probability: 0, closeDate: "2024-03-10" },
-  ];
+  useEffect(() => { loadDeals(); }, []);
+
+  async function loadDeals() {
+    try {
+      const res = await fetch("/api/manager/deals");
+      if (res.ok) setDeals(await res.json());
+    } catch {} finally { setLoading(false); }
+  }
 
   const filtered = deals.filter((d) => {
     if (filter !== "all" && d.stage !== filter) return false;
-    if (search && !d.title.toLowerCase().includes(search.toLowerCase()) && !d.company.toLowerCase().includes(search.toLowerCase())) return false;
+    if (search && !d.title?.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
 
-  const totalValue = deals.reduce((acc, d) => acc + parseInt(d.value.replace(/[^0-9]/g, "")), 0);
-  const weightedValue = deals.reduce((acc, d) => acc + parseInt(d.value.replace(/[^0-9]/g, "")) * d.probability / 100, 0);
-
   const stageColor = (s: string) => {
     switch (s) {
-      case "lead": return "secondary";
-      case "qualified": return "warning";
-      case "proposal": return "default";
-      case "negotiation": return "destructive";
-      case "closed-won": return "success";
-      case "closed-lost": return "destructive";
-      default: return "secondary";
+      case "lead": return "secondary" as const;
+      case "qualified": return "warning" as const;
+      case "proposal": return "default" as const;
+      case "negotiation": return "destructive" as const;
+      case "closed-won": return "success" as const;
+      case "closed-lost": return "destructive" as const;
+      default: return "secondary" as const;
     }
   };
+
+  const totalValue = deals.reduce((a: number, d) => a + (Number(d.value) || 0), 0);
+  const weightedValue = deals.reduce((a: number, d) => a + (Number(d.value) || 0) * (d.probability || 0) / 100, 0);
+
+  if (loading) {
+    return (
+      <DashboardShell>
+        <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+      </DashboardShell>
+    );
+  }
 
   return (
     <DashboardShell>
@@ -59,10 +67,10 @@ export default function ManagerDealsPage() {
         </div>
 
         <BentoGrid>
-          <StatCard title="Total Pipeline" value={`$${(totalValue / 1000).toFixed(0)}K`} icon={ShoppingCart} />
+          <StatCard title="Pipeline" value={`$${(totalValue / 1000).toFixed(0)}K`} icon={ShoppingCart} />
           <StatCard title="Weighted" value={`$${(weightedValue / 1000).toFixed(0)}K`} icon={PieChart} />
-          <StatCard title="Active Deals" value={deals.filter((d) => d.stage !== "closed-won" && d.stage !== "closed-lost").length} icon={TrendingUp} />
-          <StatCard title="Win Rate" value="62.5%" icon={DollarSign} trend={{ value: 5.2, positive: true }} />
+          <StatCard title="Active" value={deals.filter((d) => d.stage !== "closed-won" && d.stage !== "closed-lost").length} icon={TrendingUp} />
+          <StatCard title="Won" value={deals.filter((d) => d.stage === "closed-won").length} icon={DollarSign} />
         </BentoGrid>
 
         <div className="flex items-center gap-4">
@@ -80,23 +88,23 @@ export default function ManagerDealsPage() {
         </div>
 
         <div className="rounded-lg border overflow-hidden">
-          <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 px-4 py-3 bg-muted/30 text-sm font-medium text-muted-foreground">
-            <span>Deal / Company</span>
-            <span>Owner</span>
+          <div className="grid grid-cols-[1fr_auto_auto_auto] gap-4 px-4 py-3 bg-muted/30 text-sm font-medium text-muted-foreground">
+            <span>Deal</span>
             <span>Value</span>
             <span>Prob.</span>
             <span>Stage</span>
           </div>
-          {filtered.map((d) => (
-            <div key={d.id} className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 items-center px-4 py-3 border-t hover:bg-muted/30">
+          {filtered.length === 0 ? (
+            <p className="text-sm text-muted-foreground text-center py-12">No deals found.</p>
+          ) : filtered.map((d) => (
+            <div key={d.id} className="grid grid-cols-[1fr_auto_auto_auto] gap-4 items-center px-4 py-3 border-t hover:bg-muted/30">
               <div>
                 <p className="font-medium">{d.title}</p>
-                <p className="text-xs text-muted-foreground">{d.company} · Close: {d.closeDate}</p>
+                <p className="text-xs text-muted-foreground">{d.expectedClose ? new Date(d.expectedClose).toLocaleDateString() : ""}</p>
               </div>
-              <span className="text-sm">{d.owner}</span>
-              <span className="text-sm font-medium">{d.value}</span>
-              <span className="text-sm">{d.probability}%</span>
-              <Badge variant={stageColor(d.stage) as "destructive" | "warning" | "success" | "secondary" | "default"}>{d.stage}</Badge>
+              <span className="text-sm font-medium">${Number(d.value || 0).toLocaleString()}</span>
+              <span className="text-sm">{d.probability || 0}%</span>
+              <Badge variant={stageColor(d.stage)}>{d.stage}</Badge>
             </div>
           ))}
         </div>

@@ -1,39 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DashboardShell } from "@/components/dashboards/dashboard-shell";
 import { BentoGrid } from "@/components/shared/bento-grid";
 import { StatCard } from "@/components/shared/stat-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Phone, PhoneCall, PhoneMissed, PhoneIncoming, PhoneOutgoing, Plus, Search, Clock } from "lucide-react";
+import { Phone, PhoneCall, PhoneMissed, PhoneIncoming, PhoneOutgoing, Search, Clock, Loader2 } from "lucide-react";
 
 export default function EmployeeCallsPage() {
+  const [calls, setCalls] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<string>("all");
+  const [filter, setFilter] = useState("all");
 
-  const calls = [
-    { id: 1, contact: "John Smith", company: "Acme Corp", phone: "+1-555-0101", direction: "outgoing", duration: "12:34", date: "Today, 10:30 AM", status: "completed", notes: "Discussed Q2 proposal, follow-up meeting scheduled" },
-    { id: 2, contact: "Sarah Johnson", company: "TechFlow Inc", phone: "+1-555-0102", direction: "incoming", duration: "8:15", date: "Today, 9:00 AM", status: "completed", notes: "Product demo request, sent calendar invite" },
-    { id: 3, contact: "Mike Chen", company: "GlobalTech Solutions", phone: "+1-555-0103", direction: "outgoing", duration: "0:00", date: "Today, 11:00 AM", status: "missed", notes: "" },
-    { id: 4, contact: "Emily Davis", company: "StartupXYZ", phone: "+1-555-0104", direction: "incoming", duration: "5:22", date: "Yesterday, 3:15 PM", status: "completed", notes: "Onboarding questions answered" },
-    { id: 5, contact: "Robert Wilson", company: "DataFlow Corp", phone: "+1-555-0105", direction: "outgoing", duration: "18:45", date: "Yesterday, 1:00 PM", status: "completed", notes: "Requirements gathering, sent proposal" },
-    { id: 6, contact: "Lisa Park", company: "InnovateLab", phone: "+1-555-0106", direction: "outgoing", duration: "0:00", date: "Mar 17, 4:00 PM", status: "missed", notes: "" },
-  ];
+  useEffect(() => { loadCalls(); }, []);
+
+  async function loadCalls() {
+    try {
+      const res = await fetch("/api/employee/calls");
+      if (res.ok) setCalls(await res.json());
+    } catch {} finally { setLoading(false); }
+  }
 
   const filtered = calls.filter((c) => {
     if (filter !== "all" && c.status !== filter) return false;
-    if (search && !c.contact.toLowerCase().includes(search.toLowerCase()) && !c.company.toLowerCase().includes(search.toLowerCase())) return false;
+    if (search && !c.contact?.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
 
-  const totalDuration = calls.filter((c) => c.status === "completed").reduce((acc, c) => {
-    const [m, s] = c.duration.split(":").map(Number);
-    return acc + m * 60 + s;
-  }, 0);
-  const hours = Math.floor(totalDuration / 3600);
-  const mins = Math.floor((totalDuration % 3600) / 60);
+  const totalDuration = calls.filter((c) => c.status === "completed").reduce((acc: number, c) => acc + (c.duration || 0), 0);
+  const hours = Math.floor(totalDuration / 60);
+  const mins = totalDuration % 60;
+
+  if (loading) {
+    return (
+      <DashboardShell>
+        <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+      </DashboardShell>
+    );
+  }
 
   return (
     <DashboardShell>
@@ -52,7 +59,7 @@ export default function EmployeeCallsPage() {
           <StatCard title="Total Calls" value={calls.length} icon={Phone} />
           <StatCard title="Outgoing" value={calls.filter((c) => c.direction === "outgoing" && c.status === "completed").length} icon={PhoneOutgoing} />
           <StatCard title="Incoming" value={calls.filter((c) => c.direction === "incoming" && c.status === "completed").length} icon={PhoneIncoming} />
-          <StatCard title="Talk Time" value={`${hours}h ${mins}m`} icon={Clock} trend={{ value: 8, positive: true }} />
+          <StatCard title="Talk Time" value={`${hours}h ${mins}m`} icon={Clock} />
         </BentoGrid>
 
         <div className="flex items-center gap-4">
@@ -70,7 +77,9 @@ export default function EmployeeCallsPage() {
         </div>
 
         <div className="rounded-lg border overflow-hidden">
-          {filtered.map((c) => (
+          {filtered.length === 0 ? (
+            <p className="text-sm text-muted-foreground text-center py-12">No calls found.</p>
+          ) : filtered.map((c) => (
             <div key={c.id} className="flex items-center justify-between p-4 border-b last:border-0 hover:bg-muted/30">
               <div className="flex items-center gap-4">
                 <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
@@ -85,15 +94,14 @@ export default function EmployeeCallsPage() {
                   )}
                 </div>
                 <div>
-                  <p className="font-medium">{c.contact}</p>
-                  <p className="text-xs text-muted-foreground">{c.company} · {c.phone}</p>
+                  <p className="font-medium">{c.contact || c.contactName || "Unknown"}</p>
                   {c.notes && <p className="text-xs text-muted-foreground mt-0.5">{c.notes}</p>}
                 </div>
               </div>
               <div className="flex items-center gap-4 text-right">
                 <div>
-                  <p className="text-sm">{c.date}</p>
-                  <p className="text-xs text-muted-foreground">{c.duration}</p>
+                  <p className="text-sm">{c.createdAt ? new Date(c.createdAt).toLocaleString() : ""}</p>
+                  <p className="text-xs text-muted-foreground">{c.duration ? `${c.duration} min` : ""}</p>
                 </div>
                 {c.status === "missed" ? (
                   <Badge variant="destructive">Missed</Badge>

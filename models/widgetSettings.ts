@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface WidgetSettings {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @unique;index;not null
   workspaceId: number;
  // @default:true
@@ -29,8 +29,8 @@ export interface WidgetSettings {
   customCss?: string;
  // @length:100;nullable
   position?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation onetoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

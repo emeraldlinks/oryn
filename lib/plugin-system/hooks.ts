@@ -1,4 +1,4 @@
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 
 export type PluginHookType = "onInstall" | "onUninstall" | "onActivate" | "onDeactivate";
 
@@ -8,7 +8,6 @@ export async function executePluginHook(
   hook: PluginHookType
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const db = await initDb();
     const plugin = await db.Plugin.where("workspaceId")
       .equals(workspaceId)
       .and((p: { name: string }) => p.name === pluginName)
@@ -25,8 +24,6 @@ export async function executePluginHook(
     if (!manifest.hooks || !manifest.hooks[hook]) {
       return { success: true };
     }
-
-    console.log(`[Plugin Hooks] Running ${hook} for plugin "${pluginName}"`);
 
     await db.BackgroundJob.add({
       type: "plugin_hook",
@@ -53,7 +50,6 @@ export async function runPluginLifecycle(
   pluginId: number,
   hook: PluginHookType
 ): Promise<void> {
-  const db = await initDb();
   const plugin = await db.Plugin.get(pluginId);
 
   if (!plugin) {

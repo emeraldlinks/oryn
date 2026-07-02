@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface InternalComment {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -18,8 +18,8 @@ export interface InternalComment {
   mentions?: number[];
  // @nullable
   editedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

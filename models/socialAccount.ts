@@ -5,7 +5,7 @@ import type { Workspace } from "./workspace";
 export interface SocialAccount {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @enum:(facebook,instagram,twitter,linkedin,tiktok,youtube);not null
@@ -22,8 +22,8 @@ export interface SocialAccount {
   profileImageUrl?: string;
  // @nullable
   connectedAt: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

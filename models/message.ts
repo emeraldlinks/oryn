@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface Message {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:50;not null
@@ -26,8 +26,8 @@ export interface Message {
   sentAt?: string;
  // @nullable
   readAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

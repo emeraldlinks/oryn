@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 
 export async function GET() {
   const session = await getServerSession(authOptions);
@@ -9,7 +9,6 @@ export async function GET() {
 
   const userId = Number((session.user as any).id);
 
-  const db = await initDb();
   const devices = await db.UserDevice.query()
     .where("userId", "=", userId)
     .orderBy("lastUsedAt", "DESC")
@@ -25,7 +24,6 @@ export async function PUT(req: Request) {
   const body = await req.json();
   const { id, trusted } = body;
 
-  const db = await initDb();
   const device = await db.UserDevice.get({ id: Number(id), userId: Number((session.user as any).id) });
 
   if (!device) return NextResponse.json({ error: "Device not found" }, { status: 404 });
@@ -43,7 +41,6 @@ export async function DELETE(req: Request) {
   const id = searchParams.get("id");
   if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-  const db = await initDb();
   await db.UserDevice.delete({ id: Number(id), userId: Number((session.user as any).id) });
 
   return NextResponse.json({ success: true });

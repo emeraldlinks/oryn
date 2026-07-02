@@ -3,7 +3,7 @@ import type { SocialPost } from "./socialPost";
 export interface SocialReply {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   socialPostId: number;
  // @length:200;not null
@@ -15,8 +15,8 @@ export interface SocialReply {
   repliedContent?: string;
  // @nullable
   repliedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:SocialPost;foreignKey:socialPostId;onDelete:CASCADE
   post?: SocialPost;

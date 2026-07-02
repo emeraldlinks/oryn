@@ -6,7 +6,7 @@ import type { Workspace } from "./workspace";
 export interface Order {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -20,8 +20,8 @@ export interface Order {
   paidAt?: string;
  // @nullable;index
   branchId?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

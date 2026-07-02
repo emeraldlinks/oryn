@@ -72,8 +72,14 @@ export default function SupportPage() {
   const [search, setSearch] = useState("");
   const [form, setForm] = useState({ contactId: "", subject: "", priority: "medium", description: "" });
 
+  const [avgResolutionTime, setAvgResolutionTime] = useState("0d");
+
   useEffect(() => {
     fetch("/api/support/tickets").then((r) => r.json()).then(setTickets);
+    fetch("/api/admin/support-stats")
+      .then((r) => r.json())
+      .then((data) => setAvgResolutionTime(data.avgResolutionTime))
+      .catch(() => {});
   }, []);
 
   async function addTicket(e: React.FormEvent) {
@@ -102,7 +108,6 @@ export default function SupportPage() {
   const openTickets = tickets.filter((t) => t.status === "open" || t.status === "in_progress").length;
   const highPriority = tickets.filter((t) => t.priority === "high" && t.status !== "closed" && t.status !== "resolved").length;
   const resolvedThisMonth = tickets.filter((t) => t.status === "resolved").length;
-  const avgResolutionTime = "2.4d";
 
   const openCount = tickets.filter((t) => t.status === "open").length;
   const inProgressCount = tickets.filter((t) => t.status === "in_progress").length;

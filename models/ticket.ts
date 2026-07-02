@@ -6,7 +6,7 @@ import type { Workspace } from "./workspace";
 export interface Ticket {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -21,8 +21,8 @@ export interface Ticket {
   assignedTo?: number;
  // @nullable
   resolvedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
  // @softDelete
   deletedAt?: string;
 

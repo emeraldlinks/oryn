@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
@@ -10,7 +10,6 @@ export async function POST(req: Request) {
 
   const body = await req.json();
   const { to, subject, html, campaignId, contactId } = body;
-  const db = await initDb();
   const wsId = Number(session.user.workspaceId);
 
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {

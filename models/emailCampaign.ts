@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface EmailCampaign {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @nullable;index
@@ -28,8 +28,8 @@ export interface EmailCampaign {
   clickCount?: number;
  // @nullable;json
   targetFilters?: Record<string, unknown>;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

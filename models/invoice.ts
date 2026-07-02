@@ -5,7 +5,7 @@ import type { Workspace } from "./workspace";
 export interface Invoice {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @nullable;index
@@ -23,8 +23,8 @@ export interface Invoice {
   pdfUrl?: string;
  // @nullable;length:50
   invoiceNumber?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

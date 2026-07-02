@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 import { pluginRegistry } from "@/lib/plugin-system";
 
 const VALID_DEAL_STAGES = [
@@ -70,7 +70,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "actionType is required" }, { status: 400 });
     }
 
-    const db = await initDb();
 
     const actionLog = await db.AIAction.insert({
       workspaceId: wsId,

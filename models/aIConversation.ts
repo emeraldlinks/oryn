@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface AIConversation {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -17,8 +17,8 @@ export interface AIConversation {
   provider: string;
  // @default:active;enum:(active,archived)
   status: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

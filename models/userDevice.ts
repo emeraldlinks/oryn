@@ -3,7 +3,7 @@ import type { User } from "./user";
 export interface UserDevice {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   userId: number;
  // @length:200;not null
@@ -18,8 +18,8 @@ export interface UserDevice {
   lastUsedAt?: string;
  // @default:true
   trusted: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:User;foreignKey:userId
   user?: User;

@@ -23,8 +23,8 @@ export interface ABTest {
   completedAt?: string;
  // @nullable;json
   winner?: Record<string, unknown>;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

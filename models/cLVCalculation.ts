@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface CLVCalculation {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @nullable;index
@@ -19,8 +19,8 @@ export interface CLVCalculation {
   clv: number;
  // @nullable
   calculatedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

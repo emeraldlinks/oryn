@@ -3,82 +3,36 @@
 import { useState, useEffect } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, Legend,
+  AreaChart, Area, PieChart, Pie, Cell, Legend,
 } from "recharts";
 import { DashboardShell } from "@/components/dashboards/dashboard-shell";
 import { BentoGrid, BentoCard } from "@/components/shared/bento-grid";
 import { StatCard } from "@/components/shared/stat-card";
-import { Target, DollarSign, Users, TrendingUp, Activity, Loader2 } from "lucide-react";
-
-const monthlyRevenue = [
-  { month: "Jan", revenue: 42000, costs: 28000 },
-  { month: "Feb", revenue: 45000, costs: 29000 },
-  { month: "Mar", revenue: 48000, costs: 30000 },
-  { month: "Apr", revenue: 52000, costs: 31000 },
-  { month: "May", revenue: 58000, costs: 32000 },
-  { month: "Jun", revenue: 65000, costs: 34000 },
-  { month: "Jul", revenue: 72000, costs: 36000 },
-  { month: "Aug", revenue: 84000, costs: 38000 },
-  { month: "Sep", revenue: 78000, costs: 37000 },
-  { month: "Oct", revenue: 82000, costs: 39000 },
-  { month: "Nov", revenue: 86000, costs: 40000 },
-  { month: "Dec", revenue: 91000, costs: 42000 },
-];
-
-const pipelineData = [
-  { name: "Lead", value: 48 },
-  { name: "Qualified", value: 32 },
-  { name: "Proposal", value: 18 },
-  { name: "Negotiation", value: 12 },
-  { name: "Closed Won", value: 24 },
-];
+import { Target, DollarSign, Users, TrendingUp, Loader2 } from "lucide-react";
 
 const pieColors = ["#3b82f6", "#6366f1", "#8b5cf6", "#f59e0b", "#10b981"];
 
-const leadSources = [
-  { source: "Website", value: 45 },
-  { source: "Referral", value: 25 },
-  { source: "Social", value: 18 },
-  { source: "Email", value: 12 },
-];
-
-const weeklyActivity = [
-  { day: "Mon", calls: 12, emails: 24, meetings: 4 },
-  { day: "Tue", calls: 15, emails: 20, meetings: 6 },
-  { day: "Wed", calls: 18, emails: 28, meetings: 5 },
-  { day: "Thu", calls: 10, emails: 22, meetings: 3 },
-  { day: "Fri", calls: 14, emails: 18, meetings: 7 },
-  { day: "Sat", calls: 5, emails: 8, meetings: 1 },
-  { day: "Sun", calls: 2, emails: 4, meetings: 0 },
-];
-
 export default function AdminPage() {
-  const [stats, setStats] = useState({ deals: 0, contacts: 0, revenue: 0, rate: 0 });
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function load() {
-      try {
-        const [dealsRes, contactsRes] = await Promise.all([
-          fetch("/api/crm/deals"),
-          fetch("/api/crm/contacts"),
-        ]);
-        const deals = await dealsRes.json();
-        const contacts = await contactsRes.json();
-        const activeDeals = deals.filter((d: any) => d.stage !== "closed-lost" && d.stage !== "closed-won");
-        const won = deals.filter((d: any) => d.stage === "closed-won");
-        const totalRevenue = won.reduce((s: number, d: any) => s + d.value, 0);
-        const totalDeals = deals.length;
-        const rate = totalDeals > 0 ? Math.round((won.length / totalDeals) * 100) : 0;
-        setStats({
-          deals: activeDeals.length,
-          contacts: contacts.length,
-          revenue: totalRevenue,
-          rate,
-        });
-      } catch {}
-    }
-    load();
+    fetch("/api/admin/dashboard")
+      .then((r) => r.json())
+      .then(setData)
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
+
+  if (loading) {
+    return (
+      <DashboardShell>
+        <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+      </DashboardShell>
+    );
+  }
+
+  const { stats, monthlyRevenue, pipelineData } = data || {};
 
   return (
     <DashboardShell>
@@ -89,10 +43,10 @@ export default function AdminPage() {
         </div>
 
         <BentoGrid>
-          <StatCard title="Active Deals" value={stats.deals} icon={Target} />
-          <StatCard title="Revenue (YTD)" value={`$${stats.revenue.toLocaleString()}`} icon={DollarSign} />
-          <StatCard title="Total Contacts" value={stats.contacts} icon={Users} />
-          <StatCard title="Win Rate" value={`${stats.rate}%`} icon={TrendingUp} />
+          <StatCard title="Active Deals" value={stats?.deals ?? 0} icon={Target} />
+          <StatCard title="Revenue (YTD)" value={`$${(stats?.revenue ?? 0).toLocaleString()}`} icon={DollarSign} />
+          <StatCard title="Total Contacts" value={stats?.contacts ?? 0} icon={Users} />
+          <StatCard title="Win Rate" value={`${stats?.rate ?? 0}%`} icon={TrendingUp} />
         </BentoGrid>
 
         <BentoGrid>
@@ -109,7 +63,7 @@ export default function AdminPage() {
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
                   <XAxis dataKey="month" className="text-xs" tick={{ fill: "hsl(var(--muted-foreground))" }} />
-                  <YAxis className="text-xs" tick={{ fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
+                  <YAxis className="text-xs" tick={{ fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v: number) => `$${(v / 1000).toFixed(0)}k`} />
                   <Tooltip
                     contentStyle={{
                       background: "hsl(var(--card))",
@@ -138,8 +92,8 @@ export default function AdminPage() {
                     paddingAngle={3}
                     dataKey="value"
                   >
-                    {pipelineData.map((_, i) => (
-                      <Cell key={i} fill={pieColors[i]} />
+                    {(pipelineData || []).map((_: any, i: number) => (
+                      <Cell key={i} fill={pieColors[i % pieColors.length]} />
                     ))}
                   </Pie>
                   <Tooltip />
@@ -148,52 +102,7 @@ export default function AdminPage() {
               </ResponsiveContainer>
             </div>
           </BentoCard>
-
-          <BentoCard>
-            <h3 className="text-lg font-semibold mb-4">Lead Sources</h3>
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={leadSources} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                  <XAxis type="number" className="text-xs" tick={{ fill: "hsl(var(--muted-foreground))" }} />
-                  <YAxis type="category" dataKey="source" className="text-xs" tick={{ fill: "hsl(var(--muted-foreground))" }} />
-                  <Tooltip
-                    contentStyle={{
-                      background: "hsl(var(--card))",
-                      border: "1px solid hsl(var(--border))",
-                      borderRadius: "8px",
-                    }}
-                  />
-                  <Bar dataKey="value" fill="#3b82f6" radius={[0, 4, 4, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </BentoCard>
         </BentoGrid>
-
-        <BentoCard colSpan={4}>
-          <h3 className="text-lg font-semibold mb-4">Weekly Activity</h3>
-          <div className="h-[250px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={weeklyActivity}>
-                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                <XAxis dataKey="day" className="text-xs" tick={{ fill: "hsl(var(--muted-foreground))" }} />
-                <YAxis className="text-xs" tick={{ fill: "hsl(var(--muted-foreground))" }} />
-                <Tooltip
-                  contentStyle={{
-                    background: "hsl(var(--card))",
-                    border: "1px solid hsl(var(--border))",
-                    borderRadius: "8px",
-                  }}
-                />
-                <Legend />
-                <Bar dataKey="calls" name="Calls" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="emails" name="Emails" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="meetings" name="Meetings" fill="#10b981" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </BentoCard>
       </div>
     </DashboardShell>
   );

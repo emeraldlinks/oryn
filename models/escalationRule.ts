@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface EscalationRule {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:200;not null
@@ -16,8 +16,8 @@ export interface EscalationRule {
   actions: Record<string, unknown>;
  // @default:true
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

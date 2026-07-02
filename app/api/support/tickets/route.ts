@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const db = await initDb();
   const wsId = Number(session.user.workspaceId);
   const { searchParams } = new URL(req.url);
 
@@ -35,11 +34,12 @@ export async function POST(req: Request) {
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json();
-  const db = await initDb();
 
   const ticket = await db.Ticket.insert({
-    ...body,
     workspaceId: Number(session.user.workspaceId),
+    contactId: Number(body.contactId),
+    subject: body.subject,
+    assignedTo: body.assignedTo ? Number(body.assignedTo) : undefined,
     status: body.status || "open",
     priority: body.priority || "medium",
   });
@@ -53,7 +53,6 @@ export async function PUT(req: Request) {
 
   const body = await req.json();
   const { id, ...data } = body;
-  const db = await initDb();
 
   await db.Ticket.update(
     { id: Number(id), workspaceId: Number(session.user.workspaceId) },
@@ -71,7 +70,6 @@ export async function DELETE(req: Request) {
   const id = searchParams.get("id");
   if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-  const db = await initDb();
   await db.Ticket.delete({ id: Number(id), workspaceId: Number(session.user.workspaceId) });
 
   return NextResponse.json({ success: true });

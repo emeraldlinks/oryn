@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface BookingLink {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @unique;length:100;not null
@@ -22,8 +22,8 @@ export interface BookingLink {
   active: boolean;
  // @default:0
   totalBookings: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

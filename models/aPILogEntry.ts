@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface APILogEntry {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @nullable;index
@@ -20,8 +20,8 @@ export interface APILogEntry {
  // @nullable;length:50
   ipAddress?: string;
  // @nullable
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

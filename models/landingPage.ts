@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface LandingPage {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @unique;length:100;not null
@@ -18,8 +18,8 @@ export interface LandingPage {
   views?: number;
  // @default:0
   conversions?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

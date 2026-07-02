@@ -5,7 +5,7 @@ import type { Workspace } from "./workspace";
 export interface BotConnection {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -30,8 +30,8 @@ export interface BotConnection {
   allowedActions?: string[];
  // @default:0
   totalRequests: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
  // @softDelete
   deletedAt?: string;
 

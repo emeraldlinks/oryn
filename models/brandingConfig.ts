@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface BrandingConfig {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @nullable
@@ -20,8 +20,8 @@ export interface BrandingConfig {
   customJs?: string;
  // @length:200;nullable
   companyName?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

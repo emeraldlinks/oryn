@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface AuditSetting {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @default:true
@@ -15,8 +15,8 @@ export interface AuditSetting {
  // @json;nullable
   excludedUsers?: number[];
 
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

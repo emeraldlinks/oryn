@@ -6,7 +6,7 @@ import type { Workspace } from "./workspace";
 export interface AIAction {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -25,8 +25,8 @@ export interface AIAction {
   status: string;
  // @nullable
   errorMessage?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

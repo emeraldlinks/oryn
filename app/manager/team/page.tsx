@@ -1,26 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DashboardShell } from "@/components/dashboards/dashboard-shell";
 import { BentoGrid } from "@/components/shared/bento-grid";
-import { BentoCard } from "@/components/shared/bento-grid";
 import { StatCard } from "@/components/shared/stat-card";
-import { Badge } from "@/components/ui/badge";
-import { Users, Target, CheckCircle, DollarSign, TrendingUp, Mail, Phone } from "lucide-react";
+import { Users, Target, DollarSign, CheckCircle, Loader2, Mail, Phone } from "lucide-react";
 
 export default function ManagerTeamPage() {
-  const members = [
-    { name: "Alice Johnson", role: "Senior Sales Rep", avatar: "AJ", email: "alice@oryn.com", deals: 8, revenue: "$120,000", tasks: 45, completion: 92, dealsWon: 5 },
-    { name: "Bob Smith", role: "Sales Rep", avatar: "BS", email: "bob@oryn.com", deals: 5, revenue: "$85,000", tasks: 38, completion: 78, dealsWon: 3 },
-    { name: "Carol Davis", role: "Sales Rep", avatar: "CD", email: "carol@oryn.com", deals: 3, revenue: "$52,000", tasks: 32, completion: 65, dealsWon: 2 },
-    { name: "David Lee", role: "Junior Sales Rep", avatar: "DL", email: "david@oryn.com", deals: 2, revenue: "$31,000", tasks: 27, completion: 55, dealsWon: 1 },
-  ];
+  const [members, setMembers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const totalRevenue = members.reduce((acc, m) => {
-    return acc + parseInt(m.revenue.replace(/[^0-9]/g, ""));
-  }, 0);
+  useEffect(() => {
+    fetch("/api/manager/team")
+      .then((r) => r.json())
+      .then(setMembers)
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
-  const avgCompletion = Math.round(members.reduce((acc, m) => acc + m.completion, 0) / members.length);
+  if (loading) {
+    return (
+      <DashboardShell>
+        <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+      </DashboardShell>
+    );
+  }
 
   return (
     <DashboardShell>
@@ -32,57 +36,44 @@ export default function ManagerTeamPage() {
 
         <BentoGrid>
           <StatCard title="Team Members" value={members.length} icon={Users} />
-          <StatCard title="Total Revenue" value={`$${(totalRevenue / 1000).toFixed(0)}K`} icon={DollarSign} trend={{ value: 22, positive: true }} />
-          <StatCard title="Total Deals" value={members.reduce((acc, m) => acc + m.deals, 0)} icon={Target} />
-          <StatCard title="Avg Completion" value={`${avgCompletion}%`} icon={CheckCircle} trend={{ value: 5, positive: true }} />
+          <StatCard title="Total Tasks" value={members.reduce((a: number, m: any) => a + (m.tasks || 0), 0)} icon={CheckCircle} />
         </BentoGrid>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {members.map((m) => (
-            <div key={m.name} className="rounded-lg border p-4 hover:bg-muted/30 transition-colors">
+          {members.length === 0 ? (
+            <p className="text-sm text-muted-foreground col-span-2 text-center py-12">No team members found.</p>
+          ) : members.map((m, i) => (
+            <div key={m.id || i} className="rounded-lg border p-4 hover:bg-muted/30 transition-colors">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">
-                    {m.avatar}
+                    {(m.name || m.userName || "?").charAt(0)}
                   </div>
                   <div>
-                    <p className="font-semibold">{m.name}</p>
-                    <p className="text-xs text-muted-foreground">{m.role}</p>
+                    <p className="font-semibold">{m.name || m.userName || "Member"}</p>
+                    <p className="text-xs text-muted-foreground">{m.role || m.position || ""}</p>
                   </div>
                 </div>
                 <div className="flex gap-1">
-                  <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center">
-                    <Mail className="h-4 w-4 text-muted-foreground" />
-                  </div>
-                  <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center">
-                    <Phone className="h-4 w-4 text-muted-foreground" />
-                  </div>
+                  {m.email && (
+                    <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center">
+                      <Mail className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <p className="text-lg font-bold">{m.deals}</p>
-                  <p className="text-xs text-muted-foreground">Active Deals</p>
+                  <p className="text-lg font-bold">{m.deals || 0}</p>
+                  <p className="text-xs text-muted-foreground">Deals</p>
                 </div>
                 <div>
-                  <p className="text-lg font-bold">{m.dealsWon}</p>
-                  <p className="text-xs text-muted-foreground">Deals Won</p>
+                  <p className="text-lg font-bold">{m.tasks || 0}</p>
+                  <p className="text-xs text-muted-foreground">Tasks</p>
                 </div>
                 <div>
-                  <p className="text-lg font-bold">{m.revenue}</p>
+                  <p className="text-lg font-bold">{m.revenue ? `$${Number(m.revenue).toLocaleString()}` : "$0"}</p>
                   <p className="text-xs text-muted-foreground">Revenue</p>
-                </div>
-              </div>
-              <div className="mt-3">
-                <div className="flex items-center justify-between text-sm mb-1">
-                  <span className="text-muted-foreground">Task Completion</span>
-                  <span className="font-medium">{m.completion}%</span>
-                </div>
-                <div className="h-2 rounded-full bg-muted overflow-hidden">
-                  <div
-                    className={`h-full rounded-full ${m.completion >= 80 ? "bg-emerald-500" : m.completion >= 60 ? "bg-amber-500" : "bg-red-500"}`}
-                    style={{ width: `${m.completion}%` }}
-                  />
                 </div>
               </div>
             </div>

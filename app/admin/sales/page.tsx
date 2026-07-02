@@ -1283,7 +1283,7 @@ function SubscriptionsTab() {
                     </div>
                     <div className="md:col-span-2">
                       <label className="text-sm font-medium mb-1 block">Features (comma-separated)</label>
-                      <Input placeholder="Feature 1, Feature 2, Feature 3" value={planForm.features} onChange={(e) => setPlanForm({ ...planForm, features: e.target.value })} />
+                      <Input placeholder="CRM, Marketing, Staff Management, Inventory, AI Features, API Access, Automation" value={planForm.features} onChange={(e) => setPlanForm({ ...planForm, features: e.target.value })} />
                     </div>
                   </div>
                   <Button onClick={createPlan} disabled={creatingPlan}>

@@ -3,7 +3,7 @@ import type { User } from "./user";
 export interface TwoFactorSetting {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @unique;index;not null
   userId: number;
  // @default:false
@@ -14,8 +14,8 @@ export interface TwoFactorSetting {
   backupCodes?: string[];
  // @nullable
   verifiedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation onetoone:User;foreignKey:userId
   user?: User;

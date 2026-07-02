@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface CustomFieldValue {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:50;not null
@@ -15,8 +15,8 @@ export interface CustomFieldValue {
   fieldDefId: number;
  // @nullable
   value?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

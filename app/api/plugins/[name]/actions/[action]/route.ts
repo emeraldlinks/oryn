@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 import {
   loadWorkspacePlugins,
   getPlugin,
@@ -14,7 +14,6 @@ export async function POST(
 ) {
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const db = await initDb();
   const wsId = Number(session.user.workspaceId);
 
   const pluginName = params.name;

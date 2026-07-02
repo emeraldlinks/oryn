@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const db = await initDb();
   const wsId = Number(session.user.workspaceId);
 
   let quota = await db.WorkspaceQuota.get({ workspaceId: wsId });
@@ -21,6 +20,8 @@ export async function GET(req: Request) {
       canUseAI: false,
       canUseAPI: false,
       canUseAutomation: false,
+      canUseStaffManagement: false,
+      canUseInventory: false,
     });
   }
 
@@ -30,7 +31,6 @@ export async function GET(req: Request) {
 export async function PUT(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const db = await initDb();
   const wsId = Number(session.user.workspaceId);
   const body = await req.json();
 
@@ -43,6 +43,8 @@ export async function PUT(req: Request) {
   if (body.canUseAI !== undefined) data.canUseAI = body.canUseAI;
   if (body.canUseAPI !== undefined) data.canUseAPI = body.canUseAPI;
   if (body.canUseAutomation !== undefined) data.canUseAutomation = body.canUseAutomation;
+  if (body.canUseStaffManagement !== undefined) data.canUseStaffManagement = body.canUseStaffManagement;
+  if (body.canUseInventory !== undefined) data.canUseInventory = body.canUseInventory;
   if (body.limits !== undefined) data.limits = body.limits;
 
   const existing = await db.WorkspaceQuota.get({ workspaceId: wsId });
@@ -59,6 +61,8 @@ export async function PUT(req: Request) {
       canUseAI: false,
       canUseAPI: false,
       canUseAutomation: false,
+      canUseStaffManagement: false,
+      canUseInventory: false,
       ...data,
     });
   }

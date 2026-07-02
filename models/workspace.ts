@@ -9,7 +9,7 @@ import type { User } from "./user";
 export interface Workspace {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @unique;length:100;not null
   name: string;
  // @unique;length:50;not null
@@ -20,8 +20,8 @@ export interface Workspace {
   active: boolean;
  // @json
   settings?: Record<string, unknown>;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
  // @softDelete
   deletedAt?: string;
 

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 import { PLUGIN_SEEDS } from "@/seed/plugins";
 
 export async function POST(req: Request) {
@@ -15,7 +15,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Forbidden: admin or superadmin required" }, { status: 403 });
   }
 
-  const db = await initDb();
   const { searchParams } = new URL(req.url);
   const workspaceId = searchParams.get("workspaceId");
 

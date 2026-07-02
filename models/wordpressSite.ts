@@ -4,7 +4,7 @@ import type { Workspace } from "./workspace";
 export interface WordpressSite {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:255;not null
@@ -15,8 +15,8 @@ export interface WordpressSite {
  // @nullable;length:200
   siteName?: string;
   connectedAt: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

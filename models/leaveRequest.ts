@@ -4,7 +4,7 @@ import type { User } from "./user";
 export interface LeaveRequest {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   employeeId: number;
  // @enum:(vacation,sick,personal,other);not null
@@ -19,8 +19,8 @@ export interface LeaveRequest {
   reason?: string;
  // @nullable;index
   approvedBy?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Employee;foreignKey:employeeId;onDelete:CASCADE
   employee?: Employee;

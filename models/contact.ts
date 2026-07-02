@@ -11,7 +11,7 @@ import type { Workspace } from "./workspace";
 export interface Contact {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @length:100;not null
@@ -40,8 +40,8 @@ export interface Contact {
   lastContactedAt?: string;
  // @nullable;default:0
   dealScore?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
  // @softDelete
   deletedAt?: string;
 

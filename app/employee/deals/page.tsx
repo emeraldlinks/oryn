@@ -1,46 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DashboardShell } from "@/components/dashboards/dashboard-shell";
 import { BentoGrid } from "@/components/shared/bento-grid";
 import { StatCard } from "@/components/shared/stat-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, DollarSign, TrendingUp, PieChart, Plus, Search } from "lucide-react";
+import { ShoppingCart, DollarSign, TrendingUp, PieChart, Search, Loader2 } from "lucide-react";
 
 export default function EmployeeDealsPage() {
+  const [deals, setDeals] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<string>("all");
+  const [filter, setFilter] = useState("all");
 
-  const deals = [
-    { id: 1, title: "Acme Corp - Q2 Platform", company: "Acme Corp", value: "$50,000", stage: "negotiation", probability: 80, expectedClose: "2024-04-15", owner: "Me" },
-    { id: 2, title: "TechFlow - Enterprise Plan", company: "TechFlow Inc", value: "$120,000", stage: "proposal", probability: 60, expectedClose: "2024-05-01", owner: "Me" },
-    { id: 3, title: "GlobalTech - Consulting", company: "GlobalTech Solutions", value: "$75,000", stage: "qualified", probability: 40, expectedClose: "2024-06-01", owner: "Me" },
-    { id: 4, title: "DataFlow - Data Pipeline", company: "DataFlow Corp", value: "$200,000", stage: "lead", probability: 20, expectedClose: "2024-07-01", owner: "Me" },
-    { id: 5, title: "StartupXYZ - Basic Plan", company: "StartupXYZ", value: "$25,000", stage: "closed-won", probability: 100, expectedClose: "2024-03-15", owner: "Me" },
-  ];
+  useEffect(() => { loadDeals(); }, []);
+
+  async function loadDeals() {
+    try {
+      const res = await fetch("/api/employee/deals");
+      if (res.ok) setDeals(await res.json());
+    } catch {} finally { setLoading(false); }
+  }
 
   const filtered = deals.filter((d) => {
     if (filter !== "all" && d.stage !== filter) return false;
-    if (search && !d.title.toLowerCase().includes(search.toLowerCase()) && !d.company.toLowerCase().includes(search.toLowerCase())) return false;
+    if (search && !d.title?.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
 
   const stageColor = (s: string) => {
     switch (s) {
-      case "lead": return "secondary";
-      case "qualified": return "warning";
-      case "proposal": return "default";
-      case "negotiation": return "destructive";
-      case "closed-won": return "success";
-      case "closed-lost": return "destructive";
-      default: return "secondary";
+      case "lead": return "secondary" as const;
+      case "qualified": return "warning" as const;
+      case "proposal": return "default" as const;
+      case "negotiation": return "destructive" as const;
+      case "closed-won": return "success" as const;
+      case "closed-lost": return "destructive" as const;
+      default: return "secondary" as const;
     }
   };
 
-  const totalValue = deals.reduce((acc, d) => acc + parseInt(d.value.replace(/[^0-9]/g, "")), 0);
-  const weightedValue = deals.reduce((acc, d) => acc + parseInt(d.value.replace(/[^0-9]/g, "")) * d.probability / 100, 0);
+  const totalValue = deals.reduce((acc: number, d) => acc + (Number(d.value) || 0), 0);
+  const weightedValue = deals.reduce((acc: number, d) => acc + (Number(d.value) || 0) * (d.probability || 0) / 100, 0);
+
+  if (loading) {
+    return (
+      <DashboardShell>
+        <div className="flex items-center justify-center h-64"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+      </DashboardShell>
+    );
+  }
 
   return (
     <DashboardShell>
@@ -54,7 +65,7 @@ export default function EmployeeDealsPage() {
           <StatCard title="Total Pipeline" value={`$${(totalValue / 1000).toFixed(0)}K`} icon={ShoppingCart} />
           <StatCard title="Weighted Pipeline" value={`$${(weightedValue / 1000).toFixed(0)}K`} icon={PieChart} />
           <StatCard title="Active Deals" value={deals.filter((d) => d.stage !== "closed-won" && d.stage !== "closed-lost").length} icon={TrendingUp} />
-          <StatCard title="Won This Quarter" value={deals.filter((d) => d.stage === "closed-won").length} icon={DollarSign} trend={{ value: 25, positive: true }} />
+          <StatCard title="Won" value={deals.filter((d) => d.stage === "closed-won").length} icon={DollarSign} />
         </BentoGrid>
 
         <div className="flex items-center gap-4">
@@ -72,23 +83,29 @@ export default function EmployeeDealsPage() {
         </div>
 
         <div className="rounded-lg border overflow-hidden">
-          {filtered.map((d) => (
+          {filtered.length === 0 ? (
+            <p className="text-sm text-muted-foreground text-center py-12">No deals found.</p>
+          ) : filtered.map((d) => (
             <div key={d.id} className="flex items-center justify-between p-4 border-b last:border-0 hover:bg-muted/30">
               <div className="flex-1">
                 <p className="font-medium">{d.title}</p>
-                <p className="text-xs text-muted-foreground">{d.company} · Close: {d.expectedClose}</p>
+                <p className="text-xs text-muted-foreground">
+                  {d.expectedClose ? new Date(d.expectedClose).toLocaleDateString() : "No close date"}
+                </p>
               </div>
               <div className="flex items-center gap-6">
                 <div className="text-right">
-                  <p className="font-semibold">{d.value}</p>
-                  <div className="flex items-center gap-1">
-                    <div className="h-1.5 w-16 rounded-full bg-muted overflow-hidden">
-                      <div className="h-full rounded-full bg-primary" style={{ width: `${d.probability}%` }} />
+                  <p className="font-semibold">${Number(d.value || 0).toLocaleString()}</p>
+                  {d.probability && (
+                    <div className="flex items-center gap-1">
+                      <div className="h-1.5 w-16 rounded-full bg-muted overflow-hidden">
+                        <div className="h-full rounded-full bg-primary" style={{ width: `${d.probability}%` }} />
+                      </div>
+                      <span className="text-xs text-muted-foreground">{d.probability}%</span>
                     </div>
-                    <span className="text-xs text-muted-foreground">{d.probability}%</span>
-                  </div>
+                  )}
                 </div>
-                <Badge variant={stageColor(d.stage) as "destructive" | "warning" | "success" | "secondary" | "default"}>{d.stage}</Badge>
+                <Badge variant={stageColor(d.stage)}>{d.stage}</Badge>
               </div>
             </div>
           ))}

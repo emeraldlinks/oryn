@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { initDb } from "@/lib/db";
+import { db } from "@/lib/db";
 
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
@@ -13,7 +13,6 @@ export async function GET(req: Request) {
   const v1 = searchParams.get("v1");
   const v2 = searchParams.get("v2");
 
-  const db = await initDb();
 
   if (compare === "1" && v1 && v2) {
     const [version1, version2] = await Promise.all([
@@ -39,7 +38,6 @@ export async function POST(req: Request) {
 
   const body = await req.json();
   const { workflowId, definition, notes } = body;
-  const db = await initDb();
 
   const latest = await db.WorkflowVersion.query()
     .where("workflowId", "=", Number(workflowId))
@@ -66,7 +64,6 @@ export async function DELETE(req: Request) {
   const id = searchParams.get("id");
   if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-  const db = await initDb();
   await db.WorkflowVersion.delete({ id: Number(id) });
 
   return NextResponse.json({ success: true });

@@ -3,7 +3,7 @@ import type { Employee } from "./employee";
 export interface Attendance {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   employeeId: number;
  // @not null
@@ -12,8 +12,8 @@ export interface Attendance {
   clockedOutAt?: string;
  // @nullable
   notes?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Employee;foreignKey:employeeId;onDelete:CASCADE
   employee?: Employee;

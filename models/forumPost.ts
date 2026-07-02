@@ -4,7 +4,7 @@ import type { User } from "./user";
 export interface ForumPost {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   topicId: number;
  // @nullable;index
@@ -12,8 +12,8 @@ export interface ForumPost {
   bodyHtml: string;
  // @default:false
   isSolution: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:ForumTopic;foreignKey:topicId;onDelete:CASCADE
   topic?: ForumTopic;

@@ -3,7 +3,7 @@ import type { Workspace } from "./workspace";
 export interface CohortData {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @not null
@@ -14,8 +14,8 @@ export interface CohortData {
   userCount: number;
  // @json;not null
   retentionData: Record<string, unknown>;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

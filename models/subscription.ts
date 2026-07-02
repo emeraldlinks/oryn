@@ -6,7 +6,7 @@ import type { Workspace } from "./workspace";
 export interface Subscription {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -27,8 +27,8 @@ export interface Subscription {
   currency: string;
  // @nullable
   cancelledAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Workspace;foreignKey:workspaceId
   workspace?: Workspace;

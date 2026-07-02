@@ -14,7 +14,8 @@ interface Employee {
   id: number;
   userId: number;
   branchId?: number;
-  department?: string;
+  departmentId?: number;
+  department?: { id: number; name: string };
   jobTitle?: string;
   salary?: number;
   startDate?: string;
@@ -24,7 +25,7 @@ const columns: Column<Employee>[] = [
   { key: "id", label: "ID", sortable: true },
   { key: "userId", label: "User ID", render: (e) => `#${e.userId}` },
   { key: "jobTitle", label: "Title", sortable: true, render: (e) => e.jobTitle || "-" },
-  { key: "department", label: "Department", sortable: true, render: (e) => e.department || "-" },
+  { key: "departmentId", label: "Department", sortable: true, render: (e) => e.department?.name || (e.departmentId ? `#${e.departmentId}` : "-") },
   { key: "branchId", label: "Branch", render: (e) => e.branchId ? `#${e.branchId}` : "-" },
   { key: "salary", label: "Salary", render: (e) => e.salary ? `$${e.salary.toLocaleString()}` : "-" },
   { key: "startDate", label: "Started", render: (e) => e.startDate ? new Date(e.startDate).toLocaleDateString() : "-" },
@@ -33,7 +34,7 @@ const columns: Column<Employee>[] = [
 export default function EmployeesPage() {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [showAdd, setShowAdd] = useState(false);
-  const [form, setForm] = useState({ userId: "", branchId: "", department: "", jobTitle: "", salary: "" });
+  const [form, setForm] = useState({ userId: "", branchId: "", departmentId: "", jobTitle: "", salary: "" });
 
   useEffect(() => {
     fetch("/api/employees").then((r) => r.json()).then(setEmployees);
@@ -47,14 +48,14 @@ export default function EmployeesPage() {
       body: JSON.stringify({
         userId: Number(form.userId),
         branchId: form.branchId ? Number(form.branchId) : undefined,
-        department: form.department,
+        departmentId: form.departmentId ? Number(form.departmentId) : undefined,
         jobTitle: form.jobTitle,
         salary: form.salary ? Number(form.salary) : undefined,
       }),
     });
     if (res.ok) {
       setShowAdd(false);
-      setForm({ userId: "", branchId: "", department: "", jobTitle: "", salary: "" });
+      setForm({ userId: "", branchId: "", departmentId: "", jobTitle: "", salary: "" });
       setEmployees(await fetch("/api/employees").then((r) => r.json()));
     }
   }
@@ -74,7 +75,7 @@ export default function EmployeesPage() {
 
         <BentoGrid>
           <StatCard title="Total Employees" value={employees.length} icon={Users} />
-          <StatCard title="Departments" value={new Set(employees.map((e) => e.department)).size} icon={Building2} />
+          <StatCard title="Departments" value={new Set(employees.map((e) => e.departmentId)).size} icon={Building2} />
         </BentoGrid>
 
         {showAdd && (
@@ -82,7 +83,7 @@ export default function EmployeesPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <Input placeholder="User ID" type="number" value={form.userId} onChange={(e) => setForm({ ...form, userId: e.target.value })} required />
               <Input placeholder="Branch ID" type="number" value={form.branchId} onChange={(e) => setForm({ ...form, branchId: e.target.value })} />
-              <Input placeholder="Department" value={form.department} onChange={(e) => setForm({ ...form, department: e.target.value })} />
+              <Input placeholder="Department ID" type="number" value={form.departmentId} onChange={(e) => setForm({ ...form, departmentId: e.target.value })} />
               <Input placeholder="Job Title" value={form.jobTitle} onChange={(e) => setForm({ ...form, jobTitle: e.target.value })} />
               <Input placeholder="Salary" type="number" value={form.salary} onChange={(e) => setForm({ ...form, salary: e.target.value })} />
             </div>
@@ -90,7 +91,7 @@ export default function EmployeesPage() {
           </form>
         )}
 
-        <DataTable columns={columns} data={employees} searchKeys={["department", "jobTitle"]} />
+        <DataTable columns={columns} data={employees} searchKeys={["jobTitle"]} />
       </div>
     </DashboardShell>
   );

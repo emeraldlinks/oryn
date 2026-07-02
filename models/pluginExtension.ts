@@ -3,7 +3,7 @@ import type { Plugin } from "./plugin";
 export interface PluginExtension {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   pluginId: number;
  // @length:50;not null
@@ -14,8 +14,8 @@ export interface PluginExtension {
   config: Record<string, unknown>;
  // @default:true
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Plugin;foreignKey:pluginId;onDelete:CASCADE
   plugin?: Plugin;

@@ -4,7 +4,7 @@ import type { ProjectTask } from "./projectTask";
 export interface ProjectMilestone {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   projectId: number;
  // @index;not null
@@ -19,8 +19,8 @@ export interface ProjectMilestone {
   status: string;
  // @nullable
   completedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:Project;foreignKey:projectId;onDelete:CASCADE
   project?: Project;

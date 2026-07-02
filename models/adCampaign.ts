@@ -3,7 +3,7 @@ import type { SocialAccount } from "./socialAccount";
 export interface AdCampaign {
 
  // @auto;primaryKey
-  id: number;
+  id?: number;
  // @index;not null
   workspaceId: number;
  // @index;not null
@@ -29,8 +29,8 @@ export interface AdCampaign {
   startDate: string;
  // @nullable
   endDate?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 
  // @relation manytoone:SocialAccount;foreignKey:socialAccountId;onDelete:CASCADE
   socialAccount?: SocialAccount;
