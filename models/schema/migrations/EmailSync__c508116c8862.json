@@ -1,0 +1,24 @@
+{
+  "name": "EmailSync__c508116c8862",
+  "modelName": "EmailSync",
+  "tableName": "email_syncs",
+  "schemaHash": "c508116c886294591ce3f58c8c32397ded697b230f7270ad3a48f841700fc3b8",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.143Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "provider",
+    "accessToken",
+    "refreshToken",
+    "expiresAt",
+    "email",
+    "lastSyncedAt",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

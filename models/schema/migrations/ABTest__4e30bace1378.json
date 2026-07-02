@@ -1,0 +1,23 @@
+{
+  "name": "ABTest__4e30bace1378",
+  "modelName": "ABTest",
+  "tableName": "ab_tests",
+  "schemaHash": "4e30bace13785b650e73eacec6dd43123689423265f3a2d2113f63f9d293b105",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.919Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "description",
+    "status",
+    "variants",
+    "metrics",
+    "startedAt",
+    "completedAt",
+    "winner",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Asset__c2822d5c0f91",
+  "modelName": "Asset",
+  "tableName": "assets",
+  "schemaHash": "c2822d5c0f91cf69db09462b36810db84adc588f8e1bcb72ce015af0c1ab0689",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.954Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "name",
+    "type",
+    "purchaseDate",
+    "warrantyEnd",
+    "value",
+    "metadata",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact"
+  ]
+}

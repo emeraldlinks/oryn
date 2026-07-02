@@ -1,0 +1,19 @@
+{
+  "name": "ForumPost__c3bf4611e411",
+  "modelName": "ForumPost",
+  "tableName": "forum_posts",
+  "schemaHash": "c3bf4611e411ad2c9e01d7a7b7248d675e329dafdfa98172e113c6b399051442",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.192Z",
+  "fields": [
+    "id",
+    "topicId",
+    "authorId",
+    "bodyHtml",
+    "isSolution",
+    "createdAt",
+    "updatedAt",
+    "topic",
+    "author"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Branch__a74ece2758dd",
+  "modelName": "Branch",
+  "tableName": "branches",
+  "schemaHash": "a74ece2758dd3a7fcdd4c40e010c95da7cae69f28ae6cfaf231809e3640a21dc",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.993Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "address",
+    "city",
+    "country",
+    "phone",
+    "managerId",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "manager",
+    "employees"
+  ]
+}

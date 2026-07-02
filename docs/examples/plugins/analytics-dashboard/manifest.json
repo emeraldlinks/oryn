@@ -1,0 +1,8 @@
+{
+  "name": "analytics-dashboard",
+  "version": "1.0.0",
+  "author": "Your Name Here",
+  "description": "A feature-rich analytics dashboard demonstrating every page section type — stats, charts, tables, activity timelines, forms, and hero cards. Use as a reference for building rich plugin UIs.",
+  "entryPoint": null,
+  "permissions": ["contacts:read", "deals:read", "orders:read", "reports:read"]
+}

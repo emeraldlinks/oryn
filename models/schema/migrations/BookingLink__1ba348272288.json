@@ -1,0 +1,23 @@
+{
+  "name": "BookingLink__1ba348272288",
+  "modelName": "BookingLink",
+  "tableName": "booking_links",
+  "schemaHash": "1ba3482722880674710d3688a7ce1a8d6446d72056d9b9252128c0f1976a760c",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.978Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "slug",
+    "title",
+    "description",
+    "durationMinutes",
+    "availability",
+    "bufferConfig",
+    "active",
+    "totalBookings",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

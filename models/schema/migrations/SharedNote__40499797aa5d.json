@@ -1,0 +1,20 @@
+{
+  "name": "SharedNote__40499797aa5d",
+  "modelName": "SharedNote",
+  "tableName": "shared_notes",
+  "schemaHash": "40499797aa5d2f4857b28311ee91de9de878b6e8713c211434d2333a744c5675",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.488Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "title",
+    "bodyHtml",
+    "sharedWith",
+    "createdBy",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "creator"
+  ]
+}

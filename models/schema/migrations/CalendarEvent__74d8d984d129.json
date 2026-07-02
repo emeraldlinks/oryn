@@ -1,0 +1,28 @@
+{
+  "name": "CalendarEvent__74d8d984d129",
+  "modelName": "CalendarEvent",
+  "tableName": "calendar_events",
+  "schemaHash": "74d8d984d1294fc38b345257f3bdfc25474d6517f0d8a1436641d4d3329bf4e7",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.004Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "title",
+    "description",
+    "startTime",
+    "endTime",
+    "allDay",
+    "color",
+    "attendees",
+    "userId",
+    "contactId",
+    "location",
+    "externalEventId",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user",
+    "contact"
+  ]
+}

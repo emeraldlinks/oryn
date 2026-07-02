@@ -1,0 +1,22 @@
+{
+  "name": "Notification__d2b641823713",
+  "modelName": "Notification",
+  "tableName": "notifications",
+  "schemaHash": "d2b641823713547833f3071b5ec8f0a269aa61801a2443cffa830f0c4edb32a7",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.304Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "type",
+    "title",
+    "body",
+    "readAt",
+    "meta",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

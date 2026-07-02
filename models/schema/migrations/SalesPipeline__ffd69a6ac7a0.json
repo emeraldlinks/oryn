@@ -1,0 +1,20 @@
+{
+  "name": "SalesPipeline__ffd69a6ac7a0",
+  "modelName": "SalesPipeline",
+  "tableName": "sales_pipelines",
+  "schemaHash": "ffd69a6ac7a04907e25bf93e0dc7e048662a7cbfa1917c074a491c69e06718ff",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.473Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "stages",
+    "isDefault",
+    "active",
+    "sortOrder",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Territory__01729fda17fe",
+  "modelName": "Territory",
+  "tableName": "territories",
+  "schemaHash": "01729fda17fea433be26d5604b69b52ed29a4c6b6c1d8cb14d5a41cbe07e88c3",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.539Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "regions",
+    "managerId",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "manager"
+  ]
+}

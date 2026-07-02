@@ -1,0 +1,27 @@
+{
+  "name": "Subscription__52bfba82bb66",
+  "modelName": "Subscription",
+  "tableName": "subscriptions",
+  "schemaHash": "52bfba82bb66ccf5acd0eca125ea2d66adbf0b577047e16035f051046d90fc7f",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.517Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "planId",
+    "status",
+    "startDate",
+    "endDate",
+    "nextBillingDate",
+    "amount",
+    "currency",
+    "cancelledAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact",
+    "plan",
+    "invoices"
+  ]
+}

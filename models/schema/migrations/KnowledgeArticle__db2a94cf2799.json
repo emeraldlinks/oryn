@@ -1,0 +1,23 @@
+{
+  "name": "KnowledgeArticle__db2a94cf2799",
+  "modelName": "KnowledgeArticle",
+  "tableName": "knowledge_articles",
+  "schemaHash": "db2a94cf2799b7c54c48b198fc745e4d00e43db631190acf1a933b741cb68534",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.243Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "title",
+    "bodyHtml",
+    "categories",
+    "tags",
+    "status",
+    "views",
+    "helpfulCount",
+    "notHelpfulCount",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

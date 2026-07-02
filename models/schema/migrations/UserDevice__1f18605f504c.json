@@ -1,0 +1,21 @@
+{
+  "name": "UserDevice__1f18605f504c",
+  "modelName": "UserDevice",
+  "tableName": "user_devices",
+  "schemaHash": "1f18605f504c4f9ebbdea3193408a839bd614ffeac53a471b489bd121bfc4637",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.571Z",
+  "fields": [
+    "id",
+    "userId",
+    "deviceName",
+    "deviceType",
+    "userAgent",
+    "ipAddress",
+    "lastUsedAt",
+    "trusted",
+    "createdAt",
+    "updatedAt",
+    "user"
+  ]
+}

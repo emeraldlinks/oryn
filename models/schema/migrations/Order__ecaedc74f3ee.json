@@ -1,0 +1,24 @@
+{
+  "name": "Order__ecaedc74f3ee",
+  "modelName": "Order",
+  "tableName": "orders",
+  "schemaHash": "ecaedc74f3ee605c9da1aa5f1b8fbb669ef48c3d43801a2abe570011d65015d3",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.337Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "status",
+    "totalAmount",
+    "currency",
+    "paidAt",
+    "branchId",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact",
+    "items",
+    "invoice"
+  ]
+}

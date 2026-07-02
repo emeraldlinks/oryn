@@ -1,0 +1,19 @@
+{
+  "name": "FeatureFlag__f666bf3f6d89",
+  "modelName": "FeatureFlag",
+  "tableName": "feature_flags",
+  "schemaHash": "f666bf3f6d8932ff82e6b65fb1f928914fa792a2dbadd5679a94e80b7cd3f75a",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.178Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "key",
+    "enabled",
+    "description",
+    "rules",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

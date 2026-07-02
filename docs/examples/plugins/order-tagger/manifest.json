@@ -1,0 +1,8 @@
+{
+  "name": "order-tagger",
+  "version": "1.0.0",
+  "author": "Your Name Here",
+  "description": "Automatically tag orders based on value, product category, and customer segments. Demonstrates model extensions, actions, webhooks, and AI tools.",
+  "entryPoint": null,
+  "permissions": ["contacts:read", "orders:read", "orders:write"]
+}

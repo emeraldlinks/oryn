@@ -1,0 +1,20 @@
+{
+  "name": "CustomDashboard__437c9683ad16",
+  "modelName": "CustomDashboard",
+  "tableName": "custom_dashboards",
+  "schemaHash": "437c9683ad16a2a4762678ec13966bd5f3810833ce1f2d0427221b4fd1af71ac",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.071Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "description",
+    "widgets",
+    "sortOrder",
+    "shared",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

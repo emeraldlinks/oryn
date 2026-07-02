@@ -1,0 +1,21 @@
+{
+  "name": "AIConversation__5121c49469b7",
+  "modelName": "AIConversation",
+  "tableName": "ai_conversations",
+  "schemaHash": "5121c49469b7e74f74dbbe2eeae46040036ca29a3a876243493463dcedc72f07",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.943Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "title",
+    "messages",
+    "provider",
+    "status",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

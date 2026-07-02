@@ -1,0 +1,19 @@
+{
+  "name": "MarketplaceReview__12121312c432",
+  "modelName": "MarketplaceReview",
+  "tableName": "marketplace_reviews",
+  "schemaHash": "12121312c432da36549e9ebd469b399b54103d953189279db1f7fe3928a88e24",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.291Z",
+  "fields": [
+    "id",
+    "listingId",
+    "userId",
+    "rating",
+    "content",
+    "createdAt",
+    "updatedAt",
+    "listing",
+    "user"
+  ]
+}

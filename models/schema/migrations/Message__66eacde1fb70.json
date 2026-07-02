@@ -1,0 +1,26 @@
+{
+  "name": "Message__66eacde1fb70",
+  "modelName": "Message",
+  "tableName": "messages",
+  "schemaHash": "66eacde1fb705fa3d3f93c705ab0d3e67eb1c35cf9fd394fe3cc004b7dff72de",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.300Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "channel",
+    "direction",
+    "contactId",
+    "fromAddress",
+    "toAddress",
+    "subject",
+    "body",
+    "status",
+    "sentAt",
+    "readAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact"
+  ]
+}

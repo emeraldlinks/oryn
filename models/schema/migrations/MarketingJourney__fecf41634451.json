@@ -1,0 +1,24 @@
+{
+  "name": "MarketingJourney__fecf41634451",
+  "modelName": "MarketingJourney",
+  "tableName": "marketing_journeys",
+  "schemaHash": "fecf41634451162f7ab6c4e411e6c8765f12ba20bb17b0ba704253a5121c36e6",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.268Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "description",
+    "status",
+    "triggers",
+    "steps",
+    "startedAt",
+    "completedAt",
+    "totalEntered",
+    "totalConverted",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

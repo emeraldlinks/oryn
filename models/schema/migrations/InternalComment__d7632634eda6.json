@@ -1,0 +1,22 @@
+{
+  "name": "InternalComment__d7632634eda6",
+  "modelName": "InternalComment",
+  "tableName": "internal_comments",
+  "schemaHash": "d7632634eda6001dd29f608c7c30fc8a56f8eb47d01dde19220b75e207e749c2",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.228Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "entityType",
+    "entityId",
+    "bodyHtml",
+    "mentions",
+    "editedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

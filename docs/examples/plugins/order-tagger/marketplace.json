@@ -1,0 +1,23 @@
+{
+  "type": "app",
+  "name": "Order Tagger",
+  "description": "Automatically tag orders based on value, product category, and customer segments. Includes auto-tagging rules, bulk tag operations, tag analytics, and AI-powered tag suggestions.",
+  "version": "1.0.0",
+  "author": "Your Name",
+  "publisher": "Your Company",
+  "iconUrl": "https://api.dicebear.com/7.x/icons/svg?seed=tagger&backgroundColor=amber",
+  "verified": false,
+  "featured": false,
+  "categories": ["sales", "automation", "analytics"],
+  "tags": ["tags", "orders", "automation", "categorization", "labeling"],
+  "config": {
+    "homepage": "",
+    "repository": "",
+    "license": "MIT",
+    "readme": "# Order Tagger Plugin\n\nAutomatically categorizes orders with tags based on configurable rules.\n\n## Features\n\n- **Auto-Tagging Rules**: Define rules like \"orders over $1,000 → VIP tag\"\n- **Bulk Tag Operations**: Apply tags to multiple orders at once\n- **Tag Analytics**: See which tags are most used and their performance\n- **AI Tag Suggestions**: Ask the AI assistant to suggest tags for any order\n\n## What it demonstrates\n\n- Model extensions on the `invoice` entity\n- Actions with business logic\n- Webhooks for event-driven behavior\n- AI tools with parameters\n- Multiple pages with different section types\n- Dashboard widgets",
+    "screenshots": [],
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-06-01", "notes": "Initial release with auto-tagging, bulk operations, AI suggestions." }
+    ]
+  }
+}

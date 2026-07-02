@@ -1,0 +1,27 @@
+{
+  "name": "Meeting__4885b3a7a2f7",
+  "modelName": "Meeting",
+  "tableName": "meetings",
+  "schemaHash": "4885b3a7a2f727444e32bba2cefeb8d06d1f86dd4305234edb07a30a76144a63",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.296Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "title",
+    "contactId",
+    "dealId",
+    "userId",
+    "scheduledAt",
+    "duration",
+    "meetingUrl",
+    "notes",
+    "status",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact",
+    "deal",
+    "user"
+  ]
+}

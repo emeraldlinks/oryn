@@ -1,0 +1,21 @@
+{
+  "name": "PaymentGateway__e38c055e7a6a",
+  "modelName": "PaymentGateway",
+  "tableName": "payment_gateways",
+  "schemaHash": "e38c055e7a6a3c830bd2fddc404ae6e684be8b6684c9c6baf9bbe0d42a686142",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.348Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "provider",
+    "apiKey",
+    "apiSecret",
+    "webhookSecret",
+    "active",
+    "isDefault",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

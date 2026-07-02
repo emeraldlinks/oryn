@@ -1,0 +1,158 @@
+[
+  {
+    "extensionType": "page",
+    "name": "order-tags",
+    "config": {
+      "sidebarLabel": "Order Tags",
+      "sidebarIcon": "Activity",
+      "description": "Manage automatic and manual order tagging rules.",
+      "sections": [
+        {
+          "type": "stats",
+          "title": "Tagging Overview",
+          "stats": [
+            { "label": "Orders Tagged", "value": "1,847", "change": "+156 today", "icon": "Activity" },
+            { "label": "Active Tags", "value": "24", "change": "+3 this week", "icon": "Activity" },
+            { "label": "Auto-Tag Rate", "value": "94%", "change": "+2.1%", "icon": "TrendingUp" },
+            { "label": "Untagged Orders", "value": "38", "change": "needs review", "icon": "AlertCircle" }
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Auto-Tagging Rules",
+          "columns": [
+            { "key": "name", "label": "Rule Name" },
+            { "key": "condition", "label": "Condition" },
+            { "key": "tag", "label": "Tag Applied" },
+            { "key": "count", "label": "Orders Affected" }
+          ],
+          "rows": [
+            { "name": "High Value", "condition": "Total > $1,000", "tag": "VIP", "count": "342" },
+            { "name": "New Customer", "condition": "First Order", "tag": "New", "count": "521" },
+            { "name": "Bulk Order", "condition": "Qty >= 10", "tag": "Bulk", "count": "187" },
+            { "name": "International", "condition": "Country != US", "tag": "International", "count": "96" },
+            { "name": "Subscription", "condition": "Is Recurring", "tag": "Subscriber", "count": "701" }
+          ]
+        },
+        {
+          "type": "activity",
+          "title": "Recent Tagging Activity",
+          "items": [
+            { "title": "Order #ORD-4891 tagged as VIP", "description": "Auto-tagged — order total $2,450 exceeds $1,000 threshold", "status": "completed", "date": "5 min ago" },
+            { "title": "Order #ORD-4890 tagged as International", "description": "Auto-tagged — shipping address in Canada", "status": "completed", "date": "12 min ago" },
+            { "title": "Bulk tag applied to 23 orders", "description": "Manual action by Admin — tagged as 'Q4-Promotion'", "status": "completed", "date": "1 hour ago" },
+            { "title": "New rule created: Weekend Orders", "description": "Tags orders placed on Sat-Sun as 'Weekend'", "status": "completed", "date": "3 hours ago" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "extensionType": "page",
+    "name": "tag-report",
+    "config": {
+      "sidebarLabel": "Tag Report",
+      "sidebarIcon": "BarChart3",
+      "description": "Analytics and reporting on order tag distribution.",
+      "sections": [
+        {
+          "type": "chart",
+          "title": "Orders by Tag",
+          "chartType": "bar",
+          "labels": ["VIP", "New", "Bulk", "International", "Subscriber", "Weekend", "Promo"],
+          "datasets": [
+            { "label": "Orders", "data": [342, 521, 187, 96, 701, 234, 412], "color": "#6366f1" }
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Tag Performance",
+          "columns": [
+            { "key": "tag", "label": "Tag" },
+            { "key": "orders", "label": "Orders" },
+            { "key": "avgValue", "label": "Avg Value" },
+            { "key": "repeatRate", "label": "Repeat Rate" }
+          ],
+          "rows": [
+            { "tag": "VIP", "orders": "342", "avgValue": "$2,450", "repeatRate": "89%" },
+            { "tag": "Subscriber", "orders": "701", "avgValue": "$45", "repeatRate": "94%" },
+            { "tag": "Bulk", "orders": "187", "avgValue": "$3,200", "repeatRate": "45%" },
+            { "tag": "Promo", "orders": "412", "avgValue": "$89", "repeatRate": "62%" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "extensionType": "action",
+    "name": "apply-bulk-tag",
+    "config": {
+      "label": "Apply Bulk Tag",
+      "description": "Apply a tag to multiple orders based on filters",
+      "method": "POST"
+    }
+  },
+  {
+    "extensionType": "action",
+    "name": "remove-unused-tags",
+    "config": {
+      "label": "Remove Unused Tags",
+      "description": "Remove tags that have been applied to zero orders",
+      "method": "POST"
+    }
+  },
+  {
+    "extensionType": "model",
+    "name": "order-tags",
+    "config": {
+      "entity": "invoice",
+      "fields": [
+        { "name": "tags", "type": "json", "label": "Order Tags", "defaultValue": [], "description": "Array of tag strings applied to this order" },
+        { "name": "taggedAt", "type": "date", "label": "Last Tagged" },
+        { "name": "autoTagged", "type": "boolean", "label": "Auto-Tagged", "defaultValue": false },
+        { "name": "tagSource", "type": "string", "label": "Tag Source" }
+      ]
+    }
+  },
+  {
+    "extensionType": "webhook",
+    "name": "order-tag-webhook",
+    "config": {
+      "events": ["invoice.created", "invoice.paid"],
+      "url": "https://your-server.com/webhooks/order-tagger"
+    }
+  },
+  {
+    "extensionType": "ai_tool",
+    "name": "suggest-tags",
+    "config": {
+      "label": "Suggest Tags",
+      "description": "Analyze an order and suggest relevant tags based on its characteristics",
+      "handler": "suggestTags",
+      "parameters": [
+        { "name": "orderId", "type": "number", "label": "Order ID", "required": true, "description": "The order to analyze" }
+      ]
+    }
+  },
+  {
+    "extensionType": "widget",
+    "name": "tag-distribution",
+    "config": {
+      "label": "Tag Distribution",
+      "description": "See how orders are distributed across tags",
+      "type": "chart",
+      "chartType": "pie",
+      "size": "md"
+    }
+  },
+  {
+    "extensionType": "widget",
+    "name": "untagged-count",
+    "config": {
+      "label": "Untagged Orders",
+      "description": "Orders that haven't been tagged yet",
+      "type": "metric",
+      "size": "sm"
+    }
+  }
+]

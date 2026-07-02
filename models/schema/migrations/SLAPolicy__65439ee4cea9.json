@@ -1,0 +1,21 @@
+{
+  "name": "SLAPolicy__65439ee4cea9",
+  "modelName": "SLAPolicy",
+  "tableName": "sla_policies",
+  "schemaHash": "65439ee4cea9b4a539ddc05ae3cfe7994b59a60bc5598fd9c63abf0967d389c2",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.491Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "responseTimeMinutes",
+    "resolutionTimeMinutes",
+    "conditions",
+    "escalationRules",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

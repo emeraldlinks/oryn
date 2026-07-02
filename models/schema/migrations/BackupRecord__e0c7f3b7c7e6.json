@@ -1,0 +1,22 @@
+{
+  "name": "BackupRecord__e0c7f3b7c7e6",
+  "modelName": "BackupRecord",
+  "tableName": "backup_records",
+  "schemaHash": "e0c7f3b7c7e6607a354d6119a6e68eda3ee1d0f26a879e4daffbc09648cf14f2",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.975Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "type",
+    "fileUrl",
+    "fileSize",
+    "status",
+    "errorMessage",
+    "startedAt",
+    "completedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

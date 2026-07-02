@@ -1,0 +1,27 @@
+{
+  "name": "AdCampaign__dc7a06ce0b40",
+  "modelName": "AdCampaign",
+  "tableName": "ad_campaigns",
+  "schemaHash": "dc7a06ce0b40a7159e97b2790f5d150219ea02e2dba4a8bd4e6def35904b8905",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.931Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "socialAccountId",
+    "platformCampaignId",
+    "name",
+    "objective",
+    "status",
+    "budget",
+    "spent",
+    "impressions",
+    "clicks",
+    "conversions",
+    "startDate",
+    "endDate",
+    "createdAt",
+    "updatedAt",
+    "socialAccount"
+  ]
+}

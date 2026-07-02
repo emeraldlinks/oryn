@@ -1,0 +1,18 @@
+{
+  "name": "IPAllowlistEntry__da559ec601d9",
+  "modelName": "IPAllowlistEntry",
+  "tableName": "ip_allowlist_entries",
+  "schemaHash": "da559ec601d9eb87178e9e08376596fe5ac5d90514fda390d3f871db29ba0e40",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.238Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "ipAddress",
+    "description",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

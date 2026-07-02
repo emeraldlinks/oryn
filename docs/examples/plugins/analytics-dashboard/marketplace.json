@@ -1,0 +1,23 @@
+{
+  "type": "app",
+  "name": "Analytics Hub Dashboard",
+  "description": "A feature-rich analytics dashboard plugin demonstrating every page section type in the Oryn Plugin SDK. Perfect reference for building rich plugin UIs with stats, charts, tables, activity timelines, forms, and hero cards.",
+  "version": "1.0.0",
+  "author": "Your Name",
+  "publisher": "Your Company",
+  "iconUrl": "https://api.dicebear.com/7.x/icons/svg?seed=analytics&backgroundColor=blue",
+  "verified": false,
+  "featured": false,
+  "categories": ["analytics", "developer-tools"],
+  "tags": ["analytics", "dashboard", "reference", "example", "tutorial", "sections"],
+  "config": {
+    "homepage": "",
+    "repository": "",
+    "license": "MIT",
+    "readme": "# Analytics Hub Dashboard Plugin\n\nA reference plugin demonstrating every page section type.\n\n## What it demonstrates\n\n- **Hero section** — Welcome banner with title and description\n- **Stats cards** — 2 sets: positive changes and negative changes\n- **Bar chart** — Monthly revenue/costs/profit\n- **Line chart** — Weekly lead and deal trends\n- **Pie chart** — Lead source distribution\n- **Area chart** — Cumulative customer growth\n- **Table** — Top deals with 6 columns\n- **Activity timeline** — Recent activity with 4 status types\n- **Form** — Quick note with 5 field types\n\n## Sections Reference\n\n| Section Type | Count in Page | Purpose |\n|-------------|--------------|---------|\n| hero | 1 | Welcome/intro banner |\n| stats | 2 | Key metrics with trends |\n| chart | 4 | Bar, line, pie, area |\n| table | 1 | Tabular data |\n| activity | 1 | Timelines and feeds |\n| form | 1 | Data input |",
+    "screenshots": [],
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-06-01", "notes": "Initial release with all page section types." }
+    ]
+  }
+}

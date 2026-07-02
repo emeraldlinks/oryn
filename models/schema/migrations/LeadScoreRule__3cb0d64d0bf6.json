@@ -1,0 +1,20 @@
+{
+  "name": "LeadScoreRule__3cb0d64d0bf6",
+  "modelName": "LeadScoreRule",
+  "tableName": "lead_score_rules",
+  "schemaHash": "3cb0d64d0bf625f6b96a973ea84a4b81420a0369748abb56734fc82db5e7bf4a",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.252Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "entityType",
+    "conditions",
+    "scoreValue",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "type": "app",
+  "name": "Hello World",
+  "description": "A minimal Hello World plugin demonstrating the basics of the Oryn Plugin SDK. Perfect starting point for new plugin developers.",
+  "version": "1.0.0",
+  "author": "Your Name",
+  "publisher": "Your Company",
+  "iconUrl": "https://api.dicebear.com/7.x/icons/svg?seed=hello&backgroundColor=blue",
+  "verified": false,
+  "featured": false,
+  "categories": ["developer-tools"],
+  "tags": ["hello-world", "example", "tutorial", "starter"],
+  "config": {
+    "homepage": "",
+    "repository": "",
+    "license": "MIT",
+    "readme": "# Hello World Plugin\n\nThe simplest possible Oryn plugin. Perfect for learning the Plugin SDK.\n\n## What it demonstrates\n\n- Registering a plugin with permissions\n- Creating a page with hero and stats sections\n- Adding a runnable action\n- Publishing a marketplace listing\n\n## Files\n\n- `manifest.json` — Plugin registration metadata\n- `extensions.json` — All plugin extensions\n- `marketplace.json` — Marketplace listing for publishing",
+    "screenshots": [],
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-06-01", "notes": "Initial release." }
+    ]
+  }
+}

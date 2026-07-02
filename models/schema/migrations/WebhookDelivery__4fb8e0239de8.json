@@ -1,0 +1,25 @@
+{
+  "name": "WebhookDelivery__4fb8e0239de8",
+  "modelName": "WebhookDelivery",
+  "tableName": "webhook_deliveries",
+  "schemaHash": "4fb8e0239de848f8a0f7d2b722ec840522a76bce23f5a16c5845fc9df0897a9e",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.585Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "endpointId",
+    "status",
+    "httpStatus",
+    "requestHeaders",
+    "requestBody",
+    "responseHeaders",
+    "responseBody",
+    "errorMessage",
+    "durationMs",
+    "nextRetryAt",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

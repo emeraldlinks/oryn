@@ -1,0 +1,28 @@
+{
+  "name": "BackgroundJob__f859c74bc52b",
+  "modelName": "BackgroundJob",
+  "tableName": "background_jobs",
+  "schemaHash": "f859c74bc52be6c17ce1947cab7edbd5f3a47aadfd906c79ef21ae1d9d949462",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.973Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "type",
+    "payload",
+    "result",
+    "status",
+    "errorMessage",
+    "attempts",
+    "maxAttempts",
+    "scheduledAt",
+    "startedAt",
+    "completedAt",
+    "nextRetryAt",
+    "userId",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

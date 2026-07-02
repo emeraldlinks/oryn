@@ -1,0 +1,33 @@
+{
+  "name": "Deal__0e7a53e1fd0f",
+  "modelName": "Deal",
+  "tableName": "deals",
+  "schemaHash": "0e7a53e1fd0fe3eb810fd08b8e17f520666fedd6748367e391750296c2d62542",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.113Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "title",
+    "value",
+    "currency",
+    "stage",
+    "probability",
+    "expectedCloseDate",
+    "assignedTo",
+    "branchId",
+    "wonAt",
+    "lostAt",
+    "lostReason",
+    "notes",
+    "createdAt",
+    "updatedAt",
+    "deletedAt",
+    "workspace",
+    "contact",
+    "assignee",
+    "activities",
+    "meetings"
+  ]
+}

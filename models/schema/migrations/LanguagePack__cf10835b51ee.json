@@ -1,0 +1,21 @@
+{
+  "name": "LanguagePack__cf10835b51ee",
+  "modelName": "LanguagePack",
+  "tableName": "language_packs",
+  "schemaHash": "cf10835b51ee0a1a9e3a571b5c87b9b76ec174ac192da2d2635f6bf48b395a42",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.248Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "locale",
+    "name",
+    "nativeName",
+    "isRtl",
+    "isDefault",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

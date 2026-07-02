@@ -1,0 +1,22 @@
+{
+  "name": "LeaveRequest__2145caab5d25",
+  "modelName": "LeaveRequest",
+  "tableName": "leave_requests",
+  "schemaHash": "2145caab5d251f96833ad551c0d7c2e4b7f9724f054a127022b9d9a996485c9a",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.257Z",
+  "fields": [
+    "id",
+    "employeeId",
+    "type",
+    "startDate",
+    "endDate",
+    "status",
+    "reason",
+    "approvedBy",
+    "createdAt",
+    "updatedAt",
+    "employee",
+    "approver"
+  ]
+}

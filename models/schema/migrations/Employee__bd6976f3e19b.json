@@ -1,0 +1,26 @@
+{
+  "name": "Employee__bd6976f3e19b",
+  "modelName": "Employee",
+  "tableName": "employees",
+  "schemaHash": "bd6976f3e19bed4bee26dfefcdb75b26aba8472a563951f1b4342019a9c2885f",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.156Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "branchId",
+    "department",
+    "jobTitle",
+    "salary",
+    "startDate",
+    "createdAt",
+    "updatedAt",
+    "deletedAt",
+    "workspace",
+    "user",
+    "branch",
+    "attendance",
+    "leaveRequests"
+  ]
+}

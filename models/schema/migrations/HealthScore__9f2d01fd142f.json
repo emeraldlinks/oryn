@@ -1,0 +1,21 @@
+{
+  "name": "HealthScore__9f2d01fd142f",
+  "modelName": "HealthScore",
+  "tableName": "health_scores",
+  "schemaHash": "9f2d01fd142f0c6489d9bfe132db3263a92e2577576c6097ae04227b25eeffdb",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.203Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "score",
+    "category",
+    "notes",
+    "factors",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "SocialPost__ed7109af1294",
+  "modelName": "SocialPost",
+  "tableName": "social_posts",
+  "schemaHash": "ed7109af12948ebe869081718b298da5217fce064d62b919f9cbe9ee83a0a7f0",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.508Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "socialAccountId",
+    "content",
+    "mediaUrls",
+    "status",
+    "scheduledAt",
+    "publishedAt",
+    "platformPostId",
+    "likes",
+    "comments",
+    "shares",
+    "reach",
+    "createdAt",
+    "updatedAt",
+    "account",
+    "replies"
+  ]
+}

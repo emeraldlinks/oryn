@@ -1,0 +1,23 @@
+{
+  "name": "Bot__638235120e19",
+  "modelName": "Bot",
+  "tableName": "bots",
+  "schemaHash": "638235120e193cd494af8a6ce414bfa0672a9024aceb457391acc7d12f711b15",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.983Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "channel",
+    "triggerKeywords",
+    "responseTemplate",
+    "aiModel",
+    "config",
+    "active",
+    "totalConversations",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

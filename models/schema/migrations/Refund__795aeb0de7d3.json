@@ -1,0 +1,22 @@
+{
+  "name": "Refund__795aeb0de7d3",
+  "modelName": "Refund",
+  "tableName": "refunds",
+  "schemaHash": "795aeb0de7d3b37daee8a5af1623a8b17676e4c378ed946fdf07576902949143",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.449Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "invoiceId",
+    "amount",
+    "currency",
+    "reason",
+    "status",
+    "processedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "invoice"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "author": "Your Name Here",
+  "description": "A minimal Hello World plugin demonstrating the basics of the Oryn Plugin SDK.",
+  "entryPoint": null,
+  "permissions": ["contacts:read"]
+}

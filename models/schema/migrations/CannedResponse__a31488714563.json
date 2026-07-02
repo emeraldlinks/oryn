@@ -1,0 +1,19 @@
+{
+  "name": "CannedResponse__a31488714563",
+  "modelName": "CannedResponse",
+  "tableName": "canned_responses",
+  "schemaHash": "a31488714563c4c843d3ff7ad57f27648c3dbefa4a1072346e654814cb774175",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.019Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "title",
+    "bodyHtml",
+    "shortcuts",
+    "category",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

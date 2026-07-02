@@ -1,0 +1,23 @@
+{
+  "name": "SMSCampaign__4a9d07e15d0a",
+  "modelName": "SMSCampaign",
+  "tableName": "sms_campaigns",
+  "schemaHash": "4a9d07e15d0a4e2c9d51bebe69d30bc05a6d321c035fea059b4c85688373fea7",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.493Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "body",
+    "status",
+    "scheduledAt",
+    "sentAt",
+    "recipientCount",
+    "deliveredCount",
+    "targetFilters",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

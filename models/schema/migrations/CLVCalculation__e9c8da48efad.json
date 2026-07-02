@@ -1,0 +1,22 @@
+{
+  "name": "CLVCalculation__e9c8da48efad",
+  "modelName": "CLVCalculation",
+  "tableName": "clv_calculations",
+  "schemaHash": "e9c8da48efad34d2c6db00579885e92b109b039347810935660dc1bf2d2649f3",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.037Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "averageOrderValue",
+    "purchaseFrequency",
+    "customerLifespan",
+    "clv",
+    "calculatedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "BotConnection__c92df20957ea",
+  "modelName": "BotConnection",
+  "tableName": "bot_connections",
+  "schemaHash": "c92df20957ead81a96d4e24531fd7f5f128d32e95a1e9736e9c66e284eb02c0b",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.987Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "name",
+    "provider",
+    "apiKey",
+    "apiSecret",
+    "status",
+    "active",
+    "lastUsedAt",
+    "expiresAt",
+    "allowedActions",
+    "totalRequests",
+    "createdAt",
+    "updatedAt",
+    "deletedAt",
+    "workspace",
+    "owner",
+    "actions"
+  ]
+}

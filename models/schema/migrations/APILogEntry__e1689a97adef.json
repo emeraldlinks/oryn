@@ -1,0 +1,22 @@
+{
+  "name": "APILogEntry__e1689a97adef",
+  "modelName": "APILogEntry",
+  "tableName": "api_log_entries",
+  "schemaHash": "e1689a97adeff724ab9e2256d9e44200a99d67b2e883d41e7f84262711c55775",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.949Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "method",
+    "path",
+    "statusCode",
+    "durationMs",
+    "ipAddress",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "EmailTemplate__b9bd394330d2",
+  "modelName": "EmailTemplate",
+  "tableName": "email_templates",
+  "schemaHash": "b9bd394330d2a31e4a858c341bd9e4e0db7a64aa1cfa4c84a9cc3316adec0fa8",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.147Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "subject",
+    "bodyHtml",
+    "variables",
+    "status",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "campaigns"
+  ]
+}

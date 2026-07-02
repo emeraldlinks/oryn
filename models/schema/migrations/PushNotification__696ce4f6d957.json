@@ -1,0 +1,23 @@
+{
+  "name": "PushNotification__696ce4f6d957",
+  "modelName": "PushNotification",
+  "tableName": "push_notifications",
+  "schemaHash": "696ce4f6d95740fed1253482debb02df6be6b72a55624c2766863bd10ecc12c2",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.422Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "title",
+    "body",
+    "data",
+    "status",
+    "sentAt",
+    "readAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

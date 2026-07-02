@@ -1,0 +1,25 @@
+{
+  "name": "Document__828564d87038",
+  "modelName": "Document",
+  "tableName": "documents",
+  "schemaHash": "828564d870388cdc2672d9e722567870fc7ca150b82d59b1784d220810f8096c",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.123Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "title",
+    "type",
+    "contentJson",
+    "pdfUrl",
+    "contactId",
+    "dealId",
+    "status",
+    "signedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact",
+    "deal"
+  ]
+}

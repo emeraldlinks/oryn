@@ -1,0 +1,20 @@
+{
+  "name": "Whiteboard__155b4505da19",
+  "modelName": "Whiteboard",
+  "tableName": "whiteboards",
+  "schemaHash": "155b4505da195c8392fc560cc0c9d99c349a8e86eff57bb4184fcf0cad9007d2",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.597Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "data",
+    "participants",
+    "createdBy",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "creator"
+  ]
+}

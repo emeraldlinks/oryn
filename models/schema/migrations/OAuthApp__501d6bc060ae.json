@@ -1,0 +1,21 @@
+{
+  "name": "OAuthApp__501d6bc060ae",
+  "modelName": "OAuthApp",
+  "tableName": "oauth_apps",
+  "schemaHash": "501d6bc060aead5d80222b6444db4b45687c1bec3f27aea6db01b801e019a55e",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.312Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "redirectUris",
+    "clientId",
+    "clientSecret",
+    "scopes",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

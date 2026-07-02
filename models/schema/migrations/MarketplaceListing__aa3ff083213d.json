@@ -1,0 +1,29 @@
+{
+  "name": "MarketplaceListing__aa3ff083213d",
+  "modelName": "MarketplaceListing",
+  "tableName": "marketplace_listings",
+  "schemaHash": "aa3ff083213d35bdd68cd104ec33e8e010ae998338e9cb8f83d27596891f009d",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.286Z",
+  "fields": [
+    "id",
+    "type",
+    "name",
+    "description",
+    "version",
+    "author",
+    "publisher",
+    "iconUrl",
+    "config",
+    "verified",
+    "published",
+    "installCount",
+    "rating",
+    "reviewCount",
+    "featured",
+    "categories",
+    "tags",
+    "createdAt",
+    "updatedAt"
+  ]
+}

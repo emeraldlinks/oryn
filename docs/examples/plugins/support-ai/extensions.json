@@ -1,0 +1,148 @@
+[
+  {
+    "extensionType": "page",
+    "name": "support-ai-dashboard",
+    "config": {
+      "sidebarLabel": "Support AI",
+      "sidebarIcon": "Brain",
+      "description": "AI-powered support tools and analytics.",
+      "sections": [
+        {
+          "type": "stats",
+          "title": "AI Impact",
+          "stats": [
+            { "label": "Tickets Auto-Resolved", "value": "342", "change": "+28 this week", "icon": "Activity" },
+            { "label": "Avg Resolution Time", "value": "4.2h", "change": "-1.5h", "icon": "TrendingDown" },
+            { "label": "AI Suggestions Used", "value": "1,247", "change": "+156", "icon": "TrendingUp" },
+            { "label": "Customer Satisfaction", "value": "94%", "change": "+2.1%", "icon": "TrendingUp" }
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Recent AI Actions",
+          "columns": [
+            { "key": "ticket", "label": "Ticket" },
+            { "key": "action", "label": "AI Action" },
+            { "key": "status", "label": "Status" },
+            { "key": "time", "label": "Time Saved" }
+          ],
+          "rows": [
+            { "ticket": "TKT-4821", "action": "Summarized conversation", "status": "Applied", "time": "8 min" },
+            { "ticket": "TKT-4819", "action": "Suggested solution", "status": "Accepted", "time": "12 min" },
+            { "ticket": "TKT-4815", "action": "Drafted reply", "status": "Sent", "time": "5 min" },
+            { "ticket": "TKT-4812", "action": "Detected sentiment", "status": "Flagged", "time": "3 min" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "extensionType": "webhook",
+    "name": "ticket-webhook",
+    "config": {
+      "events": ["ticket.created", "ticket.resolved"],
+      "url": "https://your-server.com/webhooks/support-ai"
+    }
+  },
+  {
+    "extensionType": "ai_tool",
+    "name": "summarize-ticket",
+    "config": {
+      "label": "Summarize Ticket",
+      "description": "Generate a concise summary of a support ticket conversation, including the issue, steps taken, and resolution.",
+      "handler": "summarizeTicket",
+      "parameters": [
+        { "name": "ticketId", "type": "number", "label": "Ticket ID", "required": true, "description": "The ticket to summarize" },
+        { "name": "format", "type": "select", "label": "Summary Format", "options": ["brief", "detailed", "bullet-points"], "description": "How detailed the summary should be" }
+      ]
+    }
+  },
+  {
+    "extensionType": "ai_tool",
+    "name": "suggest-solution",
+    "config": {
+      "label": "Suggest Solution",
+      "description": "Analyze a support ticket and suggest the most likely solution based on the issue description and similar resolved tickets.",
+      "handler": "suggestSolution",
+      "parameters": [
+        { "name": "ticketId", "type": "number", "label": "Ticket ID", "required": true, "description": "The ticket to find a solution for" },
+        { "name": "maxSuggestions", "type": "number", "label": "Max Suggestions", "description": "Maximum number of suggestions to return (default: 3)" }
+      ]
+    }
+  },
+  {
+    "extensionType": "ai_tool",
+    "name": "draft-reply",
+    "config": {
+      "label": "Draft Reply",
+      "description": "Draft a professional reply to a customer based on the ticket conversation and your notes.",
+      "handler": "draftReply",
+      "parameters": [
+        { "name": "ticketId", "type": "number", "label": "Ticket ID", "required": true, "description": "The ticket to reply to" },
+        { "name": "tone", "type": "select", "label": "Tone", "options": ["professional", "friendly", "urgent", "apologetic"], "description": "The tone of the reply" },
+        { "name": "additionalNotes", "type": "string", "label": "Additional Notes", "description": "Any specific points to include" }
+      ]
+    }
+  },
+  {
+    "extensionType": "ai_tool",
+    "name": "detect-sentiment",
+    "config": {
+      "label": "Detect Sentiment",
+      "description": "Analyze the sentiment of a customer's messages in a ticket to detect frustration, satisfaction, or urgency.",
+      "handler": "detectSentiment",
+      "parameters": [
+        { "name": "ticketId", "type": "number", "label": "Ticket ID", "required": true, "description": "The ticket to analyze" }
+      ]
+    }
+  },
+  {
+    "extensionType": "ai_tool",
+    "name": "generate-knowledge-article",
+    "config": {
+      "label": "Generate Knowledge Article",
+      "description": "Generate a Knowledge Base article from a resolved ticket, including the issue, solution, and steps to reproduce.",
+      "handler": "generateKnowledgeArticle",
+      "parameters": [
+        { "name": "ticketId", "type": "number", "label": "Ticket ID", "required": true, "description": "The resolved ticket to base the article on" },
+        { "name": "title", "type": "string", "label": "Article Title", "description": "Optional custom title for the article" },
+        { "name": "category", "type": "select", "label": "Category", "options": ["troubleshooting", "how-to", "faq", "best-practice"], "description": "Knowledge Base category" }
+      ]
+    }
+  },
+  {
+    "extensionType": "model",
+    "name": "support-ai-data",
+    "config": {
+      "entity": "ticket",
+      "fields": [
+        { "name": "aiSummary", "type": "string", "label": "AI Summary" },
+        { "name": "aiSentiment", "type": "select", "label": "AI Sentiment", "options": ["positive", "neutral", "negative", "urgent"] },
+        { "name": "aiSuggestedSolution", "type": "string", "label": "AI Suggested Solution" },
+        { "name": "aiAutoResolved", "type": "boolean", "label": "AI Auto-Resolved", "defaultValue": false },
+        { "name": "aiConfidence", "type": "number", "label": "AI Confidence Score", "defaultValue": 0 }
+      ]
+    }
+  },
+  {
+    "extensionType": "widget",
+    "name": "ai-resolution-rate",
+    "config": {
+      "label": "AI Resolution Rate",
+      "description": "Percentage of tickets resolved with AI assistance",
+      "type": "metric",
+      "size": "sm"
+    }
+  },
+  {
+    "extensionType": "widget",
+    "name": "sentiment-breakdown",
+    "config": {
+      "label": "Sentiment Breakdown",
+      "description": "Customer sentiment distribution across tickets",
+      "type": "chart",
+      "chartType": "pie",
+      "size": "md"
+    }
+  }
+]

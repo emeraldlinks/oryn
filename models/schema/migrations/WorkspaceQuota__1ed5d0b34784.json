@@ -1,0 +1,24 @@
+{
+  "name": "WorkspaceQuota__1ed5d0b34784",
+  "modelName": "WorkspaceQuota",
+  "tableName": "workspace_quotas",
+  "schemaHash": "1ed5d0b347846c808339497da85291c638e6861505b1edf1d86b5c4ab4077465",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.657Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "maxUsers",
+    "maxStorageGb",
+    "maxContacts",
+    "maxDeals",
+    "maxProjects",
+    "canUseAI",
+    "canUseAPI",
+    "canUseAutomation",
+    "limits",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "UsageRecord__9bfd5f33018b",
+  "modelName": "UsageRecord",
+  "tableName": "usage_records",
+  "schemaHash": "9bfd5f33018b9bf7233217901072854c098df88a201511f18ec0eda1cdd2439b",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.562Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "entityType",
+    "count",
+    "period",
+    "recordedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

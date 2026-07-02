@@ -1,0 +1,21 @@
+{
+  "name": "CustomFieldDef__6385fb853e49",
+  "modelName": "CustomFieldDef",
+  "tableName": "custom_field_defs",
+  "schemaHash": "6385fb853e492cebc8b5df67395e0c4f9cb6cb6a535209a7bcd8b88ada8c9666",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.086Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "entityType",
+    "fieldName",
+    "fieldType",
+    "options",
+    "required",
+    "sortOrder",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

@@ -1,0 +1,200 @@
+[
+  {
+    "extensionType": "page",
+    "name": "loyalty-dashboard",
+    "config": {
+      "sidebarLabel": "Loyalty Program",
+      "sidebarIcon": "Activity",
+      "description": "Customer loyalty program overview — points, tiers, and rewards.",
+      "sections": [
+        {
+          "type": "stats",
+          "title": "Program Stats",
+          "stats": [
+            { "label": "Enrolled Members", "value": "2,847", "change": "+124 this month", "icon": "Activity" },
+            { "label": "Points Issued", "value": "1.2M", "change": "+85K", "icon": "TrendingUp" },
+            { "label": "Points Redeemed", "value": "842K", "change": "70% rate", "icon": "Activity" },
+            { "label": "Avg Points/Order", "value": "145", "change": "+12", "icon": "TrendingUp" }
+          ]
+        },
+        {
+          "type": "chart",
+          "title": "Tier Distribution",
+          "chartType": "pie",
+          "labels": ["Bronze", "Silver", "Gold", "Platinum"],
+          "datasets": [
+            { "label": "Members", "data": [1240, 890, 520, 197], "color": "#8b5cf6" }
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Top Members This Month",
+          "columns": [
+            { "key": "name", "label": "Member" },
+            { "key": "tier", "label": "Tier" },
+            { "key": "points", "label": "Points" },
+            { "key": "orders", "label": "Orders" },
+            { "key": "spent", "label": "Total Spent" }
+          ],
+          "rows": [
+            { "name": "Acme Corp", "tier": "Platinum", "points": "12,450", "orders": "45", "spent": "$89,200" },
+            { "name": "Globex Inc", "tier": "Gold", "points": "8,320", "orders": "28", "spent": "$45,600" },
+            { "name": "Stark Industries", "tier": "Platinum", "points": "7,890", "orders": "52", "spent": "$120,000" },
+            { "name": "Wayne Enterprises", "tier": "Silver", "points": "4,560", "orders": "15", "spent": "$22,300" },
+            { "name": "Oscorp", "tier": "Bronze", "points": "2,100", "orders": "8", "spent": "$8,400" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "extensionType": "page",
+    "name": "rewards-catalog",
+    "config": {
+      "sidebarLabel": "Rewards Catalog",
+      "sidebarIcon": "BarChart3",
+      "description": "Manage the rewards that members can redeem their points for.",
+      "sections": [
+        {
+          "type": "form",
+          "title": "Add Reward",
+          "formFields": [
+            { "name": "name", "label": "Reward Name", "type": "text", "required": true },
+            { "name": "pointsCost", "label": "Points Required", "type": "number", "required": true },
+            { "name": "tier", "label": "Minimum Tier", "type": "select", "required": true, "options": ["Bronze", "Silver", "Gold", "Platinum"] },
+            { "name": "quantity", "label": "Quantity Available", "type": "number", "required": true },
+            { "name": "description", "label": "Description", "type": "text" }
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Available Rewards",
+          "columns": [
+            { "key": "name", "label": "Reward" },
+            { "key": "cost", "label": "Points" },
+            { "key": "tier", "label": "Min Tier" },
+            { "key": "redeemed", "label": "Redeemed" },
+            { "key": "available", "label": "Available" }
+          ],
+          "rows": [
+            { "name": "$50 Gift Card", "cost": "5,000", "tier": "Bronze", "redeemed": "124", "available": "76" },
+            { "name": "Free Shipping (1yr)", "cost": "10,000", "tier": "Silver", "redeemed": "67", "available": "33" },
+            { "name": "Premium Support", "cost": "15,000", "tier": "Gold", "redeemed": "42", "available": "58" },
+            { "name": "VIP Event Access", "cost": "25,000", "tier": "Platinum", "redeemed": "18", "available": "82" },
+            { "name": "Custom Integration", "cost": "50,000", "tier": "Platinum", "redeemed": "5", "available": "5" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "extensionType": "model",
+    "name": "loyalty-data",
+    "config": {
+      "entity": "contact",
+      "fields": [
+        { "name": "loyaltyTier", "type": "select", "label": "Loyalty Tier", "options": ["bronze", "silver", "gold", "platinum"], "defaultValue": "bronze" },
+        { "name": "loyaltyPoints", "type": "number", "label": "Loyalty Points", "defaultValue": 0 },
+        { "name": "pointsLifetime", "type": "number", "label": "Lifetime Points Earned", "defaultValue": 0 },
+        { "name": "pointsRedeemed", "type": "number", "label": "Points Redeemed", "defaultValue": 0 },
+        { "name": "enrolledAt", "type": "date", "label": "Enrollment Date" },
+        { "name": "tierExpiresAt", "type": "date", "label": "Tier Expiry" },
+        { "name": "referralCode", "type": "string", "label": "Referral Code" },
+        { "name": "pointsMultiplier", "type": "number", "label": "Points Multiplier", "defaultValue": 1.0 },
+        { "name": "rewardPreferences", "type": "json", "label": "Reward Preferences" }
+      ]
+    }
+  },
+  {
+    "extensionType": "action",
+    "name": "award-points",
+    "config": {
+      "label": "Award Points",
+      "description": "Manually award loyalty points to a member",
+      "method": "POST"
+    }
+  },
+  {
+    "extensionType": "action",
+    "name": "recalculate-tiers",
+    "config": {
+      "label": "Recalculate Tiers",
+      "description": "Recalculate loyalty tiers for all members based on their lifetime points",
+      "method": "POST"
+    }
+  },
+  {
+    "extensionType": "action",
+    "name": "process-expirations",
+    "config": {
+      "label": "Process Expirations",
+      "description": "Downgrade members whose tier has expired",
+      "method": "POST"
+    }
+  },
+  {
+    "extensionType": "webhook",
+    "name": "purchase-webhook",
+    "config": {
+      "events": ["invoice.paid"],
+      "url": "https://your-server.com/webhooks/loyalty/award-points"
+    }
+  },
+  {
+    "extensionType": "ai_tool",
+    "name": "check-points",
+    "config": {
+      "label": "Check Loyalty Points",
+      "description": "Check a member's current loyalty points, tier, and available rewards",
+      "handler": "checkPoints",
+      "parameters": [
+        { "name": "contactId", "type": "number", "label": "Contact ID", "required": true, "description": "The member to check" }
+      ]
+    }
+  },
+  {
+    "extensionType": "ai_tool",
+    "name": "award-bonus-points",
+    "config": {
+      "label": "Award Bonus Points",
+      "description": "Award bonus points to a member as a gesture or compensation",
+      "handler": "awardBonusPoints",
+      "parameters": [
+        { "name": "contactId", "type": "number", "label": "Contact ID", "required": true, "description": "The member to award points to" },
+        { "name": "points", "type": "number", "label": "Points", "required": true, "description": "Number of bonus points" },
+        { "name": "reason", "type": "string", "label": "Reason", "required": true, "description": "Why the points are being awarded" }
+      ]
+    }
+  },
+  {
+    "extensionType": "widget",
+    "name": "tier-distribution",
+    "config": {
+      "label": "Tier Distribution",
+      "description": "Members by loyalty tier",
+      "type": "chart",
+      "chartType": "pie",
+      "size": "md"
+    }
+  },
+  {
+    "extensionType": "widget",
+    "name": "total-members",
+    "config": {
+      "label": "Total Members",
+      "description": "Enrolled loyalty program members",
+      "type": "metric",
+      "size": "sm"
+    }
+  },
+  {
+    "extensionType": "widget",
+    "name": "recent-redeemers",
+    "config": {
+      "label": "Recent Redeemers",
+      "description": "Members who recently redeemed points",
+      "type": "table",
+      "size": "md"
+    }
+  }
+]

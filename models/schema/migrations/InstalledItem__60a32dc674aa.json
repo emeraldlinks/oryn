@@ -1,0 +1,21 @@
+{
+  "name": "InstalledItem__60a32dc674aa",
+  "modelName": "InstalledItem",
+  "tableName": "installed_items",
+  "schemaHash": "60a32dc674aa25b19444d5ac073af3bed897c3312cf30acfc3bbc51183fdc184",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.215Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "listingId",
+    "settings",
+    "active",
+    "installedById",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "listing",
+    "installedBy"
+  ]
+}

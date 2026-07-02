@@ -1,0 +1,21 @@
+{
+  "name": "WordpressSite__87b9cd4f9047",
+  "modelName": "WordpressSite",
+  "tableName": "wordpress_sites",
+  "schemaHash": "87b9cd4f90474d231920d7a070786c639b98edac23faa8a1e4ec531badedd4ec",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.614Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "siteUrl",
+    "appUsername",
+    "appPassword",
+    "siteName",
+    "connectedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "posts"
+  ]
+}

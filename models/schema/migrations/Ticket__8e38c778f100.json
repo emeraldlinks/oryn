@@ -1,0 +1,25 @@
+{
+  "name": "Ticket__8e38c778f100",
+  "modelName": "Ticket",
+  "tableName": "tickets",
+  "schemaHash": "8e38c778f1004de2387125011fe8957d698e1ddc35ab7cbf881b51f70bb0bd7f",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.545Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "subject",
+    "status",
+    "priority",
+    "assignedTo",
+    "resolvedAt",
+    "createdAt",
+    "updatedAt",
+    "deletedAt",
+    "workspace",
+    "contact",
+    "assignee",
+    "messages"
+  ]
+}

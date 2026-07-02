@@ -1,0 +1,19 @@
+{
+  "name": "PluginExtension__f8d201e81295",
+  "modelName": "PluginExtension",
+  "tableName": "plugin_extensions",
+  "schemaHash": "f8d201e812959ea0896e28ffd1b749aaf21c4dd9a892232711d4871a8cab6e11",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.360Z",
+  "fields": [
+    "id",
+    "pluginId",
+    "extensionType",
+    "name",
+    "config",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "plugin"
+  ]
+}

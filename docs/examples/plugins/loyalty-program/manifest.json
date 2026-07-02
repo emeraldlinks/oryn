@@ -1,0 +1,8 @@
+{
+  "name": "loyalty-program",
+  "version": "1.0.0",
+  "author": "Your Name Here",
+  "description": "Add a customer loyalty program with points, tiers, and rewards. Demonstrates data model extensions on contacts, AI-powered points management, and event-driven webhooks.",
+  "entryPoint": null,
+  "permissions": ["contacts:read", "contacts:write", "orders:read", "orders:write"]
+}

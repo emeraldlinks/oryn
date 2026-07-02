@@ -1,0 +1,24 @@
+{
+  "name": "ABTest__2d12f52470ff",
+  "modelName": "ABTest",
+  "tableName": "ab_tests",
+  "schemaHash": "2d12f52470ff27a40644db799154703d88d30d2a5b6f06cd41160084cf60459a",
+  "batch": 2,
+  "appliedAt": "2026-07-02T03:19:52.569Z",
+  "fields": [
+    "id",
+    "tt",
+    "workspaceId",
+    "name",
+    "description",
+    "status",
+    "variants",
+    "metrics",
+    "startedAt",
+    "completedAt",
+    "winner",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

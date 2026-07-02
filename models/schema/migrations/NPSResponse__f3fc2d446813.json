@@ -1,0 +1,20 @@
+{
+  "name": "NPSResponse__f3fc2d446813",
+  "modelName": "NPSResponse",
+  "tableName": "nps_responses",
+  "schemaHash": "f3fc2d446813e52258c3d392883c3d9af85fc243c0ad4402129cd90975d02d1b",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.308Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "score",
+    "comment",
+    "surveyId",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact"
+  ]
+}

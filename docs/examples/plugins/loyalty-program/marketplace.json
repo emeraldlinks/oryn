@@ -1,0 +1,23 @@
+{
+  "type": "app",
+  "name": "Loyalty Program",
+  "description": "Add a full customer loyalty program with points tracking, tier management, rewards catalog, and AI-powered points management. Award points on purchases, track redemptions, and manage membership tiers.",
+  "version": "1.0.0",
+  "author": "Your Name",
+  "publisher": "Your Company",
+  "iconUrl": "https://api.dicebear.com/7.x/icons/svg?seed=loyalty&backgroundColor=violet",
+  "verified": false,
+  "featured": false,
+  "categories": ["customer-success", "marketing", "analytics"],
+  "tags": ["loyalty", "points", "rewards", "tiers", "customer-success"],
+  "config": {
+    "homepage": "",
+    "repository": "",
+    "license": "MIT",
+    "readme": "# Loyalty Program Plugin\n\nA complete customer loyalty program for your CRM.\n\n## Features\n\n- **Points Tracking**: Award and redeem points on purchases\n- **Tier System**: Bronze → Silver → Gold → Platinum with multipliers\n- **Rewards Catalog**: Configurable rewards that members can redeem\n- **AI Integration**: Check points, award bonuses via chat\n- **Webhooks**: Auto-award points when invoices are paid\n\n## What it demonstrates\n\n- 9 custom fields on the `contact` entity (model extension)\n- 3 AI tools with different parameter patterns\n- Event-driven webhook reacting to `invoice.paid`\n- 3 actions for program management\n- 3 dashboard widgets\n- 2 pages with stats, charts, tables, and forms",
+    "screenshots": [],
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-06-01", "notes": "Initial release." }
+    ]
+  }
+}

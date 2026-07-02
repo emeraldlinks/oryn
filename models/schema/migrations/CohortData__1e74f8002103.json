@@ -1,0 +1,19 @@
+{
+  "name": "CohortData__1e74f8002103",
+  "modelName": "CohortData",
+  "tableName": "cohort_data",
+  "schemaHash": "1e74f8002103b7a8bb2b7b48beb38bdcef9ecb79943b76563884d85d39427002",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.041Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "cohortDate",
+    "period",
+    "userCount",
+    "retentionData",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

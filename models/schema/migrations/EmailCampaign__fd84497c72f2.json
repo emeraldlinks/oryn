@@ -1,0 +1,27 @@
+{
+  "name": "EmailCampaign__fd84497c72f2",
+  "modelName": "EmailCampaign",
+  "tableName": "email_campaigns",
+  "schemaHash": "fd84497c72f2da384cec826b2160980289152e7692974d63f4775efd986bfacd",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.130Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "templateId",
+    "name",
+    "subject",
+    "bodyHtml",
+    "status",
+    "sentAt",
+    "scheduledAt",
+    "recipientCount",
+    "openCount",
+    "clickCount",
+    "targetFilters",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "template"
+  ]
+}

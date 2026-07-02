@@ -1,0 +1,21 @@
+{
+  "name": "CustomDomain__536d0269d78a",
+  "modelName": "CustomDomain",
+  "tableName": "custom_domains",
+  "schemaHash": "536d0269d78a2e1c67a5ba5b908eac504715a6b10a0a8c0160ae667409fba18e",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.076Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "domain",
+    "verified",
+    "verifiedAt",
+    "sslEnabled",
+    "sslExpiresAt",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Invoice__f633d1bd272a",
+  "modelName": "Invoice",
+  "tableName": "invoices",
+  "schemaHash": "f633d1bd272afb11198b3004ccfc71b27832cb6faacdc7300d7dd6545af5683e",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.235Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "orderId",
+    "contactId",
+    "status",
+    "dueDate",
+    "totalAmount",
+    "paidAt",
+    "pdfUrl",
+    "invoiceNumber",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "order",
+    "contact"
+  ]
+}

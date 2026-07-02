@@ -1,0 +1,30 @@
+{
+  "name": "Quote__9b4c218da404",
+  "modelName": "Quote",
+  "tableName": "quotes",
+  "schemaHash": "9b4c218da40401713e4452c41e3c22a71a357da42fcfa845440db23f47727c6f",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.430Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "quoteNumber",
+    "status",
+    "subtotal",
+    "taxRate",
+    "taxAmount",
+    "discountAmount",
+    "total",
+    "validUntil",
+    "sentAt",
+    "acceptedAt",
+    "notes",
+    "terms",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact",
+    "lineItems"
+  ]
+}

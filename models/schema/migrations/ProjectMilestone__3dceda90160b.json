@@ -1,0 +1,22 @@
+{
+  "name": "ProjectMilestone__3dceda90160b",
+  "modelName": "ProjectMilestone",
+  "tableName": "project_milestones",
+  "schemaHash": "3dceda90160baf6cc335cf589e6527d185550a89b903b97b2ed9e6349871f5e3",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.411Z",
+  "fields": [
+    "id",
+    "projectId",
+    "workspaceId",
+    "name",
+    "description",
+    "dueDate",
+    "status",
+    "completedAt",
+    "createdAt",
+    "updatedAt",
+    "project",
+    "tasks"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "support-ai",
+  "version": "1.0.0",
+  "author": "Your Name Here",
+  "description": "AI-powered support tools — summarize tickets, suggest solutions, draft replies, detect sentiment, and generate Knowledge Base articles. Demonstrates 5 AI tool extensions with different parameter patterns.",
+  "entryPoint": null,
+  "permissions": ["contacts:read", "tickets:read", "tickets:write"]
+}

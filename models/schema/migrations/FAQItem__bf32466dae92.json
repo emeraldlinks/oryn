@@ -1,0 +1,20 @@
+{
+  "name": "FAQItem__bf32466dae92",
+  "modelName": "FAQItem",
+  "tableName": "faq_items",
+  "schemaHash": "bf32466dae923106da9af07b263be0711ca8582d314cf64f7f73f47214695a74",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.172Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "question",
+    "bodyHtml",
+    "category",
+    "sortOrder",
+    "published",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

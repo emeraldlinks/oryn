@@ -1,0 +1,19 @@
+{
+  "name": "TwoFactorSetting__8262840049ca",
+  "modelName": "TwoFactorSetting",
+  "tableName": "two_factor_settings",
+  "schemaHash": "8262840049ca95208b85424b14222735a97dec4f02c529387f4d90f83b8da188",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.559Z",
+  "fields": [
+    "id",
+    "userId",
+    "enabled",
+    "secret",
+    "backupCodes",
+    "verifiedAt",
+    "createdAt",
+    "updatedAt",
+    "user"
+  ]
+}

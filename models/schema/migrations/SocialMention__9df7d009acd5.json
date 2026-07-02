@@ -1,0 +1,23 @@
+{
+  "name": "SocialMention__9df7d009acd5",
+  "modelName": "SocialMention",
+  "tableName": "social_mentions",
+  "schemaHash": "9df7d009acd5034c7e7a1ec6dd70db092e4ec88af33830a70fc3e37b4450e9a2",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.502Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "platform",
+    "authorName",
+    "authorAvatar",
+    "content",
+    "postedAt",
+    "sentiment",
+    "postUrl",
+    "status",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "CalendarSync__8c3ee3bb3dba",
+  "modelName": "CalendarSync",
+  "tableName": "calendar_syncs",
+  "schemaHash": "8c3ee3bb3dba1cd9efe01aa16040c2f2a2c2d915b1ea63647610c3fa826aea9e",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.009Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "provider",
+    "accessToken",
+    "refreshToken",
+    "expiresAt",
+    "lastSyncedAt",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "WebhookEndpoint__a8fb958e1fac",
+  "modelName": "WebhookEndpoint",
+  "tableName": "webhook_endpoints",
+  "schemaHash": "a8fb958e1fac5b7fe09fed03490f8bf42b2ec95d483196143a0af3b6dfc86347",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.592Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "url",
+    "events",
+    "headers",
+    "active",
+    "successCount",
+    "failureCount",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

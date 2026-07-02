@@ -1,0 +1,24 @@
+{
+  "name": "SalesGoal__f1106d3e8c98",
+  "modelName": "SalesGoal",
+  "tableName": "sales_goals",
+  "schemaHash": "f1106d3e8c98c6a63ad4dee48fe1bf16d2753af1f4c6e7ed9d04d85c2095e71d",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.468Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "targetAmount",
+    "period",
+    "periodType",
+    "currency",
+    "achievedAmount",
+    "startDate",
+    "endDate",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

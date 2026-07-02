@@ -1,0 +1,22 @@
+{
+  "name": "BrandingConfig__52e5d1835b13",
+  "modelName": "BrandingConfig",
+  "tableName": "branding_configs",
+  "schemaHash": "52e5d1835b1384cb524b70be920fe485750146d058dbe466abec21f64cca6b67",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.997Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "logoUrl",
+    "primaryColor",
+    "secondaryColor",
+    "faviconUrl",
+    "customCss",
+    "customJs",
+    "companyName",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

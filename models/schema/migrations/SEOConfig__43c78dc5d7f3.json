@@ -1,0 +1,24 @@
+{
+  "name": "SEOConfig__43c78dc5d7f3",
+  "modelName": "SEOConfig",
+  "tableName": "seo_configs",
+  "schemaHash": "43c78dc5d7f35fee7b7087861be17240a8d216080e94f683936c853d43441ad7",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.481Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "pageId",
+    "metaTitle",
+    "metaDescription",
+    "keywords",
+    "ogImageUrl",
+    "canonicalUrl",
+    "noIndex",
+    "structuredData",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "page"
+  ]
+}

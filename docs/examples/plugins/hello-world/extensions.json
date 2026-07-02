@@ -1,0 +1,47 @@
+[
+  {
+    "extensionType": "page",
+    "name": "hello",
+    "config": {
+      "sidebarLabel": "Hello World",
+      "sidebarIcon": "Layout",
+      "description": "A friendly welcome page to demonstrate the simplest plugin possible.",
+      "sections": [
+        {
+          "type": "hero",
+          "title": "Hello, Oryn!",
+          "description": "Welcome to the Hello World plugin. If you can see this page, your plugin is working correctly. This is the simplest possible plugin — a single page with a hero section. From here, you can add stats, tables, charts, forms, and more."
+        },
+        {
+          "type": "stats",
+          "title": "Quick Stats",
+          "stats": [
+            { "label": "Plugin Version", "value": "1.0.0", "icon": "Activity" },
+            { "label": "Extension Types", "value": "1", "icon": "Activity" },
+            { "label": "Pages", "value": "1", "icon": "Activity" },
+            { "label": "Lines of Config", "value": "~20", "icon": "Activity" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "extensionType": "action",
+    "name": "ping",
+    "config": {
+      "label": "Ping",
+      "description": "A simple test action that returns pong. Use this to verify your plugin's action system works.",
+      "method": "POST"
+    }
+  },
+  {
+    "extensionType": "widget",
+    "name": "hello-stats",
+    "config": {
+      "label": "Hello World Stats",
+      "description": "A simple widget showing this plugin is active.",
+      "type": "metric",
+      "size": "sm"
+    }
+  }
+]

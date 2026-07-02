@@ -1,0 +1,19 @@
+{
+  "name": "SubscriptionInvoice__ffb9cd5ef8f8",
+  "modelName": "SubscriptionInvoice",
+  "tableName": "subscription_invoices",
+  "schemaHash": "ffb9cd5ef8f88e5d2ecca1d58ed7a1080e7a1cd3a1010e17391d3bdc78902b49",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.520Z",
+  "fields": [
+    "id",
+    "subscriptionId",
+    "invoiceId",
+    "periodStart",
+    "periodEnd",
+    "createdAt",
+    "updatedAt",
+    "subscription",
+    "invoice"
+  ]
+}

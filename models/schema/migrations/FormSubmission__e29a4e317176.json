@@ -1,0 +1,18 @@
+{
+  "name": "FormSubmission__e29a4e317176",
+  "modelName": "FormSubmission",
+  "tableName": "form_submissions",
+  "schemaHash": "e29a4e317176ec8d5f66a59342de9538926ee0c1c9ac6fdd2eea56994e50cd7c",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.187Z",
+  "fields": [
+    "id",
+    "formId",
+    "data",
+    "contactId",
+    "createdAt",
+    "updatedAt",
+    "form",
+    "contact"
+  ]
+}

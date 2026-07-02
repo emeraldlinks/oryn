@@ -1,0 +1,20 @@
+{
+  "name": "SocialReply__ea79d35063ee",
+  "modelName": "SocialReply",
+  "tableName": "social_replies",
+  "schemaHash": "ea79d35063ee60793de290f062eca6bad01d81e3e26e5b428c3b8239a0daed1b",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.511Z",
+  "fields": [
+    "id",
+    "socialPostId",
+    "platformCommentId",
+    "authorName",
+    "content",
+    "repliedContent",
+    "repliedAt",
+    "createdAt",
+    "updatedAt",
+    "post"
+  ]
+}

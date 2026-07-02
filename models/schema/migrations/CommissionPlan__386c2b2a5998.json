@@ -1,0 +1,22 @@
+{
+  "name": "CommissionPlan__386c2b2a5998",
+  "modelName": "CommissionPlan",
+  "tableName": "commission_plans",
+  "schemaHash": "386c2b2a5998647d7ef32059b68f8ce81593114387a1ff51118da5f77acd62fb",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.053Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "rateType",
+    "rateValue",
+    "minDealValue",
+    "maxDealValue",
+    "tiers",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

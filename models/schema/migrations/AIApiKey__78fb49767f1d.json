@@ -1,0 +1,22 @@
+{
+  "name": "AIApiKey__78fb49767f1d",
+  "modelName": "AIApiKey",
+  "tableName": "ai_api_keys",
+  "schemaHash": "78fb49767f1d0ae259a792a10952be6e8bdec4ccad68ef76db2e06d7878f1bb7",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.940Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "provider",
+    "apiKey",
+    "scope",
+    "active",
+    "lastUsedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

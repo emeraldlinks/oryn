@@ -1,0 +1,26 @@
+{
+  "name": "Activity__b6feafd4c817",
+  "modelName": "Activity",
+  "tableName": "activities",
+  "schemaHash": "b6feafd4c817dc4a7331a93fa3c30b3aa2d423fbefc0a43153ca3f1290f58423",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.926Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "type",
+    "subject",
+    "body",
+    "contactId",
+    "dealId",
+    "userId",
+    "dueAt",
+    "completedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact",
+    "deal",
+    "user"
+  ]
+}

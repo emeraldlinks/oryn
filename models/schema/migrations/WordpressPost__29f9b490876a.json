@@ -1,0 +1,24 @@
+{
+  "name": "WordpressPost__29f9b490876a",
+  "modelName": "WordpressPost",
+  "tableName": "wordpress_posts",
+  "schemaHash": "29f9b490876addb13b91e8642b6d26532d9dfa2847f7ccf1ed9b2ba0c6a34b37",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.607Z",
+  "fields": [
+    "id",
+    "wordpressSiteId",
+    "platformPostId",
+    "title",
+    "contentHtml",
+    "status",
+    "scheduledAt",
+    "publishedAt",
+    "categories",
+    "tags",
+    "featuredImageUrl",
+    "createdAt",
+    "updatedAt",
+    "site"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "SubscriptionPlan__40b16f6a0e9f",
+  "modelName": "SubscriptionPlan",
+  "tableName": "subscription_plans",
+  "schemaHash": "40b16f6a0e9f65fb19196d26a38f9bafbf4e0552c67d9563f00e672448b54606",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.523Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "description",
+    "price",
+    "currency",
+    "billingCycle",
+    "features",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "subscriptions"
+  ]
+}

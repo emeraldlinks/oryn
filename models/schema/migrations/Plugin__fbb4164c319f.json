@@ -1,0 +1,22 @@
+{
+  "name": "Plugin__fbb4164c319f",
+  "modelName": "Plugin",
+  "tableName": "plugins",
+  "schemaHash": "fbb4164c319fd2505668f15c8d73d3e2c5b613ea52640352b916d2c38c62f7c5",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.357Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "version",
+    "author",
+    "description",
+    "entryPoint",
+    "enabled",
+    "permissions",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "CSATResponse__86d7e5c84d0a",
+  "modelName": "CSATResponse",
+  "tableName": "csat_responses",
+  "schemaHash": "86d7e5c84d0a696007f7098cfa55b65c34cf7eaf476acc4370bc817467dcafd6",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.064Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "ticketId",
+    "score",
+    "comment",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact",
+    "ticket"
+  ]
+}

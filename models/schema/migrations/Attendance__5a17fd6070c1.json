@@ -1,0 +1,18 @@
+{
+  "name": "Attendance__5a17fd6070c1",
+  "modelName": "Attendance",
+  "tableName": "attendance",
+  "schemaHash": "5a17fd6070c161100c648269cc87b985d226669b267ec3f5a6ae95c2922db181",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.958Z",
+  "fields": [
+    "id",
+    "employeeId",
+    "clockedInAt",
+    "clockedOutAt",
+    "notes",
+    "createdAt",
+    "updatedAt",
+    "employee"
+  ]
+}

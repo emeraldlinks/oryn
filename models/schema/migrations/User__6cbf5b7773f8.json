@@ -1,0 +1,28 @@
+{
+  "name": "User__6cbf5b7773f8",
+  "modelName": "User",
+  "tableName": "users",
+  "schemaHash": "6cbf5b7773f86536c3ec70ca606fa544db9d9da389175078e037064a706573a0",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.567Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "email",
+    "passwordHash",
+    "role",
+    "avatarUrl",
+    "lastLoginAt",
+    "preferences",
+    "createdAt",
+    "updatedAt",
+    "deletedAt",
+    "workspace",
+    "activities",
+    "employeeProfile",
+    "calls",
+    "meetings",
+    "notifications"
+  ]
+}

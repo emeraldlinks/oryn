@@ -1,0 +1,22 @@
+{
+  "name": "ChatMessage__f6dce97b404b",
+  "modelName": "ChatMessage",
+  "tableName": "chat_messages",
+  "schemaHash": "f6dce97b404b34b2ed245e994a41c4e25ccfa95b96044b80a67dc64a3318a1e9",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.027Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "visitorId",
+    "visitorName",
+    "visitorEmail",
+    "contactId",
+    "userId",
+    "body",
+    "sender",
+    "readAt",
+    "createdAt",
+    "updatedAt"
+  ]
+}

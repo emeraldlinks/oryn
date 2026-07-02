@@ -1,0 +1,19 @@
+{
+  "name": "TaxRate__983dd46b4907",
+  "modelName": "TaxRate",
+  "tableName": "tax_rates",
+  "schemaHash": "983dd46b4907bd2f9750682a9272c7db43c246e1dd0e0df518ca074e8d530d2e",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.536Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "rate",
+    "region",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

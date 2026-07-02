@@ -1,0 +1,26 @@
+{
+  "name": "Workspace__c9d2bb2cc549",
+  "modelName": "Workspace",
+  "tableName": "workspaces",
+  "schemaHash": "c9d2bb2cc549a8e85cf3c79e6bb480979cefb549a4069410cd57021e0c48f38e",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.637Z",
+  "fields": [
+    "id",
+    "name",
+    "slug",
+    "plan",
+    "active",
+    "settings",
+    "createdAt",
+    "updatedAt",
+    "deletedAt",
+    "users",
+    "branches",
+    "contacts",
+    "deals",
+    "products",
+    "employees",
+    "tickets"
+  ]
+}

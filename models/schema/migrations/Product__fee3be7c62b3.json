@@ -1,0 +1,26 @@
+{
+  "name": "Product__fee3be7c62b3",
+  "modelName": "Product",
+  "tableName": "products",
+  "schemaHash": "fee3be7c62b3683027b7c7bcdd16358c8dff08fa61ae22a34ac53215ab868f18",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.384Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "sku",
+    "description",
+    "price",
+    "currency",
+    "stock",
+    "category",
+    "imageUrl",
+    "isService",
+    "createdAt",
+    "updatedAt",
+    "deletedAt",
+    "workspace",
+    "orderItems"
+  ]
+}

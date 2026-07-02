@@ -1,0 +1,19 @@
+{
+  "name": "AuditSetting__db8646c609be",
+  "modelName": "AuditSetting",
+  "tableName": "audit_settings",
+  "schemaHash": "db8646c609be8bcdc9f8db69120d8b2f1058c3a973e841e7ba2deecc4e898d9e",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.968Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "enabled",
+    "retentionDays",
+    "trackedEvents",
+    "excludedUsers",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

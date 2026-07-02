@@ -1,0 +1,21 @@
+{
+  "name": "AuditLog__55b22b739d56",
+  "modelName": "AuditLog",
+  "tableName": "audit_logs",
+  "schemaHash": "55b22b739d569561036c7865dcae1247873bde1c6be680429c7599b8aaf5087b",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.964Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "action",
+    "entity",
+    "entityId",
+    "meta",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

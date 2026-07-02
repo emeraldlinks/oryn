@@ -1,0 +1,28 @@
+{
+  "name": "Project__9ef60b2a11ba",
+  "modelName": "Project",
+  "tableName": "projects",
+  "schemaHash": "9ef60b2a11ba36cb162883647bce11bbd578580d4dc3a8c6d76f26177dbfafba",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.406Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "description",
+    "status",
+    "priority",
+    "ownerId",
+    "startDate",
+    "endDate",
+    "tags",
+    "completedAt",
+    "createdAt",
+    "updatedAt",
+    "deletedAt",
+    "workspace",
+    "owner",
+    "tasks",
+    "milestones"
+  ]
+}

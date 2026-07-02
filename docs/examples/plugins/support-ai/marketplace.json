@@ -1,0 +1,23 @@
+{
+  "type": "app",
+  "name": "Support AI Assistant",
+  "description": "AI-powered support tools including ticket summarization, solution suggestions, reply drafting, sentiment detection, and Knowledge Base article generation. 5 AI tools with different parameter patterns.",
+  "version": "1.0.0",
+  "author": "Your Name",
+  "publisher": "Your Company",
+  "iconUrl": "https://api.dicebear.com/7.x/icons/svg?seed=supportai&backgroundColor=cyan",
+  "verified": false,
+  "featured": false,
+  "categories": ["ai", "support", "productivity"],
+  "tags": ["ai", "support", "tickets", "sentiment", "automation", "knowledge-base"],
+  "config": {
+    "homepage": "",
+    "repository": "",
+    "license": "MIT",
+    "readme": "# Support AI Assistant Plugin\n\n5 AI tools that supercharge your support team.\n\n## AI Tools\n\n| Tool | What it does | Parameters |\n|------|-------------|-----------|\n| Summarize Ticket | Creates concise ticket summaries | ticketId, format |\n| Suggest Solution | Finds likely solutions | ticketId, maxSuggestions |\n| Draft Reply | Writes customer replies | ticketId, tone, notes |\n| Detect Sentiment | Analyzes customer mood | ticketId |\n| Generate KB Article | Creates help articles | ticketId, title, category |\n\n## What it demonstrates\n\n- 5 AI tools with different parameter patterns\n- Select, number, and string parameter types\n- Model extensions on the `ticket` entity\n- Webhook subscription to support events\n- Dashboard widgets",
+    "screenshots": [],
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-06-01", "notes": "Initial release with 5 AI tools." }
+    ]
+  }
+}

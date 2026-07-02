@@ -1,0 +1,18 @@
+{
+  "name": "WorkflowVersion__4f5167e7896e",
+  "modelName": "WorkflowVersion",
+  "tableName": "workflow_versions",
+  "schemaHash": "4f5167e7896ec2676a26bb173ef42fb10359cf32eb371fc4ca41947956716876",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.630Z",
+  "fields": [
+    "id",
+    "workflowId",
+    "version",
+    "definition",
+    "notes",
+    "createdAt",
+    "updatedAt",
+    "workflow"
+  ]
+}

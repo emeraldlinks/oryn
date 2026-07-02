@@ -1,0 +1,20 @@
+{
+  "name": "WorkflowTemplate__9a92202fa514",
+  "modelName": "WorkflowTemplate",
+  "tableName": "workflow_templates",
+  "schemaHash": "9a92202fa514837a4abcb45b1211fc2555ff9d287534d88221ba17baab0654be",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.625Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "description",
+    "definition",
+    "category",
+    "usageCount",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

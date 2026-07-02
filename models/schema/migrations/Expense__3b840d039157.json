@@ -1,0 +1,24 @@
+{
+  "name": "Expense__3b840d039157",
+  "modelName": "Expense",
+  "tableName": "expenses",
+  "schemaHash": "3b840d039157b34dd9ae5156aeccbd998a4dc3a5ab11848f184426454e151dfe",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.169Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "description",
+    "amount",
+    "currency",
+    "category",
+    "expenseDate",
+    "userId",
+    "receiptUrl",
+    "reimbursedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "OrderItem__d3eb6369dc86",
+  "modelName": "OrderItem",
+  "tableName": "order_items",
+  "schemaHash": "d3eb6369dc869827938894e1eb149d97cb98323854a64c11263db50de926a1a6",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.345Z",
+  "fields": [
+    "id",
+    "orderId",
+    "productId",
+    "quantity",
+    "unitPrice",
+    "createdAt",
+    "updatedAt",
+    "order",
+    "product"
+  ]
+}

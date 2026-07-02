@@ -1,0 +1,27 @@
+{
+  "name": "WidgetSettings__4c23a9167337",
+  "modelName": "WidgetSettings",
+  "tableName": "widget_settings",
+  "schemaHash": "4c23a91673376304f2f4cc4f43a98040ef335e327bf49e4f6fce3c28d6670740",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.604Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "enabled",
+    "primaryColor",
+    "welcomeMessage",
+    "awayMessage",
+    "collectEmail",
+    "showAgentNames",
+    "enableBots",
+    "defaultBotId",
+    "allowedDomains",
+    "customCss",
+    "position",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "defaultBot"
+  ]
+}

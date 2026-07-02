@@ -1,0 +1,21 @@
+{
+  "name": "LandingPage__45665fc945ca",
+  "modelName": "LandingPage",
+  "tableName": "landing_pages",
+  "schemaHash": "45665fc945caf6e15990c69baa772a4c5421e20ce891ea38ff00db23f7945d80",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.245Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "slug",
+    "title",
+    "contentJson",
+    "published",
+    "views",
+    "conversions",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

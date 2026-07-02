@@ -1,0 +1,24 @@
+{
+  "name": "SocialAccount__7edb926ba5b1",
+  "modelName": "SocialAccount",
+  "tableName": "social_accounts",
+  "schemaHash": "7edb926ba5b17a826a44dbc213ca266507c992c5d2105e242ea4a21345e5ca09",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.498Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "platform",
+    "accountName",
+    "accessToken",
+    "refreshToken",
+    "expiresAt",
+    "profileImageUrl",
+    "connectedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "posts",
+    "adCampaigns"
+  ]
+}

@@ -1,0 +1,181 @@
+[
+  {
+    "extensionType": "page",
+    "name": "full-dashboard",
+    "config": {
+      "sidebarLabel": "Analytics Hub",
+      "sidebarIcon": "BarChart3",
+      "description": "A feature-rich analytics dashboard demonstrating every available page section type.",
+      "sections": [
+        {
+          "type": "hero",
+          "title": "Welcome to the Analytics Hub",
+          "description": "This page demonstrates every page section type available in the Oryn Plugin SDK. Use this as a reference when building your own plugin pages. Each section is labeled so you can easily match it to the config."
+        },
+        {
+          "type": "stats",
+          "title": "Section: Stats Cards",
+          "stats": [
+            { "label": "Total Revenue", "value": "$847,230", "change": "+12.5%", "icon": "TrendingUp" },
+            { "label": "Active Deals", "value": "48", "change": "+6", "icon": "Activity" },
+            { "label": "Conversion Rate", "value": "24.3%", "change": "+2.1%", "icon": "TrendingUp" },
+            { "label": "Avg Deal Size", "value": "$12,450", "change": "+$890", "icon": "TrendingUp" }
+          ]
+        },
+        {
+          "type": "stats",
+          "title": "Section: Stats Cards (with negative changes)",
+          "stats": [
+            { "label": "Churned Customers", "value": "12", "change": "+3", "icon": "TrendingDown" },
+            { "label": "Support Tickets", "value": "38", "change": "-5", "icon": "TrendingDown" },
+            { "label": "Avg Response Time", "value": "4.2h", "change": "-0.8h", "icon": "TrendingDown" },
+            { "label": "Open Bugs", "value": "7", "change": "-2", "icon": "TrendingDown" }
+          ]
+        },
+        {
+          "type": "chart",
+          "title": "Section: Bar Chart — Monthly Performance",
+          "chartType": "bar",
+          "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          "datasets": [
+            { "label": "Revenue", "data": [45000, 52000, 48000, 61000, 58000, 72000], "color": "#3b82f6" },
+            { "label": "Costs", "data": [28000, 31000, 29000, 33000, 32000, 36000], "color": "#ef4444" },
+            { "label": "Profit", "data": [17000, 21000, 19000, 28000, 26000, 36000], "color": "#10b981" }
+          ]
+        },
+        {
+          "type": "chart",
+          "title": "Section: Line Chart — Growth Trends",
+          "chartType": "line",
+          "labels": ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
+          "datasets": [
+            { "label": "New Leads", "data": [45, 52, 48, 61, 58, 72], "color": "#8b5cf6" },
+            { "label": "Deals Closed", "data": [12, 18, 15, 22, 20, 28], "color": "#f59e0b" }
+          ]
+        },
+        {
+          "type": "chart",
+          "title": "Section: Pie Chart — Lead Sources",
+          "chartType": "pie",
+          "labels": ["Website", "Referral", "Social Media", "Email Campaign", "Events"],
+          "datasets": [
+            { "label": "Leads", "data": [245, 180, 120, 95, 60], "color": "#6366f1" }
+          ]
+        },
+        {
+          "type": "chart",
+          "title": "Section: Area Chart — Cumulative Growth",
+          "chartType": "area",
+          "labels": ["Q1", "Q2", "Q3", "Q4"],
+          "datasets": [
+            { "label": "Total Customers", "data": [120, 280, 450, 680], "color": "#06b6d4" }
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Section: Table — Top Deals This Quarter",
+          "columns": [
+            { "key": "deal", "label": "Deal Name" },
+            { "key": "company", "label": "Company" },
+            { "key": "value", "label": "Value" },
+            { "key": "stage", "label": "Stage" },
+            { "key": "owner", "label": "Owner" },
+            { "key": "probability", "label": "Probability" }
+          ],
+          "rows": [
+            { "deal": "Enterprise Platform Upgrade", "company": "Acme Corp", "value": "$85,000", "stage": "Negotiation", "owner": "Alice Chen", "probability": "80%" },
+            { "deal": "Data Migration Project", "company": "Globex Inc", "value": "$45,000", "stage": "Proposal", "owner": "Bob Martinez", "probability": "60%" },
+            { "deal": "Annual Support Renewal", "company": "Initech", "value": "$24,000", "stage": "Closed Won", "owner": "Carol Smith", "probability": "100%" },
+            { "deal": "Consulting Engagement", "company": "Umbrella Co", "value": "$18,000", "stage": "Qualified", "owner": "David Kim", "probability": "40%" },
+            { "deal": "Security Audit Package", "company": "Stark Industries", "value": "$32,000", "stage": "Lead", "owner": "Eve Johnson", "probability": "25%" }
+          ]
+        },
+        {
+          "type": "activity",
+          "title": "Section: Activity Timeline — Recent Activity",
+          "items": [
+            { "title": "Deal closed: Enterprise Platform Upgrade", "description": "Acme Corp signed for $85,000 — annual recurring revenue", "status": "completed", "date": "2 hours ago" },
+            { "title": "Support ticket escalated", "description": "TKT-4823 escalated to Level 2 — critical bug in payment flow", "status": "urgent", "date": "1 hour ago" },
+            { "title": "New lead captured", "description": "TechStart Inc — referred by existing customer — estimated $25,000", "status": "new", "date": "3 hours ago" },
+            { "title": "Invoice paid", "description": "INV-2026-0891 — $2,500 paid by Acme Corp", "status": "completed", "date": "5 hours ago" },
+            { "title": "Meeting completed", "description": "Quarterly review with Globex Inc — positive feedback, upsell opportunity identified", "status": "completed", "date": "Yesterday" },
+            { "title": "Contract renewal pending", "description": "Umbrella Co contract expires in 30 days — renewal discussion needed", "status": "pending", "date": "Yesterday" }
+          ]
+        },
+        {
+          "type": "form",
+          "title": "Section: Form — Quick Note",
+          "description": "This form demonstrates form sections. In a real plugin, submitting would trigger an action.",
+          "formFields": [
+            { "name": "title", "label": "Note Title", "type": "text", "required": true },
+            { "name": "category", "label": "Category", "type": "select", "required": true, "options": ["deal", "contact", "ticket", "general"] },
+            { "name": "priority", "label": "Priority", "type": "select", "required": true, "options": ["low", "medium", "high", "urgent"] },
+            { "name": "content", "label": "Content", "type": "text", "required": true },
+            { "name": "notifyTeam", "label": "Notify Team", "type": "boolean" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "extensionType": "model",
+    "name": "analytics-metrics",
+    "config": {
+      "entity": "deal",
+      "fields": [
+        { "name": "analyticsScore", "type": "number", "label": "Analytics Score", "defaultValue": 0 },
+        { "name": "lastAnalyzed", "type": "date", "label": "Last Analyzed" },
+        { "name": "analyticsTags", "type": "json", "label": "Analytics Tags" }
+      ]
+    }
+  },
+  {
+    "extensionType": "widget",
+    "name": "revenue-metric",
+    "config": {
+      "label": "Total Revenue",
+      "description": "Total revenue this quarter",
+      "type": "metric",
+      "size": "sm"
+    }
+  },
+  {
+    "extensionType": "widget",
+    "name": "deal-chart",
+    "config": {
+      "label": "Deals by Stage",
+      "description": "Current deals grouped by pipeline stage",
+      "type": "chart",
+      "chartType": "bar",
+      "size": "md"
+    }
+  },
+  {
+    "extensionType": "widget",
+    "name": "activity-widget",
+    "config": {
+      "label": "Recent Activity",
+      "description": "Recent platform activity",
+      "type": "table",
+      "size": "md"
+    }
+  },
+  {
+    "extensionType": "action",
+    "name": "refresh-analytics",
+    "config": {
+      "label": "Refresh Analytics",
+      "description": "Refresh all analytics data and recalculate metrics",
+      "method": "POST"
+    }
+  },
+  {
+    "extensionType": "action",
+    "name": "export-dashboard",
+    "config": {
+      "label": "Export Dashboard",
+      "description": "Export dashboard data to PDF or CSV",
+      "method": "GET"
+    }
+  }
+]

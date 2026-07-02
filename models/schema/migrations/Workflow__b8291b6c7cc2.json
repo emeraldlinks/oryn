@@ -1,0 +1,21 @@
+{
+  "name": "Workflow__b8291b6c7cc2",
+  "modelName": "Workflow",
+  "tableName": "workflows",
+  "schemaHash": "b8291b6c7cc229f6d16e33b6b5dbe20f6cd2085c66f24ac0078cdc6b38fa9ca0",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.620Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "triggerType",
+    "triggerConfig",
+    "actions",
+    "active",
+    "runCount",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

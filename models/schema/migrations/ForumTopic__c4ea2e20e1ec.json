@@ -1,0 +1,22 @@
+{
+  "name": "ForumTopic__c4ea2e20e1ec",
+  "modelName": "ForumTopic",
+  "tableName": "forum_topics",
+  "schemaHash": "c4ea2e20e1ec9aa0e7e77a26a9bc4183ce6b551f5368fa26fec757ff65fdab14",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.197Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "title",
+    "authorId",
+    "lastActivityAt",
+    "views",
+    "status",
+    "pinned",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "author"
+  ]
+}

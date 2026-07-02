@@ -1,0 +1,22 @@
+{
+  "name": "TranslationEntry__d1dbeda4f0f8",
+  "modelName": "TranslationEntry",
+  "tableName": "translation_entries",
+  "schemaHash": "d1dbeda4f0f885c146020ac6fdf169ba861c1ae3ec307e814d8437421a11703b",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.556Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "languagePackId",
+    "key",
+    "value",
+    "namespace",
+    "approvedById",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "languagePack",
+    "approvedBy"
+  ]
+}

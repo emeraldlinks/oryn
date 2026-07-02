@@ -1,0 +1,24 @@
+{
+  "name": "CommissionEarning__87372d487bc3",
+  "modelName": "CommissionEarning",
+  "tableName": "commission_earnings",
+  "schemaHash": "87372d487bc399efec3e50be7df30b314e44f9fb6e40b48e78c6c675b9c21dac",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.050Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "dealId",
+    "planId",
+    "amount",
+    "status",
+    "paidAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user",
+    "deal",
+    "plan"
+  ]
+}

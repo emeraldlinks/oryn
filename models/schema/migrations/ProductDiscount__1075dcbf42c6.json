@@ -1,0 +1,25 @@
+{
+  "name": "ProductDiscount__1075dcbf42c6",
+  "modelName": "ProductDiscount",
+  "tableName": "product_discounts",
+  "schemaHash": "1075dcbf42c6e30fa926398c67af05bd242ad6ba09335a34ea6e32b3f0a2d5f3",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.389Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "productId",
+    "name",
+    "discountType",
+    "discountValue",
+    "minQuantity",
+    "maxQuantity",
+    "startDate",
+    "endDate",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "product"
+  ]
+}

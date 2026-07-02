@@ -1,0 +1,21 @@
+{
+  "name": "ScheduledReport__45bb4519d0c2",
+  "modelName": "ScheduledReport",
+  "tableName": "scheduled_reports",
+  "schemaHash": "45bb4519d0c2b4662ab9eef4a9538d6db9878d1adbfeb8a61b6737a0c6dec7d2",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.477Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "config",
+    "frequency",
+    "recipients",
+    "active",
+    "lastSentAt",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

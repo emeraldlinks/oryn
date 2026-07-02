@@ -1,0 +1,23 @@
+{
+  "name": "UTMLink__013c35741ef5",
+  "modelName": "UTMLink",
+  "tableName": "utm_links",
+  "schemaHash": "013c35741ef56f34882d45a527098be2e22537d28ef7e15253f750e2d167be4e",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.577Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "sourceUrl",
+    "targetUrl",
+    "campaign",
+    "source",
+    "medium",
+    "content",
+    "term",
+    "clicks",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

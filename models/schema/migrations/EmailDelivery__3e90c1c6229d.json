@@ -1,0 +1,26 @@
+{
+  "name": "EmailDelivery__3e90c1c6229d",
+  "modelName": "EmailDelivery",
+  "tableName": "email_deliveries",
+  "schemaHash": "3e90c1c6229d522f304c0c7a5062a00ea870d49513e9c6d30b763593872842f3",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.135Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "recipient",
+    "subject",
+    "status",
+    "errorMessage",
+    "openedAt",
+    "clickedAt",
+    "openCount",
+    "clickCount",
+    "metadata",
+    "sentById",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "sentBy"
+  ]
+}

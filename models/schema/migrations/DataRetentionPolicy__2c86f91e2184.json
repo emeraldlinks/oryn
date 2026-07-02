@@ -1,0 +1,19 @@
+{
+  "name": "DataRetentionPolicy__2c86f91e2184",
+  "modelName": "DataRetentionPolicy",
+  "tableName": "data_retention_policies",
+  "schemaHash": "2c86f91e21847000ddefb99906af9204f5c2ed892188044ccad310dd87d11479",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.102Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "entityType",
+    "retentionDays",
+    "action",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

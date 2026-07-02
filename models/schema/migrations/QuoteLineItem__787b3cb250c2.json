@@ -1,0 +1,23 @@
+{
+  "name": "QuoteLineItem__787b3cb250c2",
+  "modelName": "QuoteLineItem",
+  "tableName": "quote_line_items",
+  "schemaHash": "787b3cb250c2cfc20dd27161d3f25e5268c93e6d011d56c4faf5717e6af56e79",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.441Z",
+  "fields": [
+    "id",
+    "quoteId",
+    "productId",
+    "quantity",
+    "unitPrice",
+    "discountPercent",
+    "discountAmount",
+    "total",
+    "description",
+    "createdAt",
+    "updatedAt",
+    "quote",
+    "product"
+  ]
+}

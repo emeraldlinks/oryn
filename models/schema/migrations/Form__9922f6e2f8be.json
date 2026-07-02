@@ -1,0 +1,20 @@
+{
+  "name": "Form__9922f6e2f8be",
+  "modelName": "Form",
+  "tableName": "forms",
+  "schemaHash": "9922f6e2f8be33b537e5320042b5a7de14fe7b8ff4636925afbf6e94551c32aa",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.181Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "fieldsJson",
+    "submissions",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "submissionsList"
+  ]
+}

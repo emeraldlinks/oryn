@@ -1,0 +1,21 @@
+{
+  "name": "LiveChatSettings__86c75bf03d7a",
+  "modelName": "LiveChatSettings",
+  "tableName": "live_chat_settings",
+  "schemaHash": "86c75bf03d7abf4b552f0096a0fdc87b2050c72d172f34659d3cae056a31dc3b",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.260Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "enabled",
+    "widgetColor",
+    "welcomeMessage",
+    "awayMessage",
+    "collectEmail",
+    "showAgentNames",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

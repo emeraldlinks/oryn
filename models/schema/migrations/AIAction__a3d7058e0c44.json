@@ -1,0 +1,26 @@
+{
+  "name": "AIAction__a3d7058e0c44",
+  "modelName": "AIAction",
+  "tableName": "ai_actions",
+  "schemaHash": "a3d7058e0c443000f19b89ee6f0d15eb48f2a2d4079945170062a6fcab518744",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:05.937Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "userId",
+    "conversationId",
+    "botConnectionId",
+    "actionType",
+    "actionPayload",
+    "result",
+    "status",
+    "errorMessage",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "user",
+    "conversation",
+    "botConnection"
+  ]
+}

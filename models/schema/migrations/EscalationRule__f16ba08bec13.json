@@ -1,0 +1,20 @@
+{
+  "name": "EscalationRule__f16ba08bec13",
+  "modelName": "EscalationRule",
+  "tableName": "escalation_rules",
+  "schemaHash": "f16ba08bec13938862ea3bd6e2336bc8589d26faebfbab445532467c979f6d3a",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.163Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "name",
+    "triggerType",
+    "conditions",
+    "actions",
+    "active",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

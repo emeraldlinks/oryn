@@ -1,0 +1,19 @@
+{
+  "name": "TicketMessage__91ac97b35e84",
+  "modelName": "TicketMessage",
+  "tableName": "ticket_messages",
+  "schemaHash": "91ac97b35e844f58447da3445164392e525c42523f4fa4e9767590fef97c5a84",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.550Z",
+  "fields": [
+    "id",
+    "ticketId",
+    "userId",
+    "body",
+    "isFromClient",
+    "createdAt",
+    "updatedAt",
+    "ticket",
+    "user"
+  ]
+}

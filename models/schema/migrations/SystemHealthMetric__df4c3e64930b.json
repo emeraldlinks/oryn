@@ -1,0 +1,20 @@
+{
+  "name": "SystemHealthMetric__df4c3e64930b",
+  "modelName": "SystemHealthMetric",
+  "tableName": "system_health_metrics",
+  "schemaHash": "df4c3e64930b2725e3213fabbf69ba21249d5f81d47a7b922c4caa4565ff4b20",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.527Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "metric",
+    "value",
+    "unit",
+    "tags",
+    "recordedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace"
+  ]
+}

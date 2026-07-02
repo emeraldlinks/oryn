@@ -1,0 +1,20 @@
+{
+  "name": "CustomFieldValue__750e5d66b047",
+  "modelName": "CustomFieldValue",
+  "tableName": "custom_field_values",
+  "schemaHash": "750e5d66b04718c1b63f2598b42eeaaffadb156d75745d9eef091ea5374071d3",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.098Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "entityType",
+    "entityId",
+    "fieldDefId",
+    "value",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "fieldDef"
+  ]
+}

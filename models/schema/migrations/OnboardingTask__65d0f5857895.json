@@ -1,0 +1,25 @@
+{
+  "name": "OnboardingTask__65d0f5857895",
+  "modelName": "OnboardingTask",
+  "tableName": "onboarding_tasks",
+  "schemaHash": "65d0f5857895abd3cf426b97ce00b842c52dd9d8f77f655c99a258b8cb98c2e0",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.316Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "title",
+    "description",
+    "status",
+    "dueDate",
+    "completedAt",
+    "assignedTo",
+    "sortOrder",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact",
+    "assignee"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "ChurnPrediction__10d744e56968",
+  "modelName": "ChurnPrediction",
+  "tableName": "churn_predictions",
+  "schemaHash": "10d744e569685ba2dbe2f05ff2bd5f6502d0d2e4f298d8e3e8f74071a10f689a",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.032Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "riskScore",
+    "riskLevel",
+    "factors",
+    "predictedAt",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact"
+  ]
+}

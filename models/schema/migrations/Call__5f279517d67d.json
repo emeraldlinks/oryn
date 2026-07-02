@@ -1,0 +1,26 @@
+{
+  "name": "Call__5f279517d67d",
+  "modelName": "Call",
+  "tableName": "calls",
+  "schemaHash": "5f279517d67d69610bf3b5e93bd76dccb4371e9c7419cb2e1d1f91dd49d59782",
+  "batch": 1,
+  "appliedAt": "2026-07-02T03:11:06.015Z",
+  "fields": [
+    "id",
+    "workspaceId",
+    "contactId",
+    "userId",
+    "direction",
+    "phoneNumber",
+    "duration",
+    "recordingUrl",
+    "transcript",
+    "sentiment",
+    "notes",
+    "createdAt",
+    "updatedAt",
+    "workspace",
+    "contact",
+    "user"
+  ]
+}
