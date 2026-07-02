@@ -1,7 +1,7 @@
 
 // AUTO-GENERATED SCHEMA - DO NOT EDIT
 // Schema Hash: d74b7520342d358d
-// Source Hash: ae26972590c22ecc
+// Source Hash: 5f094038e0dd22fb
 
 export interface Workspace {
   id: number;
