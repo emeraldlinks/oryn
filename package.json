@@ -43,7 +43,7 @@
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "recharts": "^2.14.0",
-    "slintorm": "^1.2.3",
+    "slintorm": "^1.2.4",
     "sonner": "^1.7.0",
     "tailwind-merge": "^2.6.0",
     "twilio": "^5.0.0",
